@@ -5,29 +5,17 @@ CONFIG_DIR="${XDG_CONFIG_DIR}/i3blocks"
 COLORS="${CONFIG_DIR}/colors"
 [ -e "${COLORS}" ] && source "${COLORS}"
 
-default_sink() {
-  sink_name=$(pactl info | sed --posix -En 's/Default Sink: (.*)/\1/p')
-  pactl list sinks short \
-    | awk -v sink="${sink_name}" '$0 ~ sink { print NR }'
-}
-
 is_muted() {
-  pactl list sinks \
-    | grep '^[[:space:]]Mute:' \
-    | head -n $(( SINK )) \
-    | tail -n 1 \
+  pactl get-sink-mute "${SINK}" \
     | awk '{ print $2 }'
 }
 
 volume() {
-  pactl list sinks \
-    | grep '^[[:space:]]Volume:' \
-    | head -n $(( SINK )) \
-    | tail -n 1 \
-    | sed -e 's,.* \([0-9][0-9]*\)%.*,\1%,'
+  pactl get-sink-volume "${SINK}" \
+    | awk -F/ '{ gsub(/ /, ""); print $2 }'
 }
 
-SINK=${SINK:-$(default_sink)}
+SINK=${SINK:-@DEFAULT_SINK@}
 
 if [ "no" == "$(is_muted)" ]; then
   volume
