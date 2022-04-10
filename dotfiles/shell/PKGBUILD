@@ -1,0 +1,22 @@
+pkgname=dotfiles-shell
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide sourceable shell functions and aliases."
+arch=('any')
+license=('MIT')
+depends=()
+source=(
+  'aliases'
+  'functions'
+)
+sha256sums=(
+  'SKIP'
+  'SKIP'
+)
+
+package() {
+  install -dm755 "$pkgdir/usr/share/dotfiles/.config/shell"
+  for f in aliases functions; do
+    install -Dm644 "$srcdir/$f" "$pkgdir/usr/share/dotfiles/.config/shell/$f"
+  done
+}

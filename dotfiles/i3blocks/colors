@@ -1,0 +1,9 @@
+# vim: set ft=bash
+XDG_CACHE_DIR="${XDG_CACHE_DIR:=$HOME/.cache}"
+WAL_CACHE="${XDG_CACHE_DIR}/wal"
+THEME="${WAL_CACHE}/colors.sh"
+
+[ -e "${THEME}" ] && source "${THEME}"
+COLOR_SUCCESS=${color2:-#00ff00}
+COLOR_WARNING=${color3:-#ff00ff}
+COLOR_DANGER=${color1:-#ff0000}

@@ -1,0 +1,13 @@
+pkgname=system-no-beep
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Supress terminal beeps."
+arch=('any')
+license=('MIT')
+depends=('kmod')
+source=()
+
+package() {
+  install -dm755 "$pkgdir/etc/modprobe.d"
+  echo "blacklist pcspkr" > "$pkgdir/etc/modprobe.d/nobeep.conf"
+}

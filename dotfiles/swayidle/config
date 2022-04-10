@@ -1,0 +1,4 @@
+timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
+timeout 630 'setsid -f waylock; sleep 1'
+before-sleep 'setsid -f waylock; sleep 1'
+lock 'setsid -f waylock; sleep 1'

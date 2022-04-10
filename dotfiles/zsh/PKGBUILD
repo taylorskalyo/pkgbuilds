@@ -1,0 +1,18 @@
+pkgname=dotfiles-zsh
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base zsh configuration."
+arch=('any')
+license=('MIT')
+depends=('zsh')
+source=(
+  'dot-zshrc'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -dm755 "$pkgdir/usr/share/dotfiles/"
+  install -Dm644 "$srcdir/dot-zshrc" "$pkgdir/usr/share/dotfiles/.zshrc"
+}

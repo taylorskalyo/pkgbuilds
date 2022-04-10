@@ -1,0 +1,6 @@
+[Match]
+Name=enp0s31f6 eno1
+
+[Network]
+Bond=bond0
+PrimarySlave=true

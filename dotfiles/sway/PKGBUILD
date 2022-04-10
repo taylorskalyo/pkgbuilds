@@ -1,0 +1,32 @@
+pkgname=dotfiles-sway
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base sway configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'bemenu'
+  'foot'
+  'i3blocks'
+  'libpulse'
+  'libpulse'
+  'sway'
+  'tmux'
+  'ttf-meslo'
+)
+optdepends=(
+  'python-pywal'
+)
+source=(
+  'config'
+  'sway-session.target'
+)
+sha256sums=(
+  'SKIP'
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/config" "$pkgdir/usr/share/dotfiles/.config/sway/config"
+  install -Dm644 "$srcdir/sway-session.target" "$pkgdir/usr/share/dotfiles/.config/systemd/user/sway-session.target"
+}

@@ -1,0 +1,24 @@
+pkgname=dotfiles-swayidle
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base swayidle configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'swayidle'
+  'waylock'
+)
+optdepends=()
+source=(
+  'config'
+  'swayidle.service'
+)
+sha256sums=(
+  'SKIP'
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/config" "$pkgdir/usr/share/dotfiles/.config/swayidle/config"
+  install -Dm644 "$srcdir/swayidle.service" "$pkgdir/usr/share/dotfiles/.config/systemd/user/swayidle.service"
+}

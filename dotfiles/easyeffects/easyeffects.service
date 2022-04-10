@@ -1,0 +1,12 @@
+[Unit]
+Description=Easyeffects daemon
+Documentation=https://github.com/wwmm/easyeffects
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/easyeffects --gapplication-service
+
+[Install]
+WantedBy=graphical-session.target

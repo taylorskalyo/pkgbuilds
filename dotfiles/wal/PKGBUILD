@@ -1,0 +1,37 @@
+pkgname=dotfiles-wal
+pkgver=0.0.2
+pkgrel=1
+pkgdesc="Provide base wal configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'python-pywal'
+  'ttf-roboto'
+)
+optdepends=()
+source=(
+  'dark.json'
+  'light.json'
+  'template-colors-bemenu.sh'
+  'template-colors-oomox'
+  'template-colors-theme.sh'
+  'template-colors-wallpaper.svg'
+  'template-colors.sh'
+)
+sha256sums=(
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/dark.json" "$pkgdir/usr/share/dotfiles/.config/wal/colorschemes/dark/default.json"
+  install -Dm644 "$srcdir/light.json" "$pkgdir/usr/share/dotfiles/.config/wal/colorschemes/light/default.json"
+  for f in $srcdir/template-*; do
+    install -Dm644 "$f" "$pkgdir/usr/share/dotfiles/.config/wal/templates/${f##*/template-}"
+  done
+}

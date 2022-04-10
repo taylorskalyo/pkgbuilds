@@ -1,0 +1,57 @@
+#!/bin/bash
+
+setmax() {
+  for f in $(sudo find /sys/kernel/debug/dri -name pstate); do
+    sudo cat "$f" | tail -n 2 | head -n 1 | awk -F": " '{ print $1 }' \
+      | sudo tee "$f" > /dev/null
+  done
+}
+
+setmin() {
+  for f in $(sudo find /sys/kernel/debug/dri -name pstate); do
+    sudo cat "$f" | head -n 1 | awk -F": " '{ print $1 }' \
+      | sudo tee "$f" > /dev/null
+  done
+}
+
+printcur() {
+  for f in $(sudo find /sys/kernel/debug/dri -name pstate); do
+    dir="${f%/*}"
+    card="${dir##*/}"
+
+    printf "${card}\t"
+    sudo cat "$f" | tail -n 1 | awk -F": " '{ print $2 }'
+  done
+}
+
+HELP=$(cat <<HELP
+Usage: ${BASH_SOURCE##*/} [OPTION]
+
+Show or set power state settings for GPUs that support reclocking.
+If no OPTION is provided, "--show" is assumed.
+
+OPTION
+  --max         Reclock all GPUs to their highest power state setting.
+  --min         Reclock all GPUs to their lowest power state setting.
+  --on          Same as --max.
+  --off         Same as --min.
+  --show        Show current power state for each GPU.
+HELP
+)
+CMD=$1; shift
+case "${CMD}" in
+  -h|--help)
+    echo "${HELP}"
+    exit 0
+    ;;
+  --max|--on)
+    >&2 echo "Reclocking GPU: max"
+    setmax $f
+    ;;
+  --min|--off)
+    >&2 echo "Reclocking GPU: min"
+    setmin $f
+    ;;
+esac
+
+printcur

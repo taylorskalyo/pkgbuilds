@@ -1,0 +1,9 @@
+pkgname=system-systemd-resolved
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Configure systemd-resolved."
+arch=('any')
+license=('MIT')
+depends=('systemd')
+install="$pkgname.install"
+source=()

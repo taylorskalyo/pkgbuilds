@@ -1,0 +1,17 @@
+pkgname=dotfiles-foot
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base foot configuration."
+arch=('any')
+license=('MIT')
+depends=('foot')
+source=(
+  'foot.ini'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/foot.ini" "$pkgdir/usr/share/dotfiles/.config/foot/foot.ini"
+}

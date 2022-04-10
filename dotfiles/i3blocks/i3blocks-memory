@@ -1,0 +1,52 @@
+#!/bin/bash
+
+XDG_CONFIG_DIR="${XDG_CONFIG_DIR:=$HOME/.config}"
+CONFIG_DIR="${XDG_CONFIG_DIR}/i3blocks"
+COLORS="${CONFIG_DIR}/colors"
+[ -e "${COLORS}" ] && source "${COLORS}"
+
+awk \
+	-v swap="${SWAP}" \
+	-v color_danger="${COLOR_DANGER}" \
+	-v color_warning="${COLOR_WARNING}" \
+	-v color_success="${COLOR_SUCCESS}" \
+	-v danger_threshold="${DANGER_THRESHOLD:-90}" \
+	-v warning_threshold="${WARNING_THRESHOLD:-80}" \
+'
+/^MemTotal:/ { mem_total=$2 }
+/^MemFree:/ { mem_free=$2 }
+/^Buffers:/ { mem_free+=$2 }
+/^Cached:/ { mem_free+=$2 }
+/^SReclaimable:/ { mem_free+=$2 }
+
+/^SwapTotal:/ { swap_total=$2 }
+/^SwapFree:/ { swap_free=$2 }
+END {
+	if (swap == "") {
+		free=mem_free/1024/1024
+		used=(mem_total-mem_free)/1024/1024
+		total=mem_total/1024/1024
+	} else {
+		free=swap_free/1024/1024
+		used=(swap_total-swap_free)/1024/1024
+		total=swap_total/1024/1024
+	}
+	pct=0
+	if (total > 0) { pct=used/total*100 }
+
+	# full text
+	#printf("%.1fG/%.1fG\n", used, total, pct)
+	printf("%.f%% %.1fG\n", pct, total)
+
+	# short text
+	printf("%.f%%\n", pct)
+	# color
+	if (danger_threshold != "" && color_danger != "" && pct > danger_threshold) {
+		print color_danger
+	} else if (warning_threshold != "" && color_warning != "" && pct > warning_threshold) {
+		print color_warning
+	} else if (color_success != "") {
+		print color_success
+	}
+}
+' /proc/meminfo

@@ -1,0 +1,52 @@
+pkgname=dotfiles-i3blocks
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base i3blocks configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'i3blocks'
+  'yay'
+  'pacman-contrib'
+  'libpulse'
+  'systemd'
+  'wireless_tools'
+)
+optdepends=(
+  'acpi'
+)
+source=(
+  'config'
+  'colors'
+  'battery.patch'
+  'pacman.hook'
+  'i3blocks-battery'
+  'i3blocks-memory'
+  'i3blocks-network'
+  'i3blocks-time'
+  'i3blocks-updates'
+  'i3blocks-volume'
+)
+sha256sums=(
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+)
+
+package() {
+  command -v acpi >/dev/null && patch "$srcdir/config" < "$srcdir/battery.patch"
+
+  install -Dm644 "$srcdir/config" "$pkgdir/usr/share/dotfiles/.config/i3blocks/config"
+  install -Dm644 "$srcdir/colors" "$pkgdir/usr/share/dotfiles/.config/i3blocks/colors"
+  install -Dm644 "$srcdir/pacman.hook" "$pkgdir/etc/pacman.d/hooks/i3blocks-refresh.hook"
+  for f in "$srcdir"/i3blocks-*; do
+    install -Dm755 "$f" "$pkgdir/usr/local/bin/${f##*/}"
+  done
+}

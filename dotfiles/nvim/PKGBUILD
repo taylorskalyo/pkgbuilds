@@ -1,0 +1,32 @@
+pkgname=dotfiles-nvim
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base nvim configuration."
+arch=('any')
+license=('MIT')
+depends=()
+source=(
+  'colors.vim'
+  'statusline.vim'
+  'init.lua'
+  'plugins.lua'
+  'options.lua'
+)
+sha256sums=(
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+)
+
+package() {
+  install -dm755 "$pkgdir/usr/share/dotfiles/.config/nvim/lua"
+  install -dm755 "$pkgdir/usr/share/dotfiles/.config/nvim/colors"
+  install -Dm644 "$srcdir/colors.vim" "$pkgdir/usr/share/dotfiles/.config/nvim/colors/terminal.vim"
+  install -Dm644 "$srcdir/statusline.vim" "$pkgdir/usr/share/dotfiles/.config/nvim/plugin/statusline.vim"
+  install -Dm644 "$srcdir/init.lua" "$pkgdir/usr/share/dotfiles/.config/nvim/init.lua"
+  for f in plugins options; do
+    install -Dm644 "$srcdir/$f.lua" "$pkgdir/usr/share/dotfiles/.config/nvim/lua/$f.lua"
+  done
+}

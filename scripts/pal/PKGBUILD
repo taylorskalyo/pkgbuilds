@@ -1,0 +1,22 @@
+pkgname=scripts-pal
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Apply theme colors."
+arch=('any')
+license=('MIT')
+depends=(
+  'python-pywal'
+)
+optdepends=(
+  'theme.sh'
+)
+source=(
+  'pal'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm755 "$srcdir/pal" "$pkgdir/usr/local/bin/pal"
+}

@@ -1,0 +1,11 @@
+# vim:ft=sh
+
+# Prettier grep output
+alias grep='grep --color=tty --devices skip'
+
+# Prettier ls output
+alias ls='LC_COLLATE=C ls --group-directories-first --time-style=+"%Y.%m.%d %H:%M" --color=auto --classify'
+
+# Confirm before overwriting something
+alias cp='cp --interactive'
+alias mv='mv --interactive'

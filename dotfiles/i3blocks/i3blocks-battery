@@ -1,0 +1,49 @@
+#!/bin/bash
+
+XDG_CONFIG_DIR="${XDG_CONFIG_DIR:=$HOME/.config}"
+CONFIG_DIR="${XDG_CONFIG_DIR}/i3blocks"
+COLORS="${CONFIG_DIR}/colors"
+[ -e "${COLORS}" ] && source "${COLORS}"
+
+battery=${BATTERY:-0}
+remain_fmt=${REMAIN_FMT:-%H:%M}
+warning_threshold=${WARNING_THRESHOLD:-30}
+danger_threshold=${DANGER_THRESHOLD:-10}
+
+acpi_status=$(acpi -b | grep -i "battery ${battery}")
+acpi_regex=": ([[:alpha:][:space:]]+), ([[:digit:]]+)%,? ?([[:digit:]:]+)?"
+if [[ "${acpi_status}" =~ ${acpi_regex} ]]; then
+  state=${BASH_REMATCH[1]}
+  percentage=${BASH_REMATCH[2]}
+  remaining="$(date -d "${BASH_REMATCH[3]}" -u +"${remain_fmt}")"
+fi
+
+case "${state}" in
+  Discharging)
+    state=" -"
+    ;;
+  Charging)
+    state=" +"
+    ;;
+  Full)
+    state=""
+    remaining=""
+    ;;
+  *)
+    state=""
+    remaining=""
+    ;;
+esac
+
+# Full text
+echo "${percentage}%${state}${remaining}"
+
+# Short text
+echo "${percentage}%"
+
+# Color
+if [[ "${percentage}" -lt "${danger_threshold}" && -n "${COLOR_DANGER}" ]]; then
+  echo "${COLOR_DANGER}"
+elif [[ "${percentage}" -lt "${warning_threshold}" && -n "${COLOR_WARNING}" ]]; then
+  echo "${COLOR_WARNING}"
+fi

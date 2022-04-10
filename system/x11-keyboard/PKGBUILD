@@ -1,0 +1,17 @@
+pkgname=system-keyboard
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Configure the system keyboard."
+arch=('any')
+license=('MIT')
+depends=()
+source=(
+  '00-keyboard.conf'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/00-keyboard.conf" "$pkgdir/etc/X11/xorg.conf.d/00-keyboard.conf"
+}

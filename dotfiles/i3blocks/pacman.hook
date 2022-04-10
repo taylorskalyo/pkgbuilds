@@ -1,0 +1,12 @@
+[Trigger]
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Refreshing i3blocks...
+When = PostTransaction
+Depends = i3blocks
+Depends = procps-ng
+Exec = /usr/bin/env sh -c "pkill -RTMIN+11 i3blocks || true"

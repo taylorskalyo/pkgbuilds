@@ -1,0 +1,42 @@
+# i3blocks config file
+#
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+# Each block command defaults to the script name to avoid boilerplate.
+command=i3blocks-$BLOCK_NAME
+separator_block_width=20
+markup=none
+
+[time]
+interval=10
+FORMAT=%H:%M:%S %Y/%m/%d
+MODULO=10
+
+[memory]
+label=MEM 
+interval=10
+
+[network]
+label=NET 
+INTERFACE=bond0
+interval=persist
+format=json
+
+[volume]
+label=VOL 
+instance=Master
+interval=once
+signal=10
+
+[updates]
+label=PAC 
+interval=1800
+signal=11
+
+[updates]
+label=AUR 
+instance=aur
+interval=1800
+signal=11
+AUR=true

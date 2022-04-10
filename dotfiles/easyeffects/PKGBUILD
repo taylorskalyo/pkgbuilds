@@ -1,0 +1,20 @@
+pkgname=dotfiles-easyeffects
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base easyeffects configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'easyeffects'
+)
+optdepends=()
+source=(
+  'easyeffects.service'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/easyeffects.service" "$pkgdir/usr/share/dotfiles/.config/systemd/user/easyeffects.service"
+}

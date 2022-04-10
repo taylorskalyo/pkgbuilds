@@ -1,0 +1,15 @@
+post_install() {
+  if ! grep -q '^en_US.UTF-8' /etc/locale.gen; then
+    echo "Enabling en_US.UTF-8 locale"
+    sed -i 's/#en_US\.UTF-8/en_US.UTF-8/' /etc/locale.gen
+    locale-gen
+  fi
+}
+
+pre_remove() {
+  if grep -q '^en_US.UTF-8' /etc/locale.gen; then
+    echo "Disabling en_US.UTF-8 locale"
+    sed -i 's/^en_US\.UTF-8/#en_US.UTF-8/' /etc/locale.gen
+    locale-gen
+  fi
+}

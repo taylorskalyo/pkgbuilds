@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Apply theme colors.
+#
+# Basically pywal + functions to apply themes
+
+XDG_CACHE_DIR="${XDG_CACHE_DIR:=$HOME/.cache}"
+WAL_CACHE="${XDG_CACHE_DIR}/wal"
+
+apply_oomox() {
+  local theme
+  theme=${WAL_CACHE}/colors-oomox
+
+  command -v oomox-cli >/dev/null || return 1
+  [ -e "${theme}" ] || return 1
+
+  oomox-cli "${theme}" -o oomox-wal -t ~/.themes -m gtk320
+}
+
+apply_terminal() {
+  local theme
+  theme=${WAL_CACHE}/colors-theme.sh
+
+  # Pywal's built-in terminal handling isn't as robust as theme.sh's. In
+  # particular theme.sh handles tmux better.
+  command -v theme.sh >/dev/null || return 1
+  [ -e "${theme}" ] || return 1
+
+  theme.sh < "${theme}"
+}
+
+wal -st --theme default "$@"
+
+apply_oomox &
+apply_terminal &
+wait

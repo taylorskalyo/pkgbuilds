@@ -1,0 +1,94 @@
+#!/bin/bash
+
+XDG_CONFIG_DIR="${XDG_CONFIG_DIR:=$HOME/.config}"
+CONFIG_DIR="${XDG_CONFIG_DIR}/i3blocks"
+COLORS="${CONFIG_DIR}/colors"
+[ -e "${COLORS}" ] && source "${COLORS}"
+
+default_interface() {
+  # Find physical network interfaces.
+  if_names=$(find /sys/devices/pci*/**/net/* -maxdepth 0 -printf "%f\n")
+
+  # Prefer "up" interfaces.
+  while read -r if_name; do
+    state=$(cat /sys/class/net/"${if_name}"/operstate)
+    if [[ "up" == "${state}" ]]; then
+      echo "${if_name}"
+      return
+    fi
+  done <<<"${if_names}"
+
+  # Use first interface if none are up.
+  head -n 1 <<<"${if_names}"
+}
+
+if_type() {
+  if [[ -d /sys/class/net/"$1"/wireless ]]; then
+    echo "wlan"
+  elif [[ -d /sys/class/net/"$1"/bonding ]]; then
+    echo "bond"
+  else
+    echo "ether"
+  fi
+}
+
+wlan_info() {
+  if [[ "up" == "${state}" ]]; then
+    ssid=$(iwgetid --raw "$1")
+    power=$(grep "$1" /proc/net/wireless | awk '{ print $3 }' | tr -d '.')
+
+    full="${ssid} ${power}"
+    short="wlan"
+  fi
+}
+
+ether_info() {
+  if [[ "up" == "${state}" ]]; then
+    full="ether"
+    short="ether"
+  fi
+}
+
+bond_info() {
+  slave=$(awk '/Currently Active Slave:/ { print $4 }' < /proc/net/bonding/"$1")
+  if_info "${slave}"
+}
+
+if_info() {
+  state=$(cat /sys/class/net/"$1"/operstate)
+
+  case "$(if_type "$1")" in
+    wlan)
+      wlan_info "$1"
+      ;;
+    bond)
+      bond_info "$1"
+      ;;
+    *)
+      ether_info "$1"
+      ;;
+  esac
+}
+
+handler() {
+  full="-"
+  short="-"
+  if_info "${INTERFACE}"
+
+  if [[ "up" == "${state}" && -n "${COLOR_SUCCESS}" ]]; then
+    color="${COLOR_SUCCESS}"
+  elif [[ -n "${COLOR_DANGER}" ]]; then
+    color="${COLOR_DANGER}"
+  fi
+
+  echo "{\"full_text\":\"${full}\",\"short_text\":\"${short}\",\"color\":\"${color}\"}"
+}
+
+if [[ -z "${INTERFACE}" ]]; then
+  INTERFACE=$(default_interface)
+fi
+
+handler
+journalctl -fu systemd-networkd | while read -r _; do
+  handler
+done

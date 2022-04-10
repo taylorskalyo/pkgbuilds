@@ -1,0 +1,20 @@
+pkgname=dotfiles-makepkg
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base makepkg configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'pacman'
+  'aria2'
+)
+source=(
+  'makepkg.conf'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/makepkg.conf" "$pkgdir/usr/share/dotfiles/.config/pacman/makepkg.conf"
+}

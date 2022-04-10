@@ -1,0 +1,13 @@
+pkgname=system-timezone
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Configure the system timezone."
+arch=('any')
+license=('MIT')
+depends=('tzdata')
+source=()
+
+package() {
+  install -dm755 "$pkgdir/etc"
+  ln -sf /usr/share/zoneinfo/America/New_York "$pkgdir/etc/localtime"
+}

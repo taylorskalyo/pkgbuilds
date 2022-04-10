@@ -1,0 +1,30 @@
+pkgname=dotfiles-i3
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base i3 configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'i3'
+  'tmux'
+  'rofi'
+  'i3blocks'
+
+  'ttf-meslo'
+  'feh'
+  'picom'
+  'easyeffects'
+  'xss-lock'
+  'slock'
+)
+optdepends=()
+source=(
+  'config'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/config" "$pkgdir/usr/share/dotfiles/.config/i3/config"
+}

@@ -1,0 +1,14 @@
+pkgname=system-locale
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Configure the system locale."
+arch=('any')
+license=('MIT')
+depends=('glibc')
+install="$pkgname.install"
+source=()
+
+package() {
+  install -dm755 "$pkgdir/etc"
+  echo 'LANG=en_US.UTF-8' > "$pkgdir/etc/locale.conf"
+}

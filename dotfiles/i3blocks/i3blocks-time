@@ -1,0 +1,6 @@
+#!/bin/bash
+
+FORMAT=${FORMAT-'%H:%M:%S %Y/%m/%d'}
+MODULO=${MODULO-5}
+seconds=$(date +%s)
+date -d@$(( seconds - seconds % MODULO)) +"${FORMAT}"

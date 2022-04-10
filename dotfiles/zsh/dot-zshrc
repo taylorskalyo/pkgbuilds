@@ -1,0 +1,76 @@
+# vim: ft=zsh
+
+# Profile zsh with zprof
+#zmodload zsh/zprof
+
+zstyle :compinstall filename "${HOME}/.zshrc"
+
+HISTFILE="${HOME}/.histfile"
+HISTSIZE=1000
+SAVEHIST="${HISTSIZE}"
+KEYTIMEOUT=3
+
+# Options
+setopt appendhistory
+setopt sharehistory
+setopt histignorespace
+setopt histignoredups
+setopt correct
+
+# Prompt
+PROMPT="\
+%B\
+%(!.%F{red}.%F{green})%n \
+%F{blue}%~ \
+%(!.%F{red}.%F{green})%# \
+%f%b"
+_RPROMPT="\
+%F{white}\
+%(0?..  %F{red}EXIT %?)\
+%(1j.  %F{yellow}JOBS %j.)\
+%f"
+RPROMPT=${_RPROMPT}
+autoload -Uz promptinit && promptinit
+
+# Display execution start and elapsed time
+function _exec_time_preexec() {
+  exec_start=$(date +%s%3N)
+}
+
+function _exec_time_precmd() {
+  if [ $exec_start ]; then
+    exec_end=$(date +%s%3N)
+    elapsed=$(($exec_end-$exec_start))
+
+    RPROMPT="\
+${_RPROMPT}\
+%F{12}  ${elapsed}ms $(date --date=@${exec_start:0:10} +'%H:%M:%S')\
+%f"
+    unset exec_start
+  fi
+}
+
+precmd_functions+=(_exec_time_precmd)
+preexec_functions+=(_exec_time_preexec)
+
+# Completion
+autoload -Uz compinit && compinit
+autoload -Uz bashcompinit && bashcompinit
+
+# Edit line in vim
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
+# Key bindings
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+bindkey '^F' history-incremental-search-forward
+bindkey '^?' backward-delete-char # https://superuser.com/a/533685
+
+# Source shared shell resources
+if [[ -d "${XDG_CONFIG_HOME:=$HOME/.config}/shell" ]]; then
+  for file in "${XDG_CONFIG_HOME}"/shell/*; do
+    [[ -r "${file}" ]] && source "${file}"
+  done
+fi

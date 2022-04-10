@@ -1,0 +1,18 @@
+#!/bin/bash
+
+XDG_CONFIG_DIR="${XDG_CONFIG_DIR:=$HOME/.config}"
+CONFIG_DIR="${XDG_CONFIG_DIR}/i3blocks"
+COLORS="${CONFIG_DIR}/colors"
+[ -e "${COLORS}" ] && source "${COLORS}"
+
+if [ -n "${AUR}" ]; then
+  count=$(yay --aur -Qu | wc -l)
+else
+  count=$(checkupdates | wc -l)
+fi
+
+echo "${count}"
+if [ -n "${COLOR_WARNING}" ] && [ "${count}" -gt 0 ]; then
+  echo "${count}"
+  echo "${COLOR_WARNING}"
+fi

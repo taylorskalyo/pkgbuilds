@@ -1,0 +1,14 @@
+post_install() {
+  if [ -f /etc/resolv.conf ]; then
+    echo "Backing up /etc/resolv.conf."
+    mv /etc/resolv.conf /etc/resolv.conf.bak
+  fi
+  ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+}
+
+pre_remove() {
+  if [ -f /etc/resolv.conf.bak ]; then
+    echo "Restoring /etc/resolv.conf."
+    mv /etc/resolv.conf.bak /etc/resolv.conf
+  fi
+}

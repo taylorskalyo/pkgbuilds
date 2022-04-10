@@ -1,0 +1,20 @@
+pkgname=dotfiles-rofi
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base rofi configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'ttf-meslo'
+)
+optdepends=()
+source=(
+  'config.rasi'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/config.rasi" "$pkgdir/usr/share/dotfiles/.config/rofi/config.rasi"
+}

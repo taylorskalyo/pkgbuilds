@@ -1,0 +1,52 @@
+configuration {
+  disable-history: true;
+  sort: true;
+  sorting-method: "fzf";
+  case-sensitive: true;
+  display-run: "";
+  kb-row-tab: "";
+  kb-row-select: "Tab";
+}
+@import "~/.cache/wal/colors-rofi-dark.rasi"
+
+* {
+  font:              "Meslo LG M 9";
+  highlight:         none;
+}
+
+window {
+  anchor:    north;
+  location:  north;
+  width:     100%;
+  padding:   1px;
+  border:    0;
+  children:  [ horibox ];
+}
+
+horibox {
+  orientation:  horizontal;
+  children:     [ prompt, entry, listview ];
+}
+
+listview {
+  layout:   horizontal;
+  spacing:  5px;
+  lines:    100;
+  border:   0;
+  padding:  0;
+}
+
+sidebar {
+  border: 0;
+}
+
+entry {
+  expand:  false;
+  width:   20em;
+  blink:   false;
+}
+
+element {
+  border:   0;
+  padding:  0px 2px;
+}

@@ -1,0 +1,20 @@
+pkgname=dotfiles-tmux
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base tmux configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'tmux'
+  'wl-clipboard'
+)
+source=(
+  'tmux.conf'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/tmux.conf" "$pkgdir/usr/share/dotfiles/.config/tmux/tmux.conf"
+}

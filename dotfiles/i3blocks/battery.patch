@@ -1,0 +1,14 @@
+--- config	2022-04-09 12:10:24.686145433 -0400
++++ newconfig	2022-04-09 12:10:30.349478779 -0400
+@@ -29,6 +29,11 @@
+ interval=once
+ signal=10
+ 
++[battery]
++label=BAT 
++instance=0
++interval=10
++
+ [updates]
+ label=PAC 
+ interval=1800
