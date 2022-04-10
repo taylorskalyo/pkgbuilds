@@ -71,11 +71,13 @@ client.background       $background
 
 ### Output configuration
 output * bg ~/.cache/wal/colors-wallpaper.svg fit $background
+include ~/.config/sway/outputs
 
 ### Input configuration
 input type:keyboard {
     xkb_options ctrl:nocaps
 }
+include ~/.config/sway/inputs
 
 ### Key bindings
 #
