@@ -1,6 +1,6 @@
 export BEMENU_OPTS="\
   -p 'run' \
-  --fn 'Meslo LG M 9' \
+  --fn 'Meslo LG M 12px' \
   -i \
   --nf '{foreground}' \
   --nb '{background}' \

@@ -34,7 +34,7 @@ exec_always {
 # Hide title bars
 default_border pixel 1
 
-font pango:Meslo LG M 9
+font pango:Meslo LG M 12px
 
 ### Colors
 set $background #232629
