@@ -1,0 +1,23 @@
+pkgname=dotfiles-mpv
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base mpv configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'mpv'
+)
+autocropver=6fe4fc4593dd5126a208fda83bbff97c7add446b
+source=(
+  'mpv.conf'
+  "https://raw.githubusercontent.com/mpv-player/mpv/$autocropver/TOOLS/lua/autocrop.lua"
+)
+sha256sums=(
+  'SKIP'
+  '5c254944a598d4d9a659c1a8fef204132f2df82141fd15984db98822329a1d85'
+)
+
+package() {
+  install -Dm644 "$srcdir/mpv.conf" "$pkgdir/usr/share/dotfiles/.config/mpv/mpv.conf"
+  install -Dm644 "$srcdir/autocrop.lua" "$pkgdir/usr/share/dotfiles/.config/mpv/scripts/autocrop.lua"
+}
