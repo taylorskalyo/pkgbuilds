@@ -41,12 +41,13 @@ sha256sums=(
 )
 
 package() {
-  command -v acpi >/dev/null && patch "$srcdir/config" < "$srcdir/battery.patch"
+  cd "$srcdir"
+  command -v acpi >/dev/null && patch --follow-symlinks --strip=0 < battery.patch
 
-  install -Dm644 "$srcdir/config" "$pkgdir/usr/share/dotfiles/.config/i3blocks/config"
-  install -Dm644 "$srcdir/colors" "$pkgdir/usr/share/dotfiles/.config/i3blocks/colors"
-  install -Dm644 "$srcdir/pacman.hook" "$pkgdir/etc/pacman.d/hooks/i3blocks-refresh.hook"
-  for f in "$srcdir"/i3blocks-*; do
+  install -Dm644 config "$pkgdir/usr/share/dotfiles/.config/i3blocks/config"
+  install -Dm644 colors "$pkgdir/usr/share/dotfiles/.config/i3blocks/colors"
+  install -Dm644 pacman.hook "$pkgdir/etc/pacman.d/hooks/i3blocks-refresh.hook"
+  for f in i3blocks-*; do
     install -Dm755 "$f" "$pkgdir/usr/local/bin/${f##*/}"
   done
 }
