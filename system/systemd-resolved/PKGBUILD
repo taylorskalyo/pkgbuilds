@@ -6,4 +6,13 @@ arch=('any')
 license=('MIT')
 depends=('systemd')
 install="$pkgname.install"
-source=()
+source=(
+  'dns_over_tls.conf'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/dns_over_tls.conf" "$pkgdir/etc/systemd/resolved.conf.d/dns_over_tls.conf"
+}
