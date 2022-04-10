@@ -19,7 +19,7 @@ printcur() {
     dir="${f%/*}"
     card="${dir##*/}"
 
-    printf "${card}\t"
+    printf "%s\t" "${card}"
     sudo cat "$f" | tail -n 1 | awk -F": " '{ print $2 }'
   done
 }
@@ -46,11 +46,11 @@ case "${CMD}" in
     ;;
   --max|--on)
     >&2 echo "Reclocking GPU: max"
-    setmax $f
+    setmax "$f"
     ;;
   --min|--off)
     >&2 echo "Reclocking GPU: min"
-    setmin $f
+    setmin "$f"
     ;;
 esac
 
