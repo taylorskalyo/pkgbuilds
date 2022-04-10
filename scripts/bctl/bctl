@@ -1,0 +1,95 @@
+#!/bin/bash
+
+BCTL_DATA_DIR=${BCTL_DATA_DIR:-${XDG_DATA_DIR:=${HOME}/.local/share}/bctl}
+
+data_file=${bright_data_file:-${BCTL_DATA_DIR}/brightness}
+
+nth_root() {
+  bc -l <<< "e(l($1) / $2)"
+}
+
+debug_sensor() {
+  >&2 cat <<-LOG
+Automatic brightness values:
+  Sensor:     ${sensor_value}
+  Normalized: ${normalized}
+  Biased:     ${biased}
+  Bounded:    ${bounded}
+LOG
+}
+
+# Determine brightness based on light sensor reading
+auto_brightness() {
+  sensor_name_file=$(grep --files-with-matches als /sys/bus/iio/devices/iio:device*/name 2> /dev/null || >&2 echo "Cannot set automatic brightness: no ambient light sensor found.")
+  sensor_dir="${sensor_name_file%/*}"
+  if [[ -d ${sensor_dir} ]]; then
+    sensor_value=$(< "${sensor_dir}/in_intensity_both_raw")
+
+    # Convert to normalized value between 0 and 1
+    sensor_min=1
+    sensor_max=200000
+    normalized=$(bc <<< "scale=10; (${sensor_value} - ${sensor_min}) / (${sensor_max} - ${sensor_min})")
+
+    # Bias value towards dimness or brightness.
+    # When n > 1 the slope is more convex (favors brightness).
+    # When n < 1 the slope is more concave (favors dimness).
+    biased=$(nth_root "${normalized}" 3)
+
+    # Scale to fit min/max bounds
+    min=0.10
+    max=1
+    bounded=$(bc <<< "(${max} - ${min}) * ${biased} + ${min}")
+
+    debug_sensor
+    echo "${bounded}"
+  else
+    echo "${default_brightness}"
+  fi
+}
+
+help=$(cat <<HELP
+Usage: ${BASH_SOURCE##*/} [OPTION]
+
+Set screen brightness.
+
+If no option is specified, the program will attempt to load the last used
+brightness.
+
+OPTION
+  --help      Show this help and exit.
+  --auto      Attempt to automatically set brightness based on ambient light.
+  -[val]      Decrease brightness percentage by val.
+  +[val]      Increase brightness percentage by val.
+  val         Set brightness percentage to val.
+HELP
+)
+
+default_brightness="1.0"
+
+# Read settings from files if they exist
+if [[ -f ${data_file} ]]; then
+  brightness=$(< "${data_file}")
+fi
+brightness=${brightness:-${default_brightness}}
+
+# Set new brightness
+case $1 in
+  -h|--help) echo "${help}" && exit 0 ;;
+  [0-9]*)    brightness=$1 ;;
+  +[0-9]*)   brightness=$(bc <<< "${brightness} $1") ;;
+  -[0-9]*)   brightness=$(bc <<< "${brightness} $1") ;;
+  -a|--auto) brightness=$(auto_brightness) ;;
+esac
+
+# Enforce min/max values
+min_bright=0.0
+max_bright=1.0
+brightness=$(bc <<< "if (${brightness} < ${min_bright}) ${min_bright} else ${brightness}")
+brightness=$(bc <<< "if (${brightness} > ${max_bright}) ${max_bright} else ${brightness}")
+
+# Change brightness and gamma on all connected displays
+gdbus call -e -d de.mherzberg -o /de/mherzberg/wlrbrightness -m de.mherzberg.wlrbrightness.set "${brightness}"
+
+# Persist settings
+mkdir -p "${BCTL_DATA_DIR}"
+echo "${brightness}" > "${data_file}"

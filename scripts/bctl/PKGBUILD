@@ -1,0 +1,20 @@
+pkgname=scripts-bctl
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Adjust screen brightness."
+arch=('any')
+license=('MIT')
+depends=(
+  'wlr-brightness-git'
+)
+optdepends=()
+source=(
+  'bctl'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm755 "$srcdir/bctl" "$pkgdir/usr/local/bin/bctl"
+}
