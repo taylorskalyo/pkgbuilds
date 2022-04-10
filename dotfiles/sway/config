@@ -18,11 +18,15 @@ set $term foot
 set $menu sh -c '[ -f ~/.cache/wal/colors-bemenu.sh ] && source ~/.cache/wal/colors-bemenu.sh; bemenu-run' | xargs swaymsg exec --
 
 
-### Volume
+### Bindings
+#
+# Volume
 bindsym XF86AudioLowerVolume exec "pactl set-sink-volume @DEFAULT_SINK@ -5%; pkill -RTMIN+10 i3blocks"
 bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume @DEFAULT_SINK@ +5%; pkill -RTMIN+10 i3blocks"
 bindsym XF86AudioMute exec "pactl set-sink-mute @DEFAULT_SINK@ toggle; pkill -RTMIN+10 i3blocks"
 bindsym XF86AudioMicMute exec "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+# Others
+include ~/.config/sway/bindings
 
 ### Theme
 set $gnome-schema org.gnome.desktop.interface

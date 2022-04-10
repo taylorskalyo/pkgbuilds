@@ -9,7 +9,6 @@ depends=(
   'foot'
   'i3blocks'
   'libpulse'
-  'libpulse'
   'sway'
   'tmux'
   'ttf-meslo'
