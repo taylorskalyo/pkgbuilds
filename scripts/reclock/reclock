@@ -1,20 +1,20 @@
 #!/bin/bash
 
-setmax() {
+setlevel() {
+  local level="$1"; shift
+
   for f in $(sudo find /sys/kernel/debug/dri -name pstate); do
-    sudo cat "$f" | tail -n 2 | head -n 1 | awk -F": " '{ print $1 }' \
-      | sudo tee "$f" > /dev/null
+    readarray -t available < <(sudo awk -F': ' '/^[^A]/ { print $1 }' "$f")
+    if [ "${level}" -ge ${#available[@]} ]; then
+      >&2 echo "Cannot set power state: provided level is out of range (must be less than ${#available[@]})."
+      exit 1
+    fi
+
+    echo "${available[$level]}" | sudo tee "$f" > /dev/null
   done
 }
 
-setmin() {
-  for f in $(sudo find /sys/kernel/debug/dri -name pstate); do
-    sudo cat "$f" | head -n 1 | awk -F": " '{ print $1 }' \
-      | sudo tee "$f" > /dev/null
-  done
-}
-
-printcur() {
+show() {
   for f in $(sudo find /sys/kernel/debug/dri -name pstate); do
     dir="${f%/*}"
     card="${dir##*/}"
@@ -35,23 +35,30 @@ OPTION
   --min         Reclock all GPUs to their lowest power state setting.
   --on          Same as --max.
   --off         Same as --min.
+  --level n     Reclock all GPUs to the power state at the given index. Index
+                starts at 0.
   --show        Show current power state for each GPU.
 HELP
 )
-CMD=$1; shift
-case "${CMD}" in
+
+cmd=$1; shift
+case "${cmd}" in
   -h|--help)
     echo "${HELP}"
     exit 0
     ;;
   --max|--on)
     >&2 echo "Reclocking GPU: max"
-    setmax "$f"
+    setlevel -1
     ;;
   --min|--off)
     >&2 echo "Reclocking GPU: min"
-    setmin "$f"
+    setlevel 0
     ;;
+  --level)
+    level=$1; shift
+    >&2 echo "Reclocking GPU: level ${level}"
+    setlevel "${level}"
 esac
 
-printcur
+show
