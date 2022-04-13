@@ -4,6 +4,7 @@
 #
 # Basically pywal + functions to apply themes
 
+XDG_CONFIG_DIR="${XDG_CONFIG_DIR:=$HOME/.config}"
 XDG_CACHE_DIR="${XDG_CACHE_DIR:=$HOME/.cache}"
 WAL_CACHE="${XDG_CACHE_DIR}/wal"
 
@@ -15,6 +16,7 @@ apply_oomox() {
   [ -e "${theme}" ] || return 1
 
   oomox-cli "${theme}" -o oomox-wal -t ~/.themes -m gtk320
+  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Built oomox theme."
 }
 
 apply_terminal() {
@@ -27,10 +29,26 @@ apply_terminal() {
   [ -e "${theme}" ] || return 1
 
   theme.sh < "${theme}"
+  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Applied terminal theme."
+}
+
+apply_swaylock() {
+  local theme swaylock_config
+  theme=${WAL_CACHE}/colors-swaylock
+  swaylock_config=${XDG_CONFIG_DIR}/swaylock/config
+
+  command -v swaylock >/dev/null || return 1
+  [ -e "${theme}" ] || return 1
+  [ -e "${swaylock_config}" ] && return 0 # don't overwrite config
+
+  mkdir -p "${swaylock_config%/*}"
+  ln -s "${theme}" "${swaylock_config}"
+  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Linked swaylock config."
 }
 
 wal -st --theme default "$@"
 
 apply_oomox &
 apply_terminal &
+apply_swaylock &
 wait
