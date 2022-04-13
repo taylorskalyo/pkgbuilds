@@ -1,5 +1,5 @@
 pkgname=dotfiles-wal
-pkgver=0.0.2
+pkgver=0.0.3
 pkgrel=1
 pkgdesc="Provide base wal configuration."
 arch=('any')
@@ -15,10 +15,12 @@ source=(
   'template-colors-bemenu.sh'
   'template-colors-oomox'
   'template-colors-theme.sh'
+  'template-colors-swaylock'
   'template-colors-wallpaper.svg'
   'template-colors.sh'
 )
 sha256sums=(
+  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'
