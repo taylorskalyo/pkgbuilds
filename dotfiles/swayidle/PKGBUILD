@@ -1,12 +1,12 @@
 pkgname=dotfiles-swayidle
-pkgver=0.0.1
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="Provide base swayidle configuration."
 arch=('any')
 license=('MIT')
 depends=(
   'swayidle'
-  'waylock'
+  'swaylock'
 )
 optdepends=()
 source=(
