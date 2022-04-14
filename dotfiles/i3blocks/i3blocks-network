@@ -88,6 +88,9 @@ if [[ -z "${INTERFACE}" ]]; then
   INTERFACE=$(default_interface)
 fi
 
+# RTMIN is used to reload i3bar/swaybar. Ignore it.
+trap '' RTMIN+10 RTMIN+11
+
 handler
 journalctl -fu systemd-networkd | while read -r _; do
   handler
