@@ -33,7 +33,7 @@ auto_brightness() {
     # Bias value towards dimness or brightness.
     # When n > 1 the slope is more convex (favors brightness).
     # When n < 1 the slope is more concave (favors dimness).
-    biased=$(nth_root "${normalized}" 3)
+    biased=$(nth_root "${normalized}" 5)
 
     # Scale to fit min/max bounds
     min=0.10

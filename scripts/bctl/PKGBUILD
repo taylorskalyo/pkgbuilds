@@ -1,5 +1,5 @@
 pkgname=scripts-bctl
-pkgver=0.0.1
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="Adjust screen brightness."
 arch=('any')
