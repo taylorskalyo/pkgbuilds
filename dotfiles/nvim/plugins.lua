@@ -169,41 +169,28 @@ return require("packer").startup(function(use)
     end,
   }
 
-  use { "junegunn/fzf", run = function() vim.fn["fzf#install"]() end }
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use {
-    "junegunn/fzf.vim",
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'}, {'nvim-telescope/telescope-fzf-native.nvim'} },
     config = function()
-      vim.g.fzf_colors = {
-        fg =      { 'fg', 'Normal' },
-        bg =      { 'bg', 'Normal' },
-        hl =      { 'bg', 'Search' },
-        ["fg+"] = { 'fg', 'CursorLine', 'CursorColumn', 'Normal' },
-        ["bg+"] = { 'bg', 'CursorLine', 'CursorColumn' },
-        ["hl+"] = { 'bg', 'Search' },
-        info =    { 'fg', 'WildMenu' },
-        border =  { 'fg', 'Comment' },
-        prompt =  { 'fg', 'Comment' },
-        pointer = { 'fg', 'WildMenu' },
-        marker =  { 'fg', 'WildMenu' },
-        spinner = { 'fg', 'WildMenu' },
-        header =  { 'fg', 'Visual' },
+      require('telescope').load_extension('fzf')
+      require('telescope').setup {
+        defaults = require('telescope.themes').get_ivy {},
+        pickers = {
+          find_files = {
+            hidden = true
+          },
+        },
       }
-      vim.g.fzf_layout = { down = '40%'}
 
       -- Mappings.
       local opts = { noremap = true, silent = true }
-      vim.api.nvim_set_keymap('n', '<leader>f', [[<cmd>:Files<CR>]], opts)
-      vim.api.nvim_set_keymap('n', '<leader>g', [[<cmd>:GitFiles<CR>]], opts)
-      vim.api.nvim_set_keymap('n', '<leader>b', [[<cmd>:Buffers<CR><cr>]], opts)
-
-      -- Hide statusline when using fzf.
-      vim.cmd([[
-        augroup fzf
-          autocmd!
-          autocmd FileType fzf set laststatus=0 noshowmode noruler]] .. [[
-        | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-        augroup END
-      ]])
+      vim.api.nvim_set_keymap('n', '<leader>ff', [[<cmd>:Telescope find_files<CR>]], opts)
+      vim.api.nvim_set_keymap('n', '<leader>fg', [[<cmd>:Telescope git_files<CR>]], opts)
+      vim.api.nvim_set_keymap('n', '<leader>fa', [[<cmd>:Telescope live_grep<CR>]], opts)
+      vim.api.nvim_set_keymap('n', '<leader>f*', [[<cmd>:Telescope grep_string<CR>]], opts)
+      vim.api.nvim_set_keymap('n', '<leader>fb', [[<cmd>:Telescope buffers<CR><cr>]], opts)
     end,
   }
 
