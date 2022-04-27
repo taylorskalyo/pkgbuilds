@@ -195,18 +195,23 @@ return require("packer").startup(function(use)
   }
 
   use {
-    "Yggdroot/indentLine",
+    "lukas-reineke/indent-blankline.nvim",
     config = function()
-      vim.g.indentLine_char = '┆'
-      vim.g.indentLine_first_char = '┆'
-      vim.g.indentLine_showFirstIndentLevel = 1
-      vim.g.indentLine_defaultGroup = 'Whitespace'
-      vim.cmd[[
-        augroup disable_indent
-          autocmd!
-          autocmd FileType help,fzf,packer,json silent! IndentLinesDisable
-        augroup END
-      ]]
+      require("indent_blankline").setup {
+        char = '│',
+        context_char = '┃',
+        show_current_context = true,
+        show_trailing_blankline_indent = false,
+        filetype_exclude = {
+          "lspinfo",
+          "packer",
+          "checkhealth",
+          "help",
+          "man",
+          "",
+          "json",
+        },
+      }
     end,
   }
 

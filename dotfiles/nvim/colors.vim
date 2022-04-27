@@ -305,6 +305,10 @@ call <sid>hi('LspDiagnosticsDefaultHint', s:base0A, '', 'bold')
 "call <sid>hi('WhiteSpaceBol', s:base02, s:base00, '')
 "call <sid>hi('WhiteSpaceMol', s:base00, s:base00, '')
 
+" Indentline highlighting
+call <sid>hi('IndentBlanklineChar', s:base01, '', '')
+call <sid>hi('IndentBlanklineContextChar', s:base01, '', '')
+
 " Remove functions
 delf <sid>hi
 
