@@ -19,7 +19,6 @@ return require("packer").startup(function(use)
   use { "wbthomason/packer.nvim" }
   use { "taylorskalyo/markdown-journal" }
   use { "VincentCordobes/vim-translate" }
-  use { "easymotion/vim-easymotion" }
   use { "tpope/vim-fugitive" }
   use { "tpope/vim-surround" }
   use { "tpope/vim-rhubarb" }
