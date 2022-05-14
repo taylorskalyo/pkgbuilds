@@ -131,6 +131,31 @@ return require("packer").startup(function(use)
         }
       end
 
+      -- Tell gopls to organize imports too
+      -- https://github.com/neovim/nvim-lspconfig/issues/115
+      function GoImports(wait_ms)
+        local params = vim.lsp.util.make_range_params(nil, nil)
+        params.context = {only = {"source.organizeImports"}}
+        local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
+        for _, res in pairs(result or {}) do
+          for _, r in pairs(res.result or {}) do
+            if r.edit then
+              vim.lsp.util.apply_workspace_edit(r.edit, "utf-16")
+            else
+              vim.lsp.buf.execute_command(r.command)
+            end
+          end
+        end
+      end
+      nvim_lsp.gopls.setup {
+        on_attach = function(client, bufnr)
+          vim.api.nvim_command("autocmd BufWritePre <buffer> lua GoImports(1000)")
+          vim.api.nvim_command("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
+          on_attach(client, bufnr)
+        end,
+        flags = flags,
+      }
+
       -- Use lua-dev to configure workspace for the nvim lua API.
       local luadev = require("lua-dev").setup {
         lspconfig = {
