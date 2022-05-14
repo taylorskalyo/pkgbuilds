@@ -1,0 +1,38 @@
+#!/bin/bash
+
+checkpkg() {
+  local pkg=$1; shift
+  local pkgname pkgver pkgrel installedver latestver
+
+  # shellcheck disable=SC1090
+  source "${pkg}"
+
+  pacman -Qq "${pkgname}" > /dev/null 2>&1 || return 1
+
+  installedver=$(
+    pacman -Qi "${pkgname}" \
+      | awk '/Version/ { print $3 }'
+  )
+
+  latestver=$(
+    printf "%s-%s\n%s\n" "${pkgver}" "${pkgrel}" "${installedver}" \
+      | sort -V \
+      | tail -n 1
+  )
+
+  if [[ "${installedver}" != "${latestver}" ]]; then
+    printf "%b" "\033[31m"
+  fi
+
+  echo "${pkgname} ${installedver} ${latestver}"
+  printf "%b" "\033[m"
+}
+
+checkall() {
+  echo "package installed latest"
+  for pkg in **/*/PKGBUILD; do
+    checkpkg "${pkg}"
+  done
+}
+
+checkall | column -t
