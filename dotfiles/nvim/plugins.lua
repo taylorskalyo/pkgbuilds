@@ -144,36 +144,36 @@ return require("packer").startup(function(use)
   }
 
   use {
-    "hrsh7th/nvim-compe",
+    "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-calc",
+    },
     config = function()
-      require'compe'.setup {
-        enabled = true,
-        autocomplete = false,
-        debug = false,
-        min_length = 1,
-        preselect = 'enable',
-        throttle_time = 80,
-        source_timeout = 200,
-        resolve_timeout = 800,
-        incomplete_delay = 400,
-        max_abbr_width = 100,
-        max_kind_width = 100,
-        max_menu_width = 100,
-        source = {
-          path = true,
-          buffer = true,
-          calc = true,
-          nvim_lsp = true,
-          nvim_lua = true,
+      local cmp = require'cmp'
+      cmp.setup {
+        completion = {
+          autocomplete = false,
         },
+        sources = cmp.config.sources(
+          {
+            { name = 'nvim_lsp' },
+            { name = 'calc' },
+          },
+          {
+            { name = 'buffer' },
+          }
+        ),
+        mapping = cmp.mapping.preset.insert({
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(nil),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        }),
       }
-      vim.opt.completeopt = "menuone,noselect"
-
-      -- Mappings.
-      local opts = { expr = true, noremap = true }
-      vim.api.nvim_set_keymap('i', '<C-Space>', [[compe#complete()]], opts)
-      vim.api.nvim_set_keymap('i', '<CR>', [[compe#confirm('<CR>')]], opts)
-      vim.api.nvim_set_keymap('i', '<C-e>', [[compe#close('<C-e>')]], opts)
+      vim.opt.completeopt = "menu,menuone,noselect"
     end,
   }
 
