@@ -1,5 +1,5 @@
 -- luacheck: globals vim
-require("plugins")
+require("plugins.init")
 require("options")
 
 -- Colors.
