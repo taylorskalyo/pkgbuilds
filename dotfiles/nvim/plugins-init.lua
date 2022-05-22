@@ -27,7 +27,6 @@ return require("packer").startup(function(use)
   use(require'plugins.treesitter')
   use(require'plugins.lsp-config')
   use(require'plugins.cmp')
-  use(require'plugins.null-ls')
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use(require'plugins.telescope')
   use(require'plugins.indent-blankline')

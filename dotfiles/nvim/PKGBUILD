@@ -1,5 +1,5 @@
 pkgname=dotfiles-nvim
-pkgver=0.0.9
+pkgver=0.0.10
 pkgrel=1
 pkgdesc="Provide base nvim configuration."
 arch=('any')
@@ -14,14 +14,12 @@ source=(
   'plugins-init.lua'
   'plugins-indent-blankline.lua'
   'plugins-lsp-config.lua'
-  'plugins-null-ls.lua'
   'plugins-telescope.lua'
   'plugins-treesitter.lua'
   'plugins-quick-scope.lua'
   'options.lua'
 )
 sha256sums=(
-  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'
