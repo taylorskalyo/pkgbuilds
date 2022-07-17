@@ -5,6 +5,8 @@ export BEMENU_OPTS="\
   --fn 'Meslo LG M 12px' \
   --nf '{foreground}' \
   --nb '{background}' \
+  --af '{foreground}' \
+  --ab '{background}' \
   --ff '{foreground}' \
   --fb '{background}' \
   --tf '{color2}' \
