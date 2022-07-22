@@ -1,0 +1,17 @@
+pkgname=dotfiles-xdg-user-dirs
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base xdg-user-dirs configuration."
+arch=('any')
+license=('MIT')
+depends=('xdg-user-dirs')
+source=(
+  'user-dirs.dirs'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/user-dirs.dirs" "$pkgdir/usr/share/dotfiles/.config/user-dirs.dirs"
+}
