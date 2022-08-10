@@ -1,10 +1,22 @@
 pkgname=dotfiles-nvim
-pkgver=0.0.11
+pkgver=0.0.12
 pkgrel=1
 pkgdesc="Provide base nvim configuration."
 arch=('any')
 license=('MIT')
 depends=()
+optdepends=(
+  'bash-language-server: bashls support for nvim-lspconfig'
+  'ccls: ccls support for nvim-lspconfig'
+  'crystalline: crystalline support for nvim-lspconfig'
+  'dart: dartls support for nvim-lspconfig'
+  'dockerfile-language-server: dockerls support for nvim-lspconfig'
+  'gopls: gopls support for nvim-lspconfig'
+  'python-language-server: pylsp support for nvim-lspconfig'
+  'rust-analyzer: rust_analyzer support for nvim-lspconfig'
+  'terraform-ls: terraformls support for nvim-lspconfig'
+  'typescript-language-server: tsserver support for nvim-lspconfig'
+)
 source=(
   'colors.vim'
   'statusline.vim'

@@ -57,14 +57,17 @@ return {
     local flags = { debounce_text_changes = 150 }
 
     local servers = {
-      "gopls",
       "bashls",
+      "ccls",
+      "crystalline",
+      "dartls",
+      "dockerls",
+      "gopls",
       "pylsp",
       "terraformls",
-      "dockerls",
-      "dartls",
+      "rust_analyzer",
+      "terraformls",
       "tsserver",
-      "crystalline",
     }
     for _, lsp in ipairs(servers) do
       nvim_lsp[lsp].setup {
