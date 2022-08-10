@@ -16,13 +16,14 @@ vim.cmd[[
 
 return require("packer").startup(function(use)
   -- Packer can manage itself.
-  use { "wbthomason/packer.nvim" }
-  use { "taylorskalyo/markdown-journal" }
   use { "VincentCordobes/vim-translate" }
-  use { "tpope/vim-fugitive" }
-  use { "tpope/vim-surround" }
-  use { "tpope/vim-rhubarb" }
   use { "godlygeek/tabular" }
+  use { "taylorskalyo/markdown-journal" }
+  use { "tpope/vim-fugitive" }
+  use { "tpope/vim-rhubarb" }
+  use { "tpope/vim-surround" }
+  use { "vim-crystal/vim-crystal" }
+  use { "wbthomason/packer.nvim" }
 
   use(require'plugins.treesitter')
   use(require'plugins.lsp-config')
