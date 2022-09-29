@@ -1,20 +1,26 @@
 pkgname=dotfiles-tmux
-pkgver=0.0.1
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="Provide base tmux configuration."
 arch=('any')
 license=('MIT')
 depends=(
   'tmux'
+)
+optdepends=(
   'wl-clipboard'
+  'xsel'
 )
 source=(
   'tmux.conf'
+  'x11.patch'
 )
 sha256sums=(
+  'SKIP'
   'SKIP'
 )
 
 package() {
+  command -v xsel >/dev/null && patch -d "$srcdir" --follow-symlinks --strip=3 < x11.patch
   install -Dm644 "$srcdir/tmux.conf" "$pkgdir/usr/share/dotfiles/.config/tmux/tmux.conf"
 }
