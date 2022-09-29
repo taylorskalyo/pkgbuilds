@@ -1,0 +1,26 @@
+element selected {{
+  text-color:  {color2};
+}}
+
+* {{
+  selected-normal-foreground:  {color2};
+  foreground:                  {foreground};
+  normal-foreground:           @foreground;
+  alternate-normal-background: {background};
+  red:                         {color1};
+  blue:                        {color4};
+  active-foreground:           {foreground};
+  selected-active-foreground:  {color2};
+  alternate-active-background: @active-background;
+  background:                  {background};
+  bordercolor:                 {foreground};
+  alternate-normal-foreground: @foreground;
+  normal-background:           {background};
+  selected-normal-background:  {background};
+  border-color:                @foreground;
+  separatorcolor:              {foreground};
+  background-color:            {background};
+  alternate-active-foreground: @active-foreground;
+  active-background:           {background};
+  selected-active-background:  {background};
+}}

@@ -1,5 +1,5 @@
 pkgname=dotfiles-wal
-pkgver=0.0.4
+pkgver=0.0.5
 pkgrel=1
 pkgdesc="Provide base wal configuration."
 arch=('any')
@@ -8,18 +8,29 @@ depends=(
   'python-pywal'
   'ttf-roboto'
 )
-optdepends=()
+optdepends=(
+  'kitty'
+  'rofi'
+  'bemenu'
+  'theme.sh'
+)
 source=(
   'dark.json'
   'light.json'
   'template-colors-bemenu.sh'
+  'template-colors-kitty.conf'
   'template-colors-oomox'
-  'template-colors-theme.sh'
+  'template-colors-rofi-dark.rasi'
   'template-colors-swaylock'
+  'template-colors-theme.sh'
   'template-colors-wallpaper.svg'
+  'template-colors-xresources'
   'template-colors.sh'
 )
 sha256sums=(
+  'SKIP'
+  'SKIP'
+  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'
