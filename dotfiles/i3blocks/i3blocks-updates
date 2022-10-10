@@ -6,7 +6,11 @@ COLORS="${CONFIG_DIR}/colors"
 [ -e "${COLORS}" ] && source "${COLORS}"
 
 if [ -n "${AUR}" ]; then
-  count=$(yay --aur -Qu | wc -l)
+  if command -v paru >/dev/null; then
+    count=$(paru --aur -Qu | wc -l)
+  elif command -v yay >/dev/null; then
+    count=$(yay --aur -Qu | wc -l)
+  fi
 else
   count=$(checkupdates | wc -l)
 fi

@@ -1,5 +1,5 @@
 pkgname=dotfiles-i3blocks
-pkgver=0.0.2
+pkgver=0.0.3
 pkgrel=1
 pkgdesc="Provide base i3blocks configuration."
 arch=('any')
@@ -14,6 +14,8 @@ depends=(
 )
 optdepends=(
   'acpi'
+  'yay'
+  'paru'
 )
 source=(
   'config'
