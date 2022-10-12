@@ -1,5 +1,5 @@
 pkgname=dotfiles-wal
-pkgver=0.0.5
+pkgver=0.0.6
 pkgrel=1
 pkgdesc="Provide base wal configuration."
 arch=('any')
@@ -13,11 +13,13 @@ optdepends=(
   'rofi'
   'bemenu'
   'theme.sh'
+  'foot'
 )
 source=(
   'dark.json'
   'light.json'
   'template-colors-bemenu.sh'
+  'template-colors-foot.ini'
   'template-colors-kitty.conf'
   'template-colors-oomox'
   'template-colors-rofi-dark.rasi'
@@ -28,6 +30,7 @@ source=(
   'template-colors.sh'
 )
 sha256sums=(
+  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'
