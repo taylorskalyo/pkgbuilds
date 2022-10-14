@@ -1,6 +1,6 @@
 pkgname=dotfiles-i3blocks
 pkgver=0.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Provide base i3blocks configuration."
 arch=('any')
 license=('MIT')

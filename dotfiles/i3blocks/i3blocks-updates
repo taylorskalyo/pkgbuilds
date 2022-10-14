@@ -7,7 +7,7 @@ COLORS="${CONFIG_DIR}/colors"
 
 if [ -n "${AUR}" ]; then
   if command -v paru >/dev/null; then
-    count=$(paru --aur -Qu | grep -cv '[ignored]')
+    count=$(paru --aur -Qu | grep -cvF '[ignored]')
   elif command -v yay >/dev/null; then
     count=$(yay --aur -Qu | wc -l)
   fi
