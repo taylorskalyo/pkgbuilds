@@ -1,10 +1,13 @@
 pkgname=system-systemd-resolved
-pkgver=0.0.1
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="Configure systemd-resolved."
 arch=('any')
 license=('MIT')
 depends=('systemd')
+optdepends=(
+  'systemd-resolvconf'
+)
 install="$pkgname.install"
 source=(
   'dns_over_tls.conf'

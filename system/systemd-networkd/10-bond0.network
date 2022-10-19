@@ -6,3 +6,4 @@ DHCP=yes
 
 [DHCP]
 RouteMetric=10
+UseDNS=false
