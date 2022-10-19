@@ -1,5 +1,5 @@
 pkgname=dotfiles-nvim
-pkgver=0.0.14
+pkgver=0.0.15
 pkgrel=1
 pkgdesc="Provide base nvim configuration."
 arch=('any')
@@ -16,22 +16,26 @@ optdepends=(
   'rust-analyzer: rust_analyzer support for nvim-lspconfig'
   'terraform-ls: terraformls support for nvim-lspconfig'
   'typescript-language-server: tsserver support for nvim-lspconfig'
+  'haskell-tidal: TidalCycles for vim-tidal'
+  'sc3-plugins: Community-made SuperCollider extensions for vim-tidal'
 )
 source=(
   'colors.vim'
-  'statusline.vim'
   'init.lua'
+  'options.lua'
   'plugins-cmp.lua'
   'plugins-ctrlsf.lua'
-  'plugins-init.lua'
   'plugins-indent-blankline.lua'
+  'plugins-init.lua'
   'plugins-lsp-config.lua'
-  'plugins-telescope.lua'
-  'plugins-treesitter.lua'
   'plugins-quick-scope.lua'
-  'options.lua'
+  'plugins-telescope.lua'
+  'plugins-tidal.lua'
+  'plugins-treesitter.lua'
+  'statusline.vim'
 )
 sha256sums=(
+  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'
