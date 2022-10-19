@@ -1,5 +1,5 @@
 pkgname=dotfiles-nvim
-pkgver=0.0.13
+pkgver=0.0.14
 pkgrel=1
 pkgdesc="Provide base nvim configuration."
 arch=('any')

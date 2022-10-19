@@ -1,7 +1,11 @@
 return {
   "neovim/nvim-lspconfig",
-  requires = "folke/lua-dev.nvim",
+  requires = "folke/neodev.nvim",
   config = function()
+
+    -- Use neodev to configure workspace for the nvim lua API.
+    require("neodev").setup({})
+
     local nvim_lsp = require'lspconfig'
 
     -- Less noisy diagnostics.
@@ -71,8 +75,8 @@ return {
       "dockerls",
       "gopls",
       "pylsp",
-      "terraformls",
       "rust_analyzer",
+      "sumneko_lua",
       "terraformls",
       "tsserver",
     }
@@ -82,15 +86,5 @@ return {
         flags = flags,
       }
     end
-
-    -- Use lua-dev to configure workspace for the nvim lua API.
-    local luadev = require("lua-dev").setup {
-      lspconfig = {
-        on_attach = on_attach,
-        flags = flags,
-        cmd = { "lua-language-server" },
-      }
-    }
-    nvim_lsp.sumneko_lua.setup(luadev)
   end,
 }
