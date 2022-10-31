@@ -1,13 +1,16 @@
 return {
   'nvim-telescope/telescope.nvim',
-  requires = { {'nvim-lua/plenary.nvim'}, {'nvim-telescope/telescope-fzf-native.nvim'} },
+  requires = { { 'nvim-lua/plenary.nvim' }, { 'nvim-telescope/telescope-fzf-native.nvim' } },
   config = function()
     require('telescope').load_extension('fzf')
     require('telescope').setup {
       defaults = require('telescope.themes').get_ivy {},
       pickers = {
         find_files = {
-          hidden = true
+          hidden = true,
+          file_ignore_patterns = {
+            '.git/.*',
+          },
         },
       },
     }
