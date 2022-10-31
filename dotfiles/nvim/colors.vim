@@ -209,6 +209,17 @@ call <sid>hi('markdownH4',                s:base04, '', 'bold')
 call <sid>hi('markdownH5',                s:base03, '', 'bold')
 call <sid>hi('markdownListMarker',        s:base05, '', '')
 
+" Treesitter
+call <sid>hi('@punctuation.special',  s:base0D, '', '')
+call <sid>hi('@text.literal',         s:base0B, '', '')
+call <sid>hi('@text.title',           s:base07, '', 'bold')
+call <sid>hi('@text.strike',          '', '', 'strikethrough')
+call <sid>hi('@text.strong',          '', '', 'bold')
+call <sid>hi('@text.emphasis',        '', '', 'italic')
+call <sid>hi('@text.underline',       '', '', 'undercurl')
+call <sid>hi('@text.reference',       s:base08, '', '')
+call <sid>hi('@text.uri',             s:base09, '', '')
+
 " Vimwiki highlighting
 call <sid>hi('VimwikiHeaderChar',  s:base0D, '', '')
 call <sid>hi('VimwikiHeader1',     s:base07, '', 'bold')
