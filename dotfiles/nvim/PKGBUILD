@@ -1,5 +1,5 @@
 pkgname=dotfiles-nvim
-pkgver=0.0.16
+pkgver=0.0.17
 pkgrel=1
 pkgdesc="Provide base nvim configuration."
 arch=('any')
@@ -20,7 +20,7 @@ optdepends=(
   'sc3-plugins: Community-made SuperCollider extensions for vim-tidal'
 )
 source=(
-  'colors.vim'
+  'colors.lua'
   'init.lua'
   'options.lua'
   'plugins-cmp.lua'
@@ -53,7 +53,7 @@ sha256sums=(
 package() {
   install -dm755 "$pkgdir/usr/share/dotfiles/.config/nvim/lua"
   install -dm755 "$pkgdir/usr/share/dotfiles/.config/nvim/colors"
-  install -Dm644 "$srcdir/colors.vim" "$pkgdir/usr/share/dotfiles/.config/nvim/colors/terminal.vim"
+  install -Dm644 "$srcdir/colors.lua" "$pkgdir/usr/share/dotfiles/.config/nvim/colors/terminal.lua"
   install -Dm644 "$srcdir/statusline.vim" "$pkgdir/usr/share/dotfiles/.config/nvim/plugin/statusline.vim"
   install -Dm644 "$srcdir/init.lua" "$pkgdir/usr/share/dotfiles/.config/nvim/init.lua"
   install -Dm644 "$srcdir/options.lua" "$pkgdir/usr/share/dotfiles/.config/nvim/lua/options.lua"
