@@ -21,6 +21,6 @@ return {
     vim.api.nvim_set_keymap('n', '<leader>fg', [[<cmd>:Telescope git_files<CR>]], opts)
     vim.api.nvim_set_keymap('n', '<leader>fa', [[<cmd>:Telescope live_grep<CR>]], opts)
     vim.api.nvim_set_keymap('n', '<leader>f*', [[<cmd>:Telescope grep_string<CR>]], opts)
-    vim.api.nvim_set_keymap('n', '<leader>fb', [[<cmd>:Telescope buffers<CR><cr>]], opts)
+    vim.api.nvim_set_keymap('n', '<leader>fb', [[<cmd>:Telescope buffers<CR>]], opts)
   end,
 }
