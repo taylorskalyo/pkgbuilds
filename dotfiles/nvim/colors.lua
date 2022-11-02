@@ -1,4 +1,3 @@
--- Theme: terminal
 local theme = {}
 
 local syntax = {
@@ -111,6 +110,10 @@ local plugin_syntax = {
   DiagnosticWarn = { ctermfg = 3 },
   DiagnosticInfo = { ctermfg = 4 },
   DiagnosticHint = { ctermfg = 6 },
+  DiagnosticSignError = { ctermfg = 1, ctermbg = 10 },
+  DiagnosticSignWarn = { ctermfg = 3, ctermbg = 10 },
+  DiagnosticSignInfo = { ctermfg = 4, ctermbg = 10 },
+  DiagnosticSignHint = { ctermfg = 6, ctermbg = 10 },
   DiagnosticUnderlineError = { undercurl = true },
   DiagnosticUnderlineWarn = { undercurl = true },
   DiagnosticUnderlineInfo = { undercurl = true },

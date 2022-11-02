@@ -1,5 +1,3 @@
--- luacheck: globals vim
-
 -- Show line numbers.
 vim.opt.number = true
 
@@ -50,3 +48,6 @@ vim.opt.lazyredraw = true
 
 -- Allow modified buffers to be hidden.
 vim.opt.hidden = true
+
+-- Statusline.
+vim.opt.statusline = require('statusline').expression

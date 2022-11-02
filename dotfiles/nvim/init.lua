@@ -1,4 +1,3 @@
--- luacheck: globals vim
 require("plugins.init")
 require("options")
 
