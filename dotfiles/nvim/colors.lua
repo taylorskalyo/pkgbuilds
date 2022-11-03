@@ -98,6 +98,9 @@ local plugin_syntax = {
   ["@text.underline"] = { ctermfg = 'NONE', undercurl = true },
   ["@text.reference"] = { ctermfg = 1 },
   ["@text.uri"] = { ctermfg = 9 },
+  ["@text.note"] = { ctermfg = 10, ctermbg = 4 },
+  ["@text.warning"] = { ctermfg = 10, ctermbg = 3 },
+  ["@text.danger"] = { ctermfg = 10, ctermbg = 1 },
 
   -- Spelling
   SpellBad = { ctermfg = 'NONE', ctermbg = 0, undercurl = true },
