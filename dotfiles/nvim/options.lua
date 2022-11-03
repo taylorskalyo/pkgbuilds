@@ -29,25 +29,11 @@ vim.opt.fillchars = "vert:│"
 -- Disable GUI cursor.
 vim.opt.guicursor = ""
 
--- Use the system clipboard if not using tmux.
-if os.getenv("TMUX") ~= '' then
-  vim.opt.clipboard.append = vim.opt.clipboard + "unnamed"
-end
-
--- Enable mouse scroll wheel.
-vim.opt.mouse = "a"
-
 -- Do not highlight searches.
 vim.opt.hlsearch = false
 
--- Show ex command changes in realtime.
-vim.opt.inccommand = "nosplit"
-
 -- Redraw only when necessary.
 vim.opt.lazyredraw = true
-
--- Allow modified buffers to be hidden.
-vim.opt.hidden = true
 
 -- Statusline.
 vim.opt.statusline = require('statusline').expression
