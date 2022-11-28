@@ -1,5 +1,5 @@
 pkgname=system-systemd-resolved
-pkgver=0.0.2
+pkgver=0.0.3
 pkgrel=1
 pkgdesc="Configure systemd-resolved."
 arch=('any')
