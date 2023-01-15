@@ -1,5 +1,5 @@
 pkgname=dotfiles-foot
-pkgver=0.0.2
+pkgver=0.0.3
 pkgrel=1
 pkgdesc="Provide base foot configuration."
 arch=('any')
