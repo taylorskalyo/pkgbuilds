@@ -1,6 +1,6 @@
 pkgname=dotfiles-sway
 pkgver=0.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Provide base sway configuration."
 arch=('any')
 license=('MIT')
@@ -27,5 +27,5 @@ sha256sums=(
 
 package() {
   install -Dm644 "$srcdir/config" "$pkgdir/usr/share/dotfiles/.config/sway/config"
-  install -Dm644 "$srcdir/sway-session.target" "$pkgdir/usr/share/dotfiles/.config/systemd/user/sway-session.target"
+  install -Dm644 "$srcdir/sway-session.target" "$pkgdir/usr/lib/systemd/user/sway-session.target"
 }

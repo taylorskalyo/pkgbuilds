@@ -1,5 +1,5 @@
 pkgname=dotfiles-easyeffects
-pkgver=0.0.1
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="Provide base easyeffects configuration."
 arch=('any')
@@ -16,5 +16,5 @@ sha256sums=(
 )
 
 package() {
-  install -Dm644 "$srcdir/easyeffects.service" "$pkgdir/usr/share/dotfiles/.config/systemd/user/easyeffects.service"
+  install -Dm644 "$srcdir/easyeffects.service" "$pkgdir/usr/lib/systemd/user/easyeffects.service"
 }
