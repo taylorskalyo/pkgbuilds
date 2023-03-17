@@ -1,13 +1,16 @@
 pkgname=dotfiles-easyeffects
 pkgver=0.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Provide base easyeffects configuration."
 arch=('any')
 license=('MIT')
 depends=(
   'easyeffects'
 )
-optdepends=()
+optdepends=(
+  'lsp-plugins'
+  'calf'
+)
 source=(
   'easyeffects.service'
 )
