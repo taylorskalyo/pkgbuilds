@@ -21,6 +21,6 @@ sha256sums=(
 )
 
 package() {
-  command -v xsel >/dev/null && patch -d "$srcdir" --follow-symlinks --strip=3 < x11.patch
+  command -v wl-copy >/dev/null || patch -d "$srcdir" --follow-symlinks --strip=3 < x11.patch
   install -Dm644 "$srcdir/tmux.conf" "$pkgdir/usr/share/dotfiles/.config/tmux/tmux.conf"
 }
