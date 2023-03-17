@@ -73,10 +73,11 @@ return {
       "crystalline",
       "dartls",
       "dockerls",
+      "gdscript",
       "gopls",
       "pylsp",
       "rust_analyzer",
-      "sumneko_lua",
+      "lua_ls",
       "terraformls",
       "tsserver",
     }
