@@ -1,0 +1,30 @@
+pkgname=dotfiles-waybar
+pkgver=0.0.2
+pkgrel=1
+pkgdesc="Provide base waybar configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'ttf-meslo'
+  'wireplumber'
+  'waybar'
+)
+optdepends=(
+  'python-pywal'
+)
+source=(
+  'config'
+  'pacman.hook'
+  'style.css'
+)
+sha256sums=(
+  'SKIP'
+  'SKIP'
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/config" "$pkgdir/usr/share/dotfiles/.config/waybar/config"
+  install -Dm644 "$srcdir/style.css" "$pkgdir/usr/share/dotfiles/.config/waybar/style.css"
+  install -Dm644 pacman.hook "$pkgdir/etc/pacman.d/hooks/waybar-refresh.hook"
+}

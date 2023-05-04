@@ -1,0 +1,12 @@
+[Trigger]
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Refreshing waybar...
+When = PostTransaction
+Depends = waybar
+Depends = procps-ng
+Exec = /usr/bin/env sh -c "pkill -RTMIN+11 waybar || true"

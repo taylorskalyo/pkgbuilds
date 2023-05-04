@@ -1,0 +1,82 @@
+{
+  "layer": "bottom",
+  "height": 22,
+  "spacing": 0,
+  "modules-left": [
+    "wlr/workspaces",
+    "sway/workspaces"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "clock",
+    "memory",
+    "network",
+    "network#wlan",
+    "wireplumber",
+    "battery",
+    "custom/pacman",
+    "custom/pacman#aur",
+    "tray"
+  ],
+  "wlr/workspaces": {
+    "format": "{name}",
+    "on-click": "activate",
+    "sort-by-number": true
+  },
+  "sway/workspaces": {
+    "format": "{name}"
+  },
+  "tray": {
+    "spacing": 10
+  },
+  "clock": {
+    "interval": 10,
+    "format": "{:%H:%M:%S %Y/%m/%d}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "memory": {
+    "format": "MEM {}% {total:0.1f}G"
+  },
+  "network": {
+    "format": "NET {ifname}",
+    "format-disconnected": "NET -",
+    "tooltip-format": "{ifname} {ipaddr}/{cidr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50
+  },
+  "network#wlan": {
+    "interface": "wlan*",
+    "format": "WFI {essid} {signalStrength}%",
+    "format-disconnected": "WFI -",
+    "tooltip-format": "{essid} {signalStrength}%",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50
+  },
+  "battery": {
+    "bat": "BAT0",
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "BAT {capacity}%",
+    "format-charging": "BAT {capacity}% +{time}",
+    "format-discharging": "BAT {capacity}% -{time}",
+    "format-time": "{H}:{m}"
+  },
+  "wireplumber": {
+    "format": "VOL {volume}%",
+    "format-muted": "VOL -"
+  },
+  "custom/pacman": {
+    "format": "PAC {}",
+    "interval": 3600,
+    "exec": "COUNT=$(checkupdates | wc -l); echo $COUNT && echo $COUNT pending updates && [ $COUNT -gt 0 ] && echo pending || echo",
+    "signal": 11
+  },
+  "custom/pacman#aur": {
+    "format": "AUR {}",
+    "interval": 3600,
+    "exec": "COUNT=$(paru -Qu | grep -cvF '[ignored]'); echo $COUNT && echo $COUNT pending updates && [ $COUNT -gt 0 ] && echo pending || echo",
+    "signal": 11
+  }
+}
