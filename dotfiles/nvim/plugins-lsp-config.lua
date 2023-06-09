@@ -1,12 +1,11 @@
 return {
   "neovim/nvim-lspconfig",
-  requires = "folke/neodev.nvim",
+  dependencies = "folke/neodev.nvim",
   config = function()
-
     -- Use neodev to configure workspace for the nvim lua API.
     require("neodev").setup({})
 
-    local nvim_lsp = require'lspconfig'
+    local nvim_lsp = require 'lspconfig'
 
     -- Less noisy diagnostics.
     vim.diagnostic.config({
@@ -25,7 +24,7 @@ return {
       },
     })
 
-    local opts = { noremap=true, silent=true }
+    local opts = { noremap = true, silent = true }
     vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
     vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
@@ -75,9 +74,9 @@ return {
       "dockerls",
       "gdscript",
       "gopls",
+      "lua_ls",
       "pylsp",
       "rust_analyzer",
-      "lua_ls",
       "terraformls",
       "tsserver",
     }

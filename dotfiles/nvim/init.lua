@@ -2,7 +2,7 @@ require("plugins.init")
 require("options")
 
 -- Colors.
-vim.cmd[[silent! colorscheme terminal]]
+vim.cmd [[silent! colorscheme terminal]]
 
 -- Highlight markdown code blocks.
 vim.g.markdown_fenced_languages = {
