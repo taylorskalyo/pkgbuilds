@@ -2,4 +2,17 @@
 Type=wlan
 
 [Network]
-Bond=bond0
+DHCP=yes
+
+[DHCP]
+RouteMetric=20
+
+[DHCPv4]
+UseDNS=false
+
+[DHCPv6]
+UseDNS=false
+
+[IPv6AcceptRA]
+UseDNS=false
+RouteMetric=20

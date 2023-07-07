@@ -2,5 +2,17 @@
 Name=enp0s31f6 eno1
 
 [Network]
-Bond=bond0
-PrimarySlave=true
+DHCP=yes
+
+[DHCP]
+RouteMetric=10
+
+[DHCPv4]
+UseDNS=false
+
+[DHCPv6]
+UseDNS=false
+
+[IPv6AcceptRA]
+UseDNS=false
+RouteMetric=10

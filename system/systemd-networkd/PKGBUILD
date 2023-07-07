@@ -1,26 +1,22 @@
 pkgname=system-systemd-networkd
-pkgver=0.0.3
+pkgver=0.1.0
 pkgrel=1
 pkgdesc="Configure the systemd-networkd."
 arch=('any')
 license=('MIT')
 depends=('systemd')
 source=(
-  '10-bond0.netdev'
-  '10-bond0.network'
   '20-wired.network'
   '25-wireless.network'
 )
 sha256sums=(
   'SKIP'
   'SKIP'
-  'SKIP'
-  'SKIP'
 )
 
 package() {
   install -dm755 "$pkgdir/etc/systemd/network/"
-  for f in 10-bond0.netdev 10-bond0.network 20-wired.network 25-wireless.network; do
+  for f in "${source[@]}"; do
     install -Dm644 "$srcdir/$f" "$pkgdir/etc/systemd/network/$f"
   done
 }
