@@ -10,6 +10,7 @@ return {
           hidden = true,
           file_ignore_patterns = {
             '.git/.*',
+            '.godot/.*',
           },
         },
       },
