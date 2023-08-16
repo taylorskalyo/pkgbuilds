@@ -1,0 +1,32 @@
+pkgname=dotfiles-hyprland
+pkgver=0.0.5
+pkgrel=1
+pkgdesc="Provide base hyprland configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'bemenu'
+  'foot'
+  'hyprland'
+  'libpulse'
+  'tmux'
+  'ttf-meslo'
+  'waybar'
+  'zenity'
+)
+optdepends=(
+  'python-pywal'
+)
+source=(
+  'hyprland.conf'
+  'hyprland-session.target'
+)
+sha256sums=(
+  'SKIP'
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/hyprland.conf" "$pkgdir/usr/share/dotfiles/.config/hypr/hyprland.conf"
+  install -Dm644 "$srcdir/hyprland-session.target" "$pkgdir/usr/lib/systemd/user/hyprland-session.target"
+}
