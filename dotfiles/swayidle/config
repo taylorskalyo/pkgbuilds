@@ -1,4 +1,4 @@
 timeout 600 'swaylock -f'
-timeout 630 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
-before-sleep 'swaylock -f'
+timeout 630 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on'
+before-sleep 'swaylock -f; sleep 2'
 lock 'swaylock -f'
