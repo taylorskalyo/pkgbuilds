@@ -1,5 +1,5 @@
 pkgname=dotfiles-swaybg
-pkgver=0.0.1
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="Provide base swaybg configuration."
 arch=('any')
