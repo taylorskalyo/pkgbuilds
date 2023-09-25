@@ -1,0 +1,22 @@
+pkgname=dotfiles-swaybg
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base swaybg configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'swaybg'
+)
+optdepends=(
+  'python-pywal'
+)
+source=(
+  'swaybg.service'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/swaybg.service" "$pkgdir/usr/lib/systemd/user/swaybg.service"
+}
