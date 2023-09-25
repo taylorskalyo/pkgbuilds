@@ -46,9 +46,33 @@ apply_swaylock() {
   printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Linked swaylock config."
 }
 
+apply_dunst() {
+  systemctl --user is-active dunst.service | grep '^active' > /dev/null || return 1
+
+  systemctl --user restart dunst.service
+  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted dunst."
+}
+
+apply_swaybg() {
+  systemctl --user is-active swaybg.service | grep '^active' > /dev/null || return 1
+
+  systemctl --user restart swaybg.service
+  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted swaybg."
+}
+
+apply_waybar() {
+  systemctl --user is-active waybar.service | grep '^active' > /dev/null || return 1
+
+  systemctl --user restart waybar.service
+  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted waybar."
+}
+
 wal -st --theme default "$@"
 
 apply_oomox &
 apply_terminal &
 apply_swaylock &
+apply_dunst &
+apply_swaybg &
+apply_waybar &
 wait
