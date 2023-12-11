@@ -1,6 +1,6 @@
 pkgname=dotfiles-wal
 pkgver=0.0.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Provide base wal configuration."
 arch=('any')
 license=('MIT')
@@ -25,12 +25,10 @@ source=(
   'template-colors-rofi-dark.rasi'
   'template-colors-swaylock'
   'template-colors-theme.sh'
-  'template-colors-wallpaper.svg'
   'template-colors-xresources'
   'template-colors.sh'
 )
 sha256sums=(
-  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'
