@@ -127,11 +127,9 @@ local plugin_syntax = {
   gitCommitOverflow = { ctermfg = 1 },
 
   -- Indentline
-  IndentBlanklineChar = { ctermfg = 10 },
-  IndentBlanklineContextChar = { ctermfg = 10 },
+  IblIndent = { ctermfg = 10 },
+  IblScope = { ctermfg = 10 },
 }
-
-local async_load_plugin
 
 local set_hl = function(tbl)
   for group, conf in pairs(tbl) do
@@ -139,18 +137,13 @@ local set_hl = function(tbl)
   end
 end
 
-async_load_plugin = vim.loop.new_async(vim.schedule_wrap(function()
-  set_hl(plugin_syntax)
-  async_load_plugin:close()
-end))
-
 function theme.load()
   vim.api.nvim_command("hi clear")
   vim.api.nvim_command("syntax reset")
 
   vim.g.colors_name = "terminal"
   set_hl(syntax)
-  async_load_plugin:send()
+  set_hl(plugin_syntax)
 end
 
 theme.load()
