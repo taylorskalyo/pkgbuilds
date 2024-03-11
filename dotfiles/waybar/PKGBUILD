@@ -1,13 +1,16 @@
 pkgname=dotfiles-waybar
 pkgver=0.0.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Provide base waybar configuration."
 arch=('any')
 license=('MIT')
 depends=(
+  'grep'
+  'pacman-contrib'
+  'paru'
   'ttf-meslo'
-  'wireplumber'
   'waybar'
+  'wireplumber'
 )
 optdepends=(
   'python-pywal'
