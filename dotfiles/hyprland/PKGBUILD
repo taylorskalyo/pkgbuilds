@@ -1,5 +1,5 @@
 pkgname=dotfiles-hyprland
-pkgver=0.0.8
+pkgver=0.0.9
 pkgrel=1
 pkgdesc="Provide base hyprland configuration."
 arch=('any')
@@ -7,8 +7,10 @@ license=('MIT')
 depends=(
   'bemenu'
   'foot'
+  'grim'
   'hyprland'
   'libpulse'
+  'slurp'
   'tmux'
   'ttf-meslo'
   'waybar'
