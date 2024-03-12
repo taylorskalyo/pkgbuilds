@@ -1,6 +1,6 @@
 pkgname=dotfiles-waybar
-pkgver=0.0.3
-pkgrel=3
+pkgver=0.0.4
+pkgrel=0
 pkgdesc="Provide base waybar configuration."
 arch=('any')
 license=('MIT')

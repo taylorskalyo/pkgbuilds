@@ -27,6 +27,8 @@ window#waybar.hidden {
 }
 
 button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
     /* Avoid rounded borders under each button name */
     border: none;
     border-radius: 0;
@@ -35,10 +37,12 @@ button {
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
     background: inherit;
+    box-shadow: inset 0 -3px @color11;
 }
 
 #workspaces button {
     padding: 0 0px;
+    background-color: transparent;
     color: @color11;
 }
 
@@ -74,14 +78,11 @@ button:hover {
 #mode,
 #idle_inhibitor,
 #scratchpad,
+#power-profiles-daemon,
 #mpd {
     padding: 0 10px;
     color: @foreground;
     border-left: 1px solid @color11;
-}
-
-#clock {
-    border-left: 0px;
 }
 
 #window,
@@ -100,6 +101,7 @@ button:hover {
 }
 
 #clock {
+    border-left: 0px;
 }
 
 #battery {
@@ -122,6 +124,22 @@ button:hover {
 
 #battery.critical:not(.charging) {
     color: @color1;
+}
+
+#power-profiles-daemon {
+    padding-right: 15px;
+}
+
+#power-profiles-daemon.performance {
+    color: @color1;
+}
+
+#power-profiles-daemon.balanced {
+    color: @color3;
+}
+
+#power-profiles-daemon.power-saver {
+    color: @color2;
 }
 
 label:focus {
@@ -167,10 +185,15 @@ label:focus {
     color: @color3;
 }
 
+#custom-pacman.pending {
+    color: @color3;
+}
+
 #temperature {
 }
 
 #temperature.critical {
+    color: @color1;
 }
 
 #tray {
@@ -189,21 +212,20 @@ label:focus {
 }
 
 #idle_inhibitor.activated {
+    color: @color1;
 }
 
 #mpd {
 }
 
 #mpd.disconnected {
+    color: @color1;
 }
 
 #mpd.stopped {
 }
 
 #mpd.paused {
-}
-
-#custom-pacman.pending {
     color: @color3;
 }
 
@@ -223,4 +245,24 @@ label:focus {
 }
 
 #scratchpad.empty {
+}
+
+#privacy {
+    padding: 0;
+}
+
+#privacy-item {
+    padding: 0 5px;
+}
+
+#privacy-item.screenshare {
+    color: @color1;
+}
+
+#privacy-item.audio-in {
+    color: @color3;
+}
+
+#privacy-item.audio-out {
+    color: @color2;
 }
