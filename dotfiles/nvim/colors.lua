@@ -89,12 +89,15 @@ local syntax = {
 
 local plugin_syntax = {
   -- Treesitter
-  ["@markup.heading"] = { ctermfg = 12, bold = true },
-  ["@markup.heading.1"] = { ctermfg = 15, bold = true },
-  ["@markup.heading.2"] = { ctermfg = 13, bold = true },
-  ["@markup.heading.3"] = { ctermfg = 7, bold = true },
-  ["@markup.link.label"] = { ctermfg = 1 },
-  ["@markup.link.url"] = { ctermfg = 9 },
+  ["@markup.heading"] = { ctermfg = 15, bold = true },
+  ["@markup.heading.2"] = { ctermfg = 3, bold = true },
+  ["@markup.heading.3"] = { ctermfg = 9, bold = true },
+  ["@markup.heading.4"] = { ctermfg = 1, bold = true },
+  ["@markup.heading.5"] = { ctermfg = 14, bold = true },
+  ["@markup.heading.6"] = { ctermfg = 14, bold = true },
+  ["@markup.link"] = { ctermfg = 6 },
+  ["@markup.link.label"] = { ctermfg = 4 },
+  ["@markup.link.url"] = { ctermfg = 8 },
   ["@markup.list"] = { ctermfg = 4 },
   ["@markup.quote"] = { ctermfg = 8 },
   ["@markup.raw"] = { ctermfg = 2 },
