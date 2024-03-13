@@ -89,18 +89,38 @@ local syntax = {
 
 local plugin_syntax = {
   -- Treesitter
-  ["@punctuation.special"] = { ctermfg = 4 },
-  ["@text.literal"] = { ctermfg = 2 },
-  ["@text.title"] = { ctermfg = 15, bold = true },
-  ["@text.strike"] = { ctermfg = 'NONE', strikethrough = true },
-  ["@text.strong"] = { ctermfg = 'NONE', bold = true },
-  ["@text.emphasis"] = { ctermfg = 'NONE', italic = true },
-  ["@text.underline"] = { ctermfg = 'NONE', undercurl = true },
-  ["@text.reference"] = { ctermfg = 1 },
-  ["@text.uri"] = { ctermfg = 9 },
-  ["@text.note"] = { ctermfg = 10, ctermbg = 4 },
-  ["@text.warning"] = { ctermfg = 10, ctermbg = 3 },
-  ["@text.danger"] = { ctermfg = 10, ctermbg = 1 },
+  ["@markup.heading"] = { ctermfg = 12, bold = true },
+  ["@markup.heading.1"] = { ctermfg = 15, bold = true },
+  ["@markup.heading.2"] = { ctermfg = 13, bold = true },
+  ["@markup.heading.3"] = { ctermfg = 7, bold = true },
+  ["@markup.link.label"] = { ctermfg = 1 },
+  ["@markup.link.url"] = { ctermfg = 9 },
+  ["@markup.list"] = { ctermfg = 4 },
+  ["@markup.quote"] = { ctermfg = 8 },
+  ["@markup.raw"] = { ctermfg = 2 },
+  ["@markup.italic"] = { ctermfg = 'NONE', italic = true },
+  ["@markup.strikethrough"] = { ctermfg = 'NONE', strikethrough = true },
+  ["@markup.strong"] = { ctermfg = 'NONE', bold = true },
+  ["@markup.underline"] = { ctermfg = 'NONE', undercurl = true },
+  ["@comment.error"] = { ctermfg = 10, ctermbg = 1 },
+  ["@comment.warning"] = { ctermfg = 3 },
+  ["@comment.todo"] = { ctermfg = 4 },
+  ["@comment.note"] = { ctermfg = 2 },
+
+  -- Deprecated Treesitter
+  -- https://github.com/nvim-treesitter/nvim-treesitter/commit/1ae9b0e4558fe7868f8cda2db65239cfb14836d0
+  ["@punctuation.special"] = '@markup.list',
+  ["@text.literal"] = '@markup.raw',
+  ["@text.title"] = '@markup.heading.1',
+  ["@text.strike"] = '@markup.strikethrough',
+  ["@text.strong"] = '@markup.strong',
+  ["@text.emphasis"] = '@markup.italic',
+  ["@text.underline"] = '@markup.underline',
+  ["@text.reference"] = '@markup.link.label',
+  ["@text.uri"] = '@markup.link.url',
+  ["@text.note"] = '@comment.note',
+  ["@text.warning"] = '@comment.warning',
+  ["@text.danger"] = '@comment.error',
 
   -- Spelling
   SpellBad = { ctermfg = 'NONE', ctermbg = 0, undercurl = true },
@@ -133,7 +153,11 @@ local plugin_syntax = {
 
 local set_hl = function(tbl)
   for group, conf in pairs(tbl) do
-    vim.api.nvim_set_hl(0, group, conf)
+    if ('string' == type(conf)) then
+      vim.api.nvim_set_hl(0, group, { link = conf })
+    else
+      vim.api.nvim_set_hl(0, group, conf)
+    end
   end
 end
 

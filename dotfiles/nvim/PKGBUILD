@@ -1,6 +1,6 @@
 pkgname=dotfiles-nvim
-pkgver=0.1.2
-pkgrel=3
+pkgver=0.1.3
+pkgrel=1
 pkgdesc="Provide base nvim configuration."
 arch=('any')
 license=('MIT')
