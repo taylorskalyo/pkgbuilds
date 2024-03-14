@@ -1,5 +1,5 @@
 pkgname=dotfiles-hyprland
-pkgver=0.0.9
+pkgver=0.0.10
 pkgrel=1
 pkgdesc="Provide base hyprland configuration."
 arch=('any')
