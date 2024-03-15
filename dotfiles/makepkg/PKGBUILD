@@ -1,5 +1,5 @@
 pkgname=dotfiles-makepkg
-pkgver=0.0.2
+pkgver=0.0.3
 pkgrel=1
 pkgdesc="Provide base makepkg configuration."
 arch=('any')
@@ -7,6 +7,8 @@ license=('MIT')
 depends=(
   'pacman'
   'aria2'
+  'pbzip2'
+  'pigz'
 )
 source=(
   'makepkg.conf'
