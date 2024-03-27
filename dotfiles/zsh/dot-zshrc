@@ -30,17 +30,17 @@ _RPROMPT="\
 %(1j.  %F{yellow}JOBS %j.)\
 %f"
 RPROMPT=${_RPROMPT}
-autoload -Uz promptinit && promptinit
 
 # Display execution start and elapsed time
+zmodload zsh/datetime
 function _exec_time_preexec() {
-  exec_start=$(date +%s%3N)
+  exec_start="${epochtime[1]}${epochtime[2]}"
 }
 
 function _exec_time_precmd() {
   if [ $exec_start ]; then
-    exec_end=$(date +%s%3N)
-    elapsed=$(($exec_end-$exec_start))
+    exec_end="${epochtime[1]}${epochtime[2]}"
+    elapsed=$(( ($exec_end-$exec_start) / 1000000 )) # in ms
 
     RPROMPT="\
 ${_RPROMPT}\
@@ -54,8 +54,17 @@ precmd_functions+=(_exec_time_precmd)
 preexec_functions+=(_exec_time_preexec)
 
 # Completion
-autoload -Uz compinit && compinit
-autoload -Uz bashcompinit && bashcompinit
+autoload -Uz compinit bashcompinit
+
+# By default compinit checks for new completions and dumps them to a cache. It
+# also performs a security check to make sure completion files aren't owned by
+# another user.
+#
+# Specify '-C' to init completions without these time-consuming checks. Then
+# call again in the background to create a new dump if needed.
+compinit -C
+compinit &!
+bashcompinit
 
 # Edit line in vim
 autoload -z edit-command-line
