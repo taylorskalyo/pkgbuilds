@@ -11,7 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-return require("lazy").setup {
+local plugins = {
   { "VincentCordobes/vim-translate" },
   { "godlygeek/tabular" },
   { "taylorskalyo/markdown-journal" },
@@ -30,3 +30,7 @@ return require("lazy").setup {
   require 'plugins.tidal',
   require 'plugins.treesitter',
 }
+
+return require("lazy").setup(plugins, {
+  lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json"
+})
