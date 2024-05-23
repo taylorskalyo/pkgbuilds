@@ -1,5 +1,5 @@
 pkgname=scripts-pal
-pkgver=0.0.4
+pkgver=0.0.5
 pkgrel=1
 pkgdesc="Apply theme colors."
 arch=('any')

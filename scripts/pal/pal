@@ -15,7 +15,8 @@ apply_oomox() {
   command -v oomox-cli >/dev/null || return 1
   [ -e "${theme}" ] || return 1
 
-  oomox-cli "${theme}" -o oomox-wal -t ~/.themes -m gtk320
+  oomox-cli "${theme}" -o oomox-wal -t ~/.themes -m all
+  gsettings set org.gnome.desktop.interface gtk-theme oomox-wal
   printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Built oomox theme."
 }
 
