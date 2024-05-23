@@ -169,6 +169,7 @@ function theme.load()
   vim.api.nvim_command("syntax reset")
 
   vim.g.colors_name = "terminal"
+  vim.opt.termguicolors = false
   set_hl(syntax)
   set_hl(plugin_syntax)
 end
