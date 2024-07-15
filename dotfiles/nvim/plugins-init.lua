@@ -23,6 +23,8 @@ local plugins = {
 
   require 'plugins.cmp',
   require 'plugins.ctrlsf',
+  require 'plugins.dev-container',
+  require 'plugins.lsp-config',
   require 'plugins.indent-blankline',
   require 'plugins.lsp-config',
   require 'plugins.quick-scope',

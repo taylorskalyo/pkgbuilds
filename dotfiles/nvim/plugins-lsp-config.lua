@@ -77,6 +77,7 @@ return {
       "lua_ls",
       "pylsp",
       "rust_analyzer",
+      "solargraph",
       "terraformls",
       "tsserver",
     }
