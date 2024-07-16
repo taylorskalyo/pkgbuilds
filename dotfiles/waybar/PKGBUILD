@@ -1,5 +1,5 @@
 pkgname=dotfiles-waybar
-pkgver=0.0.4
+pkgver=0.0.5
 pkgrel=0
 pkgdesc="Provide base waybar configuration."
 arch=('any')
@@ -16,11 +16,13 @@ optdepends=(
   'python-pywal'
 )
 source=(
+  'bin-updates'
   'config.jsonc'
   'pacman.hook'
   'style.css'
 )
 sha256sums=(
+  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'
@@ -30,4 +32,7 @@ package() {
   install -Dm644 "$srcdir/config.jsonc" "$pkgdir/usr/share/dotfiles/.config/waybar/config.jsonc"
   install -Dm644 "$srcdir/style.css" "$pkgdir/usr/share/dotfiles/.config/waybar/style.css"
   install -Dm644 pacman.hook "$pkgdir/etc/pacman.d/hooks/waybar-refresh.hook"
+  for f in bin-*; do
+    install -Dm755 "$srcdir/$f" "$pkgdir/usr/share/dotfiles/.config/waybar/bin/${f/bin-/}"
+  done
 }

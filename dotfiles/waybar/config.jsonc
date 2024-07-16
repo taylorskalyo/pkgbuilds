@@ -70,13 +70,15 @@
   "custom/pacman": {
     "format": "PAC {}",
     "interval": 3600,
-    "exec": "COUNT=$(checkupdates | wc -l); echo $COUNT && echo $COUNT pending updates && [ $COUNT -gt 0 ] && echo pending || echo",
+    "exec": "~/.config/waybar/bin/updates",
+    "return-type": "json",
     "signal": 11
   },
   "custom/pacman#aur": {
     "format": "AUR {}",
     "interval": 3600,
-    "exec": "COUNT=$(paru -Qu | grep -cvF '[ignored]'); echo $COUNT && echo $COUNT pending updates && [ $COUNT -gt 0 ] && echo pending || echo",
+    "exec": "~/.config/waybar/bin/updates aur",
+    "return-type": "json",
     "signal": 11
   }
 }

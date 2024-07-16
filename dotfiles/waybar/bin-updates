@@ -1,0 +1,28 @@
+#! /bin/bash
+
+set -e
+
+case $1 in
+  aur)
+    CMD=(paru --color=never -Qu)
+    ;;
+
+  *)
+    CMD=(checkupdates --nocolor)
+    ;;
+esac
+
+UPDATES=$("${CMD[@]}" | grep -vF '[ignored]' | sed 's/->//')
+TEXT="0"
+TOOLTIP="Up to date"
+CLASS=""
+
+if [[ -n "${UPDATES}" ]]; then
+  TEXT="$(printf "%s" "${UPDATES}" | grep -c '^')"
+  TOOLTIP="$(printf "Package Installed Available\n%s" "${UPDATES}" | column -t)"
+  CLASS="pending"
+fi
+
+cat <<JSON
+  {"text":"${TEXT}","tooltip":"${TOOLTIP//$'\n'/\\n}","class":"${CLASS}"}
+JSON
