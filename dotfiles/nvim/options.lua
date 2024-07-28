@@ -27,7 +27,7 @@ vim.opt.splitright = true
 vim.opt.fillchars = "vert:│"
 
 -- Disable GUI cursor.
-vim.opt.guicursor = ""
+vim.opt.guicursor = "n:blinkon0"
 
 -- Do not highlight searches.
 vim.opt.hlsearch = false
