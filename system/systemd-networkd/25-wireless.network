@@ -3,6 +3,7 @@ Type=wlan
 
 [Network]
 DHCP=yes
+MulticastDNS=yes
 
 [DHCP]
 RouteMetric=20
@@ -15,4 +16,3 @@ UseDNS=false
 
 [IPv6AcceptRA]
 UseDNS=false
-RouteMetric=20
