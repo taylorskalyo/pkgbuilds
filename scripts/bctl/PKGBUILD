@@ -1,5 +1,5 @@
 pkgname=scripts-bctl
-pkgver=0.0.2
+pkgver=0.0.3
 pkgrel=1
 pkgdesc="Adjust screen brightness."
 arch=('any')
@@ -16,5 +16,5 @@ sha256sums=(
 )
 
 package() {
-  install -Dm755 "$srcdir/bctl" "$pkgdir/usr/local/bin/bctl"
+  install -Dm755 "$srcdir/bctl" "$pkgdir/usr/bin/bctl"
 }

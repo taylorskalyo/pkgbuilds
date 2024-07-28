@@ -1,5 +1,5 @@
 pkgname=scripts-reclock
-pkgver=0.0.2
+pkgver=0.0.3
 pkgrel=1
 pkgdesc="Reclock GPU."
 arch=('any')
@@ -14,5 +14,5 @@ sha256sums=(
 )
 
 package() {
-  install -Dm755 "$srcdir/reclock" "$pkgdir/usr/local/bin/reclock"
+  install -Dm755 "$srcdir/reclock" "$pkgdir/usr/bin/reclock"
 }

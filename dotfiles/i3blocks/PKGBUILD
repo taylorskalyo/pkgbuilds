@@ -1,5 +1,5 @@
 pkgname=dotfiles-i3blocks
-pkgver=0.0.4
+pkgver=0.0.5
 pkgrel=3
 pkgdesc="Provide base i3blocks configuration."
 arch=('any')
@@ -49,6 +49,6 @@ package() {
   install -Dm644 colors "$pkgdir/usr/share/dotfiles/.config/i3blocks/colors"
   install -Dm644 pacman.hook "$pkgdir/etc/pacman.d/hooks/i3blocks-refresh.hook"
   for f in i3blocks-*; do
-    install -Dm755 "$f" "$pkgdir/usr/local/bin/${f##*/}"
+    install -Dm755 "$f" "$pkgdir/usr/bin/${f##*/}"
   done
 }
