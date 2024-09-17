@@ -79,7 +79,7 @@ return {
       "rust_analyzer",
       "solargraph",
       "terraformls",
-      "tsserver",
+      "ts_ls",
     }
     for _, lsp in ipairs(servers) do
       nvim_lsp[lsp].setup {
