@@ -1,10 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
-  dependencies = "folke/neodev.nvim",
   config = function()
-    -- Use neodev to configure workspace for the nvim lua API.
-    require("neodev").setup({})
-
     local nvim_lsp = require 'lspconfig'
 
     -- Less noisy diagnostics.
