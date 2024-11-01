@@ -33,6 +33,10 @@ return {
       vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
       -- Mappings.
+      -- NOTE: Many of these mappings will be obsolete in the future when
+      -- neovim adds default lsp keymaps. See:
+      -- - https://github.com/neovim/neovim/issues/24252
+      -- - https://github.com/neovim/neovim/pull/28650
       local bufopts = { noremap = true, silent = true, buffer = bufnr }
       vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
