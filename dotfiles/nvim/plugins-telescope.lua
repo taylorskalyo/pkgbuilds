@@ -1,6 +1,10 @@
 return {
   'nvim-telescope/telescope.nvim',
-  dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-fzf-native.nvim' },
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope-fzf-native.nvim',
+    'nvim-telescope/telescope-ui-select.nvim',
+  },
   init = function()
     -- Mappings.
     local opts = { noremap = true, silent = true }
@@ -12,6 +16,7 @@ return {
   end,
   opts = function()
     require('telescope').load_extension('fzf')
+    require('telescope').load_extension('ui-select')
 
     return {
       defaults = require('telescope.themes').get_ivy {},
