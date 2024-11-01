@@ -1,6 +1,6 @@
 return {
   "tidalcycles/vim-tidal",
-  config = function()
+  init = function()
     vim.g.tidal_target = "terminal"
   end,
 }

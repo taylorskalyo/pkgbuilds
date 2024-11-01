@@ -5,9 +5,13 @@ return {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-calc",
   },
-  config = function()
+  init = function()
+    vim.opt.completeopt = "menu,menuone,noselect"
+  end,
+  opts = function()
     local cmp = require 'cmp'
-    cmp.setup {
+
+    return {
       completion = {
         autocomplete = false,
       },
@@ -28,6 +32,5 @@ return {
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
       }),
     }
-    vim.opt.completeopt = "menu,menuone,noselect"
   end,
 }
