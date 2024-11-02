@@ -1,5 +1,5 @@
 pkgname=dotfiles-mpv
-pkgver=0.0.3
+pkgver=0.0.4
 pkgrel=1
 pkgdesc="Provide base mpv configuration."
 arch=('any')
@@ -7,14 +7,14 @@ license=('MIT')
 depends=(
   'mpv'
 )
-autocropver=6fe4fc4593dd5126a208fda83bbff97c7add446b
+autocropver=a0fba7be57f3822d967b04f0f6b6d6341e7516e7
 source=(
   'mpv.conf'
   "https://raw.githubusercontent.com/mpv-player/mpv/$autocropver/TOOLS/lua/autocrop.lua"
 )
 sha256sums=(
   'SKIP'
-  '5c254944a598d4d9a659c1a8fef204132f2df82141fd15984db98822329a1d85'
+  '40cc44b69ff1a8feabd6132ade0054e595fa9ea5e07f175d2dd99b22543fb683'
 )
 
 package() {
