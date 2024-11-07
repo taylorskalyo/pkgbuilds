@@ -4,6 +4,10 @@ local preferred_models = {
 }
 
 local function get_model()
+  if vim.fn.executable('ollama') ~= 1 then
+    return ''
+  end
+
   local out = vim.fn.system({ 'ollama', 'ls' })
   if vim.v.shell_error == 0 then
     -- Look for a preferred model.
