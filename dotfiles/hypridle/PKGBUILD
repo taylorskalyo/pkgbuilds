@@ -1,0 +1,21 @@
+pkgname=dotfiles-hypridle
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base hypridle configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'hypridle'
+  'hyprlock'
+)
+optdepends=()
+source=(
+  'hypridle.conf'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/hypridle.conf" "$pkgdir/usr/share/dotfiles/.config/hypr/hypridle.conf"
+}
