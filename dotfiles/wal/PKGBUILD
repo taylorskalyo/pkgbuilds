@@ -1,6 +1,6 @@
 pkgname=dotfiles-wal
-pkgver=0.0.7
-pkgrel=2
+pkgver=0.0.9
+pkgrel=1
 pkgdesc="Provide base wal configuration."
 arch=('any')
 license=('MIT')
@@ -9,19 +9,23 @@ depends=(
   'ttf-roboto'
 )
 optdepends=(
-  'kitty'
-  'rofi'
   'bemenu'
-  'theme.sh'
   'foot'
+  'hyprlock'
+  'kitty'
+  'qt6ct'
+  'rofi'
+  'theme.sh'
 )
 source=(
   'dark.json'
   'light.json'
   'template-colors-bemenu.sh'
   'template-colors-foot.ini'
+  'template-colors-hyprlock.conf'
   'template-colors-kitty.conf'
   'template-colors-oomox'
+  'template-colors-qtcreator.xml'
   'template-colors-rofi-dark.rasi'
   'template-colors-swaylock'
   'template-colors-theme.sh'
@@ -29,6 +33,8 @@ source=(
   'template-colors.sh'
 )
 sha256sums=(
+  'SKIP'
+  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'
