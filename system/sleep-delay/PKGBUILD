@@ -1,0 +1,17 @@
+pkgname=system-sleep-delay
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Delay sleep so that screen lockers have time to start"
+arch=('any')
+license=('MIT')
+depends=('systemd')
+source=(
+  'sleep-delay.service'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/sleep-delay.service" "$pkgdir/etc/systemd/system/sleep-delay@.service"
+}
