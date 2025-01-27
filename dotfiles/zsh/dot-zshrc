@@ -34,13 +34,13 @@ RPROMPT=${_RPROMPT}
 # Display execution start and elapsed time
 zmodload zsh/datetime
 function _exec_time_preexec() {
-  exec_start="${epochtime[1]}${epochtime[2]}"
+  exec_start=$(( ${epochtime[1]} * 10**9 + ${epochtime[2]} )) # in ns
 }
 
 function _exec_time_precmd() {
   if [ $exec_start ]; then
-    exec_end="${epochtime[1]}${epochtime[2]}"
-    elapsed=$(( ($exec_end-$exec_start) / 1000000 )) # in ms
+    exec_end=$(( ${epochtime[1]} * 10**9 + ${epochtime[2]} )) # in ns
+    elapsed=$(( ($exec_end-$exec_start) / 10**6 )) # in ms
 
     RPROMPT="\
 ${_RPROMPT}\

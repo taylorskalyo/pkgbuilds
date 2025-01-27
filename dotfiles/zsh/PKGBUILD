@@ -1,5 +1,5 @@
 pkgname=dotfiles-zsh
-pkgver=0.0.2
+pkgver=0.0.3
 pkgrel=1
 pkgdesc="Provide base zsh configuration."
 arch=('any')
