@@ -44,7 +44,7 @@ function _exec_time_precmd() {
 
     RPROMPT="\
 ${_RPROMPT}\
-%F{12}  ${elapsed}ms $(date --date=@${exec_start:0:10} +'%H:%M:%S')\
+%F{12}  ${elapsed}ms $(strftime '%H:%M:%S' "${exec_start:0:10}")\
 %f"
     unset exec_start
   fi
