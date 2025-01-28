@@ -24,10 +24,10 @@ local plugins = {
   { 'vim-crystal/vim-crystal' },
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
+  require 'plugins.codecompanion',
   require 'plugins.cmp',
   require 'plugins.ctrlsf',
   require 'plugins.dev-container',
-  require 'plugins.gen',
   require 'plugins.indent-blankline',
   require 'plugins.lazydev',
   require 'plugins.lsp-config',

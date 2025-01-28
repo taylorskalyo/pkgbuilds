@@ -1,5 +1,5 @@
 pkgname=dotfiles-nvim
-pkgver=0.1.12
+pkgver=0.1.13
 pkgrel=1
 pkgdesc="Provide base nvim configuration."
 arch=('any')
@@ -13,7 +13,7 @@ optdepends=(
   'dockerfile-language-server: dockerls support for nvim-lspconfig'
   'gopls: gopls support for nvim-lspconfig'
   'lua-language-server: lua_ls support for nvim-lspconfig'
-  'ollama: llm server for gen.nvim'
+  'ollama: llm server for codecompanion'
   'python-language-server: pylsp support for nvim-lspconfig'
   'rust-analyzer: rust_analyzer support for nvim-lspconfig'
   'terraform-ls: terraformls support for nvim-lspconfig'
@@ -25,10 +25,10 @@ source=(
   'colors.lua'
   'init.lua'
   'options.lua'
+  'plugins-codecompanion.lua'
   'plugins-cmp.lua'
   'plugins-ctrlsf.lua'
   'plugins-dev-container.lua'
-  'plugins-gen.lua'
   'plugins-indent-blankline.lua'
   'plugins-init.lua'
   'plugins-lazydev.lua'
