@@ -82,7 +82,7 @@ local syntax = {
   Delimiter = { ctermfg = 6 },
   Debug = { ctermfg = 1 },
 
-  Underlined = { ctermfg = 1 },
+  Underlined = { undercurl = true },
 
   Error = { ctermfg = 0, ctermbg = 1 },
 
@@ -104,7 +104,7 @@ local syntax = {
 
   -- Other
   Bold = { bold = true },
-  Italic = { ctermfg = 'NONE', italic = true },
+  Italic = { italic = true },
   VertSplit = { ctermfg = 11, ctermbg = 0 },
 }
 
