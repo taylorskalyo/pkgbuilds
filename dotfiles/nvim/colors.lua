@@ -76,15 +76,21 @@ local syntax = {
   Typedef = { ctermfg = 3 },
 
   -- Diff
+  Added = { ctermfg = 2 },
+  Changed = { ctermfg = 4, ctermbg = 10 },
+  Removed = { ctermfg = 1 },
   DiffAdd = { ctermfg = 'NONE', ctermbg = 10 },
-  DiffChange = { ctermfg = 8, ctermbg = 10 },
+  DiffChange = { ctermfg = 'NONE', ctermbg = 10 },
   DiffDelete = { ctermfg = 1, ctermbg = 10 },
-  DiffText = { ctermfg = 4, ctermbg = 10 },
-  DiffAdded = { ctermfg = 2, ctermbg = 0 },
-  DiffFile = { ctermfg = 1, ctermbg = 0 },
-  DiffNewFile = { ctermfg = 2, ctermbg = 0 },
-  DiffLine = { ctermfg = 4, ctermbg = 0 },
-  DiffRemoved = { ctermfg = 1, ctermbg = 0 },
+  DiffText = { ctermfg = 'NONE', ctermbg = 11 },
+  DiffAdded = 'Added',
+  DiffRemoved = 'Removed',
+  DiffFile = { ctermfg = 7, bold = true },
+  DiffOldFile = 'DiffFile',
+  DiffNewFile = 'DiffFile',
+  DiffIndexLine = 'DiffFile',
+  DiffLine = { ctermfg = 6 },
+  DiffSubname = { ctermfg = 15 },
 }
 
 local plugin_syntax = {
@@ -109,6 +115,8 @@ local plugin_syntax = {
   ["@comment.warning"] = { ctermfg = 3 },
   ["@comment.todo"] = { ctermfg = 4 },
   ["@comment.note"] = { ctermfg = 2 },
+  ["@string.special.path.diff"] = 'DiffFile',
+  ["@attribute.diff"] = 'DiffLine',
 
   -- Deprecated Treesitter
   -- https://github.com/nvim-treesitter/nvim-treesitter/commit/1ae9b0e4558fe7868f8cda2db65239cfb14836d0
