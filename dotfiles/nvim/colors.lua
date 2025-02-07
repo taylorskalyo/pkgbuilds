@@ -153,6 +153,7 @@ local plugin_syntax = {
   DiagnosticWarn = { ctermfg = 3 },
   DiagnosticInfo = { ctermfg = 4 },
   DiagnosticHint = { ctermfg = 6 },
+  DiagnosticOk = { ctermfg = 2 },
   DiagnosticSignError = { ctermfg = 1, ctermbg = 10 },
   DiagnosticSignWarn = { ctermfg = 3, ctermbg = 10 },
   DiagnosticSignInfo = { ctermfg = 4, ctermbg = 10 },
