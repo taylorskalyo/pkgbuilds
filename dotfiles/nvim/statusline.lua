@@ -32,7 +32,6 @@ end
 
 -- Build the formatting expression.
 Statusline.expression = table.concat {
-  f.hi("Comment"),
   f.trunc, f.file, " ",
   f.modified,
   f.sep,

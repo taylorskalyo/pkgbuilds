@@ -33,8 +33,8 @@ local syntax = {
   SpellCap = { ctermfg = 'NONE', ctermbg = 0, undercurl = true },
   SpellLocal = { ctermfg = 'NONE', ctermbg = 0, undercurl = true },
   SpellRare = { ctermfg = 'NONE', ctermbg = 0, undercurl = true },
-  StatusLine = { ctermfg = 12, ctermbg = 11 },
-  StatusLineNC = { ctermfg = 8, ctermbg = 10 },
+  StatusLine = { ctermfg = 8, ctermbg = 0 },
+  StatusLineNC = { ctermfg = 11, ctermbg = 0 },
   TabLine = { ctermfg = 8, ctermbg = 10 },
   TabLineFill = { ctermfg = 8, ctermbg = 10 },
   TabLineSel = { ctermfg = 2, ctermbg = 10 },
@@ -44,6 +44,7 @@ local syntax = {
   WarningMsg = { ctermfg = 1 },
   Whitespace = { ctermfg = 11 },
   WildMenu = { ctermfg = 1 },
+  WinSeparator = 'VertSplit',
 
   -- Syntax
   Comment = { ctermfg = 8 },
