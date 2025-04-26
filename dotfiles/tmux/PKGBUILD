@@ -1,5 +1,5 @@
 pkgname=dotfiles-tmux
-pkgver=0.0.4
+pkgver=0.0.5
 pkgrel=1
 pkgdesc="Provide base tmux configuration."
 arch=('any')
