@@ -1,5 +1,5 @@
 pkgname=dotfiles-wal
-pkgver=0.0.12
+pkgver=0.0.13
 pkgrel=1
 pkgdesc="Provide base wal configuration."
 arch=('any')
@@ -26,6 +26,7 @@ source=(
   'colorschemes-light-gruvbox-soft.json'
   'template-colors-bemenu.sh'
   'template-colors-foot.ini'
+  'template-colors-godot.tet'
   'template-colors-hyprlock.conf'
   'template-colors-kitty.conf'
   'template-colors-oomox'
@@ -37,6 +38,7 @@ source=(
   'template-colors.sh'
 )
 sha256sums=(
+  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'
