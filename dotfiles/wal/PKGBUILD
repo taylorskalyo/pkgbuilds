@@ -1,5 +1,5 @@
 pkgname=dotfiles-wal
-pkgver=0.0.11
+pkgver=0.0.12
 pkgrel=1
 pkgdesc="Provide base wal configuration."
 arch=('any')
