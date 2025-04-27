@@ -1,11 +1,11 @@
 pkgname=scripts-bctl
-pkgver=0.0.3
+pkgver=0.0.4
 pkgrel=1
 pkgdesc="Adjust screen brightness."
 arch=('any')
 license=('MIT')
 depends=(
-  'wlr-brightness-git'
+  'hyprsunset'
 )
 optdepends=()
 source=(

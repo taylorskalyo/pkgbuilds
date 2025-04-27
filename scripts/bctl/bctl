@@ -2,7 +2,11 @@
 
 BCTL_DATA_DIR=${BCTL_DATA_DIR:-${XDG_DATA_DIR:=${HOME}/.local/share}/bctl}
 
-data_file=${bright_data_file:-${BCTL_DATA_DIR}/brightness}
+data_file=${BCTL_DATA_DIR}/brightness
+#gamma_cmd=(gdbus call -e -d de.mherzberg -o /de/mherzberg/wlrbrightness -m de.mherzberg.wlrbrightness.set)
+#gamma_multiplier=1
+gamma_cmd=(hyprctl hyprsunset gamma)
+gamma_multiplier=100
 
 nth_root() {
   bc -l <<< "e(l($1) / $2)"
@@ -82,13 +86,14 @@ case $1 in
 esac
 
 # Enforce min/max values
-min_bright=0.0
+min_bright=0.1
 max_bright=1.0
 brightness=$(bc <<< "if (${brightness} < ${min_bright}) ${min_bright} else ${brightness}")
 brightness=$(bc <<< "if (${brightness} > ${max_bright}) ${max_bright} else ${brightness}")
 
 # Change brightness and gamma on all connected displays
-gdbus call -e -d de.mherzberg -o /de/mherzberg/wlrbrightness -m de.mherzberg.wlrbrightness.set "${brightness}"
+gamma=$(bc <<< "${brightness} * ${gamma_multiplier}")
+"${gamma_cmd[@]}" "${gamma}"
 
 # Persist settings
 mkdir -p "${BCTL_DATA_DIR}"
