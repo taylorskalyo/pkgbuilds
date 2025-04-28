@@ -1,10 +1,13 @@
 pkgname=dotfiles-foot
-pkgver=0.0.3
+pkgver=0.0.4
 pkgrel=1
 pkgdesc="Provide base foot configuration."
 arch=('any')
 license=('MIT')
-depends=('foot')
+depends=(
+  'foot'
+  'ttf-meslo-nerd'
+)
 source=(
   'foot.ini'
 )
