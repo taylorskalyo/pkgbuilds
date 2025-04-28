@@ -1,12 +1,12 @@
 pkgname=dotfiles-wal
-pkgver=0.0.13
+pkgver=0.0.14
 pkgrel=1
 pkgdesc="Provide base wal configuration."
 arch=('any')
 license=('MIT')
 depends=(
   'python-pywal'
-  'ttf-roboto'
+  'ttf-meslo-nerd'
 )
 optdepends=(
   'bemenu'

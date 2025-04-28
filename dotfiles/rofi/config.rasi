@@ -10,7 +10,7 @@ configuration {
 @import "~/.cache/wal/colors-rofi-dark.rasi"
 
 * {
-  font:              "Meslo LG M 9";
+  font:              "MesloLGM Nerd Font Mono 9";
   highlight:         none;
 }
 

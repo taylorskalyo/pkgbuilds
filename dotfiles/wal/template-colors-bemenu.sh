@@ -2,7 +2,7 @@ export BEMENU_OPTS="\
   -i \
   -H 24 \
   -p 'run' \
-  --fn 'Meslo LG M 12px' \
+  --fn 'MesloLGM Nerd Font Mono 12px' \
   --nf '{foreground}' \
   --nb '{background}' \
   --af '{foreground}' \

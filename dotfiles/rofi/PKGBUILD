@@ -1,11 +1,11 @@
 pkgname=dotfiles-rofi
-pkgver=0.0.1
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="Provide base rofi configuration."
 arch=('any')
 license=('MIT')
 depends=(
-  'ttf-meslo'
+  'ttf-meslo-nerd'
 )
 optdepends=()
 source=(

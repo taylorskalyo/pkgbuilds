@@ -9,8 +9,7 @@
 @import "../../.cache/wal/colors-waybar.css";
 
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "Meslo LG M", monospace;
+    font-family: "MesloLGM Nerd Font Mono", "Meslo LG M", monospace;
     font-size: 12px;
 }
 

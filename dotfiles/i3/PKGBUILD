@@ -1,5 +1,5 @@
 pkgname=dotfiles-i3
-pkgver=0.0.1
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="Provide base i3 configuration."
 arch=('any')
@@ -10,7 +10,7 @@ depends=(
   'rofi'
   'i3blocks'
 
-  'ttf-meslo'
+  'ttf-meslo-nerd'
   'feh'
   'picom'
   'easyeffects'
