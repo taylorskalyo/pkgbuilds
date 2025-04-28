@@ -33,6 +33,7 @@ source=(
   'plugins-init.lua'
   'plugins-lazydev.lua'
   'plugins-lsp-config.lua'
+  'plugins-render-markdown.lua'
   'plugins-quick-scope.lua'
   'plugins-telescope.lua'
   'plugins-tidal.lua'
@@ -40,6 +41,7 @@ source=(
   'statusline.lua'
 )
 sha256sums=(
+  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'

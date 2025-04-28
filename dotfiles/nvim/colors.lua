@@ -171,6 +171,19 @@ local plugin_syntax = {
   -- Indentline
   IblIndent = { ctermfg = 10 },
   IblScope = { ctermfg = 10 },
+
+  -- Render Markdown
+  RenderMarkdownH1Bg = '@markup.heading',
+  RenderMarkdownH2Bg = '@markup.heading.2',
+  RenderMarkdownH3Bg = '@markup.heading.3',
+  RenderMarkdownH4Bg = '@markup.heading.4',
+  RenderMarkdownH5Bg = '@markup.heading.5',
+  RenderMarkdownH6Bg = '@markup.heading.6',
+  RenderMarkdownBullet = '@markup.list',
+  RenderMarkdownDash = '@markup.list',
+  RenderMarkdownCodeFallback = '@label.markdown',
+  RenderMarkdownTableHead = 'Comment',
+  RenderMarkdownTableRow = 'Comment',
 }
 
 local set_hl = function(tbl)

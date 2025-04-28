@@ -32,6 +32,7 @@ local plugins = {
   require 'plugins.lazydev',
   require 'plugins.lsp-config',
   require 'plugins.quick-scope',
+  require 'plugins.render-markdown',
   require 'plugins.telescope',
   require 'plugins.tidal',
   require 'plugins.treesitter',
