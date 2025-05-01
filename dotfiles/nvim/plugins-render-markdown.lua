@@ -67,12 +67,8 @@ return {
     sign = { enabled = false },
 
     heading = {
-      icons = { '§  ', '§ . ', '§ .. ', '§ ... ', '§ .... ', '§ ..... ' },
+      icons = { '§ ', '§. ', '§.. ', '§... ', '§.... ', '§..... ' },
       position = 'overlay',
-    },
-
-    paragraph = {
-      left_margin = 2,
     },
 
     code = {
@@ -93,8 +89,6 @@ return {
       icons = function(ctx)
         return ListFormatter.to_unordered(ctx.level)
       end,
-      left_pad = 2,
-      right_pad = 1,
       ordered_icons = function(ctx)
         local val = vim.trim(ctx.value)
         local num = tonumber(val:sub(1, #val - 1))
@@ -112,13 +106,13 @@ return {
     },
 
     checkbox = is_nerdy and {
-      unchecked = { icon = '  󰄱 ' },
-      checked = { icon = '  󰱒 ' },
-      custom = { todo = { raw = '[-]', rendered = '   ' } },
+      unchecked = { icon = '󰄱' },
+      checked = { icon = '󰱒' },
+      custom = { todo = { raw = '[-]', rendered = '' } },
     } or {
-      unchecked = { icon = '  □ ' },
-      checked = { icon = '  ▣ ' },
-      custom = { todo = { raw = '[-]', rendered = '  ⌛' } },
+      unchecked = { icon = '□ ' },
+      checked = { icon = '▣ ' },
+      custom = { todo = { raw = '[-]', rendered = '⌛' } },
     },
 
     quote = {
