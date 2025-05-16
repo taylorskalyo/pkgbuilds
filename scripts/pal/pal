@@ -4,6 +4,8 @@
 #
 # Basically pywal + functions to apply themes
 
+set -e
+
 XDG_CONFIG_DIR="${XDG_CONFIG_DIR:=$HOME/.config}"
 XDG_CACHE_DIR="${XDG_CACHE_DIR:=$HOME/.cache}"
 WAL_CACHE="${XDG_CACHE_DIR}/wal"
@@ -47,11 +49,11 @@ apply_swaylock() {
   printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Linked swaylock config."
 }
 
-apply_dunst() {
-  systemctl --user is-active dunst.service | grep '^active' > /dev/null || return 1
+apply_mako() {
+  systemctl --user is-active mako.service | grep '^active' > /dev/null || return 1
 
-  systemctl --user restart dunst.service
-  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted dunst."
+  systemctl --user restart mako.service
+  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted mako."
 }
 
 apply_swaybg() {
@@ -73,7 +75,7 @@ wal -st --theme default "$@"
 apply_oomox &
 apply_terminal &
 apply_swaylock &
-apply_dunst &
+apply_mako &
 apply_swaybg &
 apply_waybar &
 wait

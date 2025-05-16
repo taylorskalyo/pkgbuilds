@@ -1,0 +1,19 @@
+pkgname=dotfiles-mako
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base mako configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'mako'
+)
+source=(
+  'config'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/config" "$pkgdir/usr/share/dotfiles/.config/mako/config"
+}

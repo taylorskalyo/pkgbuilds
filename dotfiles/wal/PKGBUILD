@@ -1,5 +1,5 @@
 pkgname=dotfiles-wal
-pkgver=0.0.15
+pkgver=0.0.16
 pkgrel=1
 pkgdesc="Provide base wal configuration."
 arch=('any')
@@ -11,10 +11,13 @@ depends=(
 optdepends=(
   'bemenu'
   'foot'
+  'godot'
   'hyprlock'
   'kitty'
+  'mako'
   'qt6ct'
   'rofi'
+  'swaylock'
   'theme.sh'
 )
 source=(
@@ -29,6 +32,7 @@ source=(
   'template-colors-godot.tet'
   'template-colors-hyprlock.conf'
   'template-colors-kitty.conf'
+  'template-colors-mako'
   'template-colors-oomox'
   'template-colors-qtcreator.xml'
   'template-colors-rofi-dark.rasi'
@@ -38,6 +42,7 @@ source=(
   'template-colors.sh'
 )
 sha256sums=(
+  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'
