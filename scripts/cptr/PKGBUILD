@@ -1,0 +1,24 @@
+pkgname=scripts-cptr
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Capture screenshots and screen recordings."
+arch=('any')
+license=('MIT')
+depends=(
+  'grim'
+  'hyprland'
+  'jq'
+  'slurp'
+  'wf-recorder'
+)
+optdepends=()
+source=(
+  'cptr'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm755 "$srcdir/cptr" "$pkgdir/usr/bin/cptr"
+}

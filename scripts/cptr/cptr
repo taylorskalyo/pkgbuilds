@@ -1,0 +1,52 @@
+#!/bin/bash
+
+util_video=wf-recorder
+util_picture=grim
+help=$(cat <<HELP
+Usage: ${BASH_SOURCE##*/} [OPTION]
+
+Capture screenshots and screen recordings.
+
+OPTION
+  --help        Show this help and exit.
+  -s|--slurp    Use slurp to define region for capture.
+  -v|--video    Capture video.
+  -p|--picture  Take a screenshot.
+HELP
+)
+utility=""
+util_args=()
+
+pkill -INT -x "${util_video}" && hyprctl notify 1 3000 0 "Finished Recording" && exit 0
+
+while [ "${1:-}" != "" ]; do
+  case $1 in
+    -h|--help)
+      echo "${help}" && exit 0
+      ;;
+    -s|--slurp)
+      GEOMETRY=$(hyprctl -j clients | jq -r '.[] | select(.workspace.id=='"$(hyprctl -j activeworkspace | jq '.id')"') | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | slurp)
+      util_args+=( -g "$GEOMETRY")
+      ;;
+    -p|--picture)
+      utility="${util_picture}"
+      ;;
+    -v|--video)
+      utility="${util_video}"
+      ;;
+  esac
+  shift
+done
+
+if [[ "${utility}" == "${util_video}" ]]; then
+  util_args+=(-x yuv420p -f "/tmp/screenrecord-$(date --iso-8601=seconds).mp4")
+  hyprctl notify 1 3000 0 "Starting Recording"
+  sleep 4
+  "${utility}" "${util_args[@]}"
+elif [[ "${utility}" == "${util_picture}" ]]; then
+  util_args+=("/tmp/screenshot-$(date --iso-8601=seconds).png")
+  "${utility}" "${util_args[@]}"
+  hyprctl notify 1 3000 0 "Finished Screenshot"
+else
+  echo "${help}" && exit 1
+fi
