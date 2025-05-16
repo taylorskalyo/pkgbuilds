@@ -1,5 +1,5 @@
 pkgname=dotfiles-waybar
-pkgver=0.0.6
+pkgver=0.1.0
 pkgrel=1
 pkgdesc="Provide base waybar configuration."
 arch=('any')
@@ -8,13 +8,13 @@ depends=(
   'grep'
   'pacman-contrib'
   'paru'
+  'ttf-nerd-fonts-symbols-mono'
+  'ttf-roboto'
   'waybar'
   'wireplumber'
 )
 optdepends=(
   'python-pywal'
-  'ttf-meslo'
-  'ttf-meslo-nerd'
 )
 source=(
   'bin-updates'

@@ -6,12 +6,11 @@
     "hyprland/workspaces",
     "sway/workspaces"
   ],
-  "modules-center": [],
-  "modules-right": [
+  "modules-center": [
     "clock",
-    "memory",
+  ],
+  "modules-right": [
     "network",
-    "network#wlan",
     "wireplumber",
     "battery",
     "custom/pacman",
@@ -31,51 +30,62 @@
   },
   "clock": {
     "interval": 10,
-    "format": "{:%H:%M:%S %Y/%m/%d}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    "format": "{:%H:%M:%S}",
+    "tooltip-format": "{:%a, %B %d}\n\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "format": {
+        "today": "<u>{}</u>"
+      }
+    },
   },
   "memory": {
     "format": "MEM {}% {total:0.1f}G"
   },
   "network": {
-    "format": "NET {ifname}",
-    "format-disconnected": "NET -",
-    "tooltip-format": "{ifname} {ipaddr}/{cidr}",
-    "tooltip-format-disconnected": "Disconnected",
-    "max-length": 50
-  },
-  "network#wlan": {
-    "interface": "wlan*",
-    "format": "WFI {essid} {signalStrength}%",
-    "format-disconnected": "WFI -",
-    "tooltip-format": "{essid} {signalStrength}%",
+    "format-icons": [ "󰤯", "󰤟", "󰤢", "󰤥", "󰤨" ],
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "",
+    "tooltip-format-wifi": "Connected to {essid}\n{frequency}GHz @ {signalStrength}%\n{ipaddr}/{cidr}",
+    "tooltip-format-ethernet": "Connected to ethernet\n{ipaddr}/{cidr}",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50
   },
   "battery": {
     "bat": "BAT0",
     "states": {
-      "warning": 30,
-      "critical": 15
+      "warning": 50,
+      "critical": 30
     },
-    "format": "BAT {capacity}%",
-    "format-charging": "BAT {capacity}% +{time}",
-    "format-discharging": "BAT {capacity}% -{time}",
-    "format-time": "{H}:{m}"
+    "format": "{icon}",
+    "format-icons": {
+      "charging": [ "󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅" ],
+      "discharging": [ "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
+    },
+    "format-charging": "{icon}",
+    "format-discharging": "{icon}",
+    "format-time": "{H}:{m}",
+    "tooltip-format": "Battery at {capacity}%",
+    "tooltip-format-charging": "Battery at {capacity}%\nCharging, full in {time}",
+    "tooltip-format-discharging": "Battery at {capacity}%\nDischarging, empty in {time}"
   },
   "wireplumber": {
-    "format": "VOL {volume}%",
-    "format-muted": "VOL -"
+    "format": "{icon}",
+    "format-icons": [ "󰕿", "󰖀", "󰕾" ],
+    "format-muted": "󰝟",
+    "tooltip-format": "Volume at {volume}%\n{node_name}"
   },
   "custom/pacman": {
-    "format": "PAC {}",
+    "hide-empty-text": true,
+    "format": "󰁇 {}",
     "interval": 3600,
     "exec": "~/.config/waybar/bin/updates",
     "return-type": "json",
     "signal": 11
   },
   "custom/pacman#aur": {
-    "format": "AUR {}",
+    "hide-empty-text": true,
+    "format": "󰁈 {}",
     "interval": 3600,
     "exec": "~/.config/waybar/bin/updates aur",
     "return-type": "json",

@@ -13,13 +13,19 @@ case $1 in
 esac
 
 UPDATES=$("${CMD[@]}" | grep -vF '[ignored]' | sed 's/->//')
-TEXT="0"
+TEXT=""
 TOOLTIP="Up to date"
 CLASS=""
 
 if [[ -n "${UPDATES}" ]]; then
   TEXT="$(printf "%s" "${UPDATES}" | grep -c '^')"
-  TOOLTIP="$(printf "Package Installed Available\n%s" "${UPDATES}" | column -t)"
+  TABLE=$(printf "Package Installed Available\n%s" "${UPDATES}" \
+    | column -t \
+    | sed '1,1s:Package:<b>Package</b>:' \
+    | sed '1,1s:Installed:<b>Installed</b>:' \
+    | sed '1,1s:Available:<b>Available</b>:'
+  )
+  TOOLTIP="<tt><small>${TABLE}</small></tt>"
   CLASS="pending"
 fi
 

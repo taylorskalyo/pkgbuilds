@@ -1,6 +1,6 @@
 pkgname=dotfiles-hyprland
-pkgver=0.2.9
-pkgrel=2
+pkgver=0.2.10
+pkgrel=1
 pkgdesc="Provide base hyprland configuration."
 arch=('any')
 license=('MIT')

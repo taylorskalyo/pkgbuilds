@@ -4,17 +4,19 @@
 @define-color color1 #ff0000;
 @define-color color2 #00ff00;
 @define-color color3 #dddd00;
+@define-color color7 #dddddd;
+@define-color color8 #666666;
 @define-color color11 #555555;
 
 @import "../../.cache/wal/colors-waybar.css";
 
 * {
-    font-family: "MesloLGM Nerd Font Mono", "Meslo LG M", monospace;
+    font-family: "Symbols Nerd Font Mono", "Roboto Medium";
     font-size: 12px;
 }
 
 window#waybar {
-    background-color: @background;
+    background-color: transparent;
     border-bottom: 0px;
     color: @foreground;
     transition-property: background-color;
@@ -26,39 +28,32 @@ window#waybar.hidden {
 }
 
 button {
-    /* Use box-shadow instead of border so the text isn't offset */
-    box-shadow: inset 0 -3px transparent;
-    /* Avoid rounded borders under each button name */
-    border: none;
-    border-radius: 0;
+    background-color: transparent;
+    padding: 0 0px;
+    border-radius: 10;
 }
 
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
-    background: inherit;
-    box-shadow: inset 0 -3px @color11;
+    background-color: @color7;
+    color: @background;
 }
 
 #workspaces button {
     padding: 0 0px;
-    background-color: transparent;
-    color: @color11;
-}
-
-#workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
+    margin: 0 2px;
+    border: 0px;
 }
 
 #workspaces button.active,
 #workspaces button.focused {
-    color: @color2;
+    background-color: @color11;
+    color: @foreground;
+    padding: 0 16px;
 }
 
 #workspaces button.urgent {
-    color: @color1;
-}
-
-#mode {
+    color: @background;
+    background-color: @color1;
 }
 
 #clock,
@@ -78,15 +73,10 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
+#workspaces,
 #mpd {
-    padding: 0 10px;
+    padding: 0 8px;
     color: @foreground;
-    border-left: 1px solid @color11;
-}
-
-#window,
-#workspaces {
-    margin: 0 4px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -99,25 +89,18 @@ button:hover {
     margin-right: 0;
 }
 
-#clock {
-    border-left: 0px;
-}
-
-#battery {
-}
-
-#battery.warning {
+#battery.discharging.warning {
     color: @color3;
 }
 
-#battery.critical {
+#battery.discharging.critical {
     color: @color1;
 }
 
 @keyframes blink {
     to {
         background-color: @foreground;
-        color: #000000;
+        color: @background;
     }
 }
 
@@ -145,57 +128,20 @@ label:focus {
     background-color: #000000;
 }
 
-#cpu {
-}
-
-#memory {
-    color: @color2;
-}
-
-#disk {
-}
-
-#backlight {
-}
-
-#network {
-    color: @color2;
-}
-
 #network.disconnected {
-    color: @color1;
-}
-
-#network.wlan.disconnected {
-    color: @color3;
-}
-
-#pulseaudio {
-}
-
-#pulseaudio.muted {
-    color: @color3;
-}
-
-#wireplumber {
+    color: @color8;
 }
 
 #wireplumber.muted {
-    color: @color3;
+    color: @color8;
 }
 
-#custom-pacman.pending {
+/*#custom-pacman.pending {
     color: @color3;
-}
-
-#temperature {
-}
+}*/
 
 #temperature.critical {
     color: @color1;
-}
-
-#tray {
 }
 
 #tray > .passive {
@@ -207,43 +153,16 @@ label:focus {
     background-color: @color1;
 }
 
-#idle_inhibitor {
-}
-
 #idle_inhibitor.activated {
     color: @color1;
-}
-
-#mpd {
 }
 
 #mpd.disconnected {
     color: @color1;
 }
 
-#mpd.stopped {
-}
-
 #mpd.paused {
     color: @color3;
-}
-
-#language {
-}
-
-#keyboard-state {
-}
-
-#keyboard-state > label {
-}
-
-#keyboard-state > label.locked {
-}
-
-#scratchpad {
-}
-
-#scratchpad.empty {
 }
 
 #privacy {
@@ -264,4 +183,10 @@ label:focus {
 
 #privacy-item.audio-out {
     color: @color2;
+}
+
+tooltip {
+    color: @background;
+    background-color: @foreground;
+    border-radius: 10px;
 }
