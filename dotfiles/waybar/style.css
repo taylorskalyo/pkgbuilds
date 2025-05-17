@@ -17,10 +17,10 @@
 
 window#waybar {
     color: @foreground;
-    background-color: transparent;
+    background-color: alpha(@background, 0.8);
     border-bottom: 0px;
     transition-property: background-color;
-    transition-duration: .5s;
+    transition-duration: 0.5s;
 }
 
 window#waybar.hidden {
@@ -35,9 +35,10 @@ button {
 }
 
 #workspaces button {
-    padding: 0 0px;
+    transition: min-width 0.1s ease-out;
     margin: 0 2px;
     border: 0px;
+    min-width: 16px;
 }
 
 #workspaces button:hover {
@@ -48,7 +49,7 @@ button {
 #workspaces button.active,
 #workspaces button.focused {
     background-color: @color11;
-    padding: 0 16px;
+    min-width: 56px;
 }
 
 #workspaces button.active:hover,
@@ -59,6 +60,11 @@ button {
 #workspaces button.urgent {
     color: @background;
     background-color: @color1;
+}
+
+#window {
+    margin-left: 10px;
+    color: @color7;
 }
 
 #backlight,

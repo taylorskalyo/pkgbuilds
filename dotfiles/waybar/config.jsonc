@@ -4,10 +4,10 @@
   "spacing": 0,
   "modules-left": [
     "hyprland/workspaces",
+    "hyprland/window",
     "sway/workspaces"
   ],
   "modules-center": [
-    "clock",
   ],
   "modules-right": [
     "privacy",
@@ -17,7 +17,8 @@
     "battery",
     "custom/pacman",
     "custom/pacman#aur",
-    "tray"
+    "tray",
+    "clock",
   ],
   "wlr/workspaces": {
     "format": "{name}",
@@ -27,14 +28,18 @@
   "sway/workspaces": {
     "format": "{name}"
   },
+   "hyprland/window": {
+    "format": "{class}",
+    "tooltip-format": "{title}",
+  },
   "tray": {
     "icon-size": 14,
     "spacing": 16
   },
   "clock": {
     "interval": 10,
-    "format": "{:%H:%M:%S}",
-    "tooltip-format": "{:%a, %B %d}\n\n<tt><small>{calendar}</small></tt>",
+    "format": "{:%a %b %d  %H:%M}",
+    "tooltip-format": "{:%H:%M:%S}\n\n<tt><small>{calendar}</small></tt>",
     "calendar": {
       "format": {
         "today": "<u>{}</u>"
@@ -73,6 +78,7 @@
     "format-icons": {
       "charging": [ "󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅" ],
       "discharging": [ "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
+      "plugged": [ "󰂅" ],
     },
     "format-charging": "{icon}",
     "format-discharging": "{icon}",
