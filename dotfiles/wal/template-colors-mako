@@ -4,10 +4,10 @@ text-color={foreground}
 progress-color=over {color11}
 
 [urgency=low]
-border-color={color8}
+border-color={color10}
 
 [urgency=normal]
-border-color={color7}
+border-color={color11}
 
 [urgency=high]
 border-color={color1}
