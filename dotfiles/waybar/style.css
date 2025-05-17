@@ -30,7 +30,7 @@ window#waybar.hidden {
 button {
     background-color: transparent;
     padding: 0 0px;
-    border-radius: 10;
+    border-radius: 10px;
 }
 
 button:hover {
@@ -56,27 +56,32 @@ button:hover {
     background-color: @color1;
 }
 
-#clock,
-#battery,
-#cpu,
-#memory,
-#disk,
-#temperature,
 #backlight,
-#network,
-#pulseaudio,
-#wireplumber,
+#battery,
+#bluetooth,
+#clock,
+#cpu,
 #custom-media,
 #custom-pacman,
-#tray,
-#mode,
+#disk,
 #idle_inhibitor,
-#scratchpad,
+#memory,
+#mode,
+#mpd,
+#network,
 #power-profiles-daemon,
-#workspaces,
-#mpd {
+#pulseaudio,
+#scratchpad,
+#temperature,
+#tray,
+#wireplumber,
+#workspaces {
     padding: 0 8px;
     color: @foreground;
+}
+
+.modules-right {
+    padding: 0 8px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -136,12 +141,14 @@ label:focus {
     color: @color8;
 }
 
-/*#custom-pacman.pending {
-    color: @color3;
-}*/
-
 #temperature.critical {
     color: @color1;
+}
+
+#tray {
+    padding: 0 24px;
+    background-color: @color11;
+    border-radius: 10px;
 }
 
 #tray > .passive {
@@ -154,14 +161,6 @@ label:focus {
 }
 
 #idle_inhibitor.activated {
-    color: @color1;
-}
-
-#mpd.disconnected {
-    color: @color1;
-}
-
-#mpd.paused {
     color: @color3;
 }
 
@@ -174,7 +173,7 @@ label:focus {
 }
 
 #privacy-item.screenshare {
-    color: @color1;
+    color: @color3;
 }
 
 #privacy-item.audio-in {
@@ -182,11 +181,10 @@ label:focus {
 }
 
 #privacy-item.audio-out {
-    color: @color2;
+    color: @color3;
 }
 
 tooltip {
-    color: @background;
-    background-color: @foreground;
+    background-color: @color11;
     border-radius: 10px;
 }

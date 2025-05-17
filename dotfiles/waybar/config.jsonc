@@ -10,8 +10,10 @@
     "clock",
   ],
   "modules-right": [
-    "network",
+    "privacy",
     "wireplumber",
+    "bluetooth",
+    "network",
     "battery",
     "custom/pacman",
     "custom/pacman#aur",
@@ -26,7 +28,8 @@
     "format": "{name}"
   },
   "tray": {
-    "spacing": 10
+    "icon-size": 14,
+    "spacing": 16
   },
   "clock": {
     "interval": 10,
@@ -50,6 +53,15 @@
     "tooltip-format-ethernet": "Connected to ethernet\n{ipaddr}/{cidr}",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50
+  },
+   "bluetooth": {
+    "format": "",
+    "format-icons": [ "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
+    "format-connected": "󰂯",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{icon} {device_battery_percentage}%"
   },
   "battery": {
     "bat": "BAT0",
@@ -90,5 +102,22 @@
     "exec": "~/.config/waybar/bin/updates aur",
     "return-type": "json",
     "signal": 11
+  },
+  "privacy": {
+    "icon-spacing": 8,
+    "icon-size": 12,
+    "transition-duration": 250,
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 14
+      },
+      {
+        "type": "audio-in",
+        "tooltip": true,
+        "tooltip-icon-size": 14
+      }
+    ]
   }
 }
