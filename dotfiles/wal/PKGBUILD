@@ -30,6 +30,7 @@ source=(
   'template-colors-bemenu.sh'
   'template-colors-foot.ini'
   'template-colors-godot.tet'
+  'template-colors-hyprland.conf'
   'template-colors-hyprlock.conf'
   'template-colors-kitty.conf'
   'template-colors-mako'
@@ -42,6 +43,7 @@ source=(
   'template-colors.sh'
 )
 sha256sums=(
+  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'
