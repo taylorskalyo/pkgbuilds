@@ -56,6 +56,13 @@ apply_mako() {
   printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted mako."
 }
 
+apply_swaync() {
+  command -v swaync-client >/dev/null || return 1
+
+  swaync-client -rs
+  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted swaync."
+}
+
 apply_swaybg() {
   systemctl --user is-active swaybg.service | grep '^active' > /dev/null || return 1
 
@@ -76,6 +83,7 @@ apply_oomox &
 apply_terminal &
 apply_swaylock &
 apply_mako &
+apply_swaync &
 apply_swaybg &
 apply_waybar &
 wait
