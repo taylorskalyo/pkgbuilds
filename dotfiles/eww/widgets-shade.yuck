@@ -1,0 +1,77 @@
+(include "widgets-shade-quick-settings.yuck")
+(include "widgets-shade-notifications.yuck")
+
+(defwidget shade-status []
+  (box
+    :class "shade-status"
+    :orientation "horizontal"
+    :space-evenly false
+    (box
+      :orientation "horizontal"
+      :class "left-container"
+      :space-evenly false
+      (box
+        :orientation "vertical"
+        :space-evenly false
+        (label
+          :class "time"
+          :text { formattime(EWW_TIME, "%-H:%M") }
+          :halign "start"
+        )
+        (label
+          :class "date"
+          :text { formattime(EWW_TIME, "%a, %b %-d") }
+          :halign "start"
+        )
+      )
+    )
+    (box
+      :hexpand true
+      :halign "center"
+      (workspaces)
+    )
+    (box
+      :orientation "horizontal"
+      :class "right-container"
+      :space-evenly false
+      (box :hexpand true)
+      (status)
+    )
+  )
+)
+
+(defwidget shade-corners [?class]
+  (box
+    :class class
+    :orientation "horizontal"
+    :space-evenly false
+    (box :class "corner-top-left")
+    (box :hexpand true)
+    (box :class "corner-top-right")
+  )
+)
+
+(defwidget shade []
+  (eventbox
+    :class "shade-container ${ is_shade ? "visible" : "hidden" }"
+    :onhoverlost "${EWW_CMD} update is_shade=false"
+    (box
+      :visible is_shade
+      :orientation "vertical"
+      :space-evenly false
+      (shade-corners :class "shade-corners-top")
+      (box
+        :class "shade"
+        :orientation "vertical"
+        :space-evenly false
+        (shade-status)
+        (box
+          :orientation "horizontal"
+          (shade-quick-settings)
+          (shade-notifications)
+        )
+      )
+      (shade-corners :class "shade-corners-bottom")
+    )
+  )
+)

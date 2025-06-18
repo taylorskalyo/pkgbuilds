@@ -1,0 +1,51 @@
+.shade-container {
+  .left-container, .right-container {
+    min-width: 100px;
+  }
+
+  &.hidden {
+    transition: opacity 100ms ease-in-out;
+    opacity: 0.0;
+  }
+
+  &.visible {
+    transition: opacity 300ms ease-in-out;
+    opacity: 1.0;
+  }
+
+  .shade-corners-top {
+    background-color: $surface;
+  }
+  .shade-corners-bottom {
+    .corner-top-left {
+      box-shadow: (-$corner-size) (-$corner-size) 0 $corner-size $surface;
+    }
+    .corner-top-right {
+      box-shadow: $corner-size (-$corner-size) 0 $corner-size $surface;
+    }
+  }
+
+  .shade {
+    padding: 0 $rem2;
+    padding-top: 0;
+    padding-bottom: $rem0-5;
+    color: $foreground;
+    background-color: $surface;
+
+    .shade-status {
+      padding-bottom: $rem2;
+
+      .time {
+        font-size: $rem2;
+      }
+
+      .status > label {
+        padding: $rem0-5;
+      }
+    }
+
+    @import "styles-shade-notifications.scss";
+    @import "styles-shade-quick-settings.scss";
+    @import "styles-shade-workspaces.scss";
+  }
+}

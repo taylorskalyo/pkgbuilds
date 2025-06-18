@@ -1,0 +1,149 @@
+#!/usr/bin/python
+
+import dbus
+import dbus.service
+from dbus.mainloop.glib import DBusGMainLoop
+from gi.repository import GLib
+import threading
+import time
+import json
+import logging
+
+history = []
+
+#def timeout(notif):
+#    time.sleep(10)
+#    notifications.remove(notif)
+#    print_state()
+
+def on_notify(notif):
+    for i, n in enumerate(history):
+        if n['id'] == notif['id']:
+            notif['dismissed'] = n['dismissed']
+            history.pop(i)
+            break
+
+    history.insert(0, notif)
+    print_state()
+    #timer_thread = threading.Thread(target=timeout, args=(notif,))
+    #timer_thread.start()
+
+def print_state():
+    # Escape '\'
+    # https://github.com/elkowar/eww/issues/1193
+    #print(json.dumps(history).replace('\\', '\\\\'), flush=True)
+    print(json.dumps(history), flush=True)
+
+class NotificationServer(dbus.service.Object):
+    dbus_iface = 'org.freedesktop.Notifications'
+    dbus_path = '/org/freedesktop/Notifications'
+    private_hint = 'x-canonical-private-synchronous'
+
+    def __init__(self, logger):
+        bus = dbus.SessionBus()
+        bus_name = dbus.service.BusName(self.dbus_iface, bus)
+        dbus.service.Object.__init__(self, bus, self.dbus_path, bus_name)
+        self.logger = logger
+        self.next_id = 1
+
+    @dbus.service.method(dbus_iface, in_signature='susssasa{ss}i', out_signature='u')
+    def Notify(self, app_name, replaces_id, app_icon, summary, body, actions, hints, timeout):
+        id = replaces_id
+        if id < 1:
+            if hints.get(self.private_hint, None) != None:
+                for n in history:
+                    if n['hints'].get(self.private_hint, None) != None:
+                        id = n['id']
+                        break
+        if id < 1:
+            id = self.next_id
+            self.next_id += 1
+
+        # TODO: handle properly
+        hints.pop('image-data', None)
+
+        n = dict(
+            id = id,
+            app_name = app_name,
+            app_icon = app_icon,
+            summary = summary,
+            body = body,
+            actions = [{"id": actions[i], "label": actions[i+1]} for i in range(0, len(actions), 2)], # list to list of dicts
+            hints = hints,
+            dismissed = False,
+            timestamp = time.time()
+        )
+        on_notify(n)
+
+        return id
+
+    # Non-standard method to allow outside applications (i.e. eww) to trigger an action.
+    @dbus.service.method(dbus_iface, in_signature='us', out_signature='')
+    def InvokeAction(self, id, key):
+        for i, n in enumerate(history):
+            if n['id'] == id:
+                for a in n['actions']:
+                    if a['id'] == key:
+                        self.ActionInvoked(id, key)
+                        break
+
+    # Non-standard method to allow outside applications to clear all notifications.
+    @dbus.service.method(dbus_iface, in_signature='', out_signature='')
+    def ClearNotifications(self):
+        for i, n in enumerate(history):
+            if not n.get('dismissed', False):
+                n['dismissed'] = True
+                history[i] = n
+                self.NotificationClosed(id, 2)
+
+    @dbus.service.method(dbus_iface, in_signature='u', out_signature='')
+    def CloseNotification(self, id):
+        for i, n in enumerate(history):
+            if n['id'] == id:
+                if not n.get('dismissed', False):
+                    n['dismissed'] = True
+                    history[i] = n
+                    self.NotificationClosed(id, 2)
+                break
+
+    @dbus.service.method(dbus_iface, in_signature='', out_signature='as')
+    def GetCapabilities(self):
+        # action-icons, actions, body, body-hyperlinks, body-images,
+        #  body-markup, icon-multi, icon-static, persistence, sound
+        caps = [
+            'actions',
+            'body',
+            'body-markup',
+            'icon-static',
+            'persistence',
+        ]
+        return sorted(caps)
+
+    @dbus.service.method(dbus_iface, out_signature='ssss')
+    def GetServerInformation(self):
+        return ("Eww Notification Server", "eww", "1.0", "1.2")
+
+    @dbus.service.signal(dbus_iface, signature='uu')
+    def NotificationClosed(self, id, reason=3):
+        reasons = [
+            'expired',
+            'dismissed',
+            'closed',
+            'unknown',
+        ]
+        self.logger.debug('NotificationClosed signal (id: %s, reason: %s)', id, reasons[reason])
+        print_state()
+
+    @dbus.service.signal(dbus_iface, signature='us')
+    def ActionInvoked(self, id, key):
+        self.logger.debug('ActionInvoked signal (id: %s, key: %s)', id, key)
+
+DBusGMainLoop(set_as_default=True)
+
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.WARNING)
+    logger = logging.getLogger('notifications')
+    DBusGMainLoop(set_as_default=True)
+    NotificationServer(logger)
+    mainloop = GLib.MainLoop()
+    mainloop.run()

@@ -1,0 +1,90 @@
+.shade-notifications {
+  color: $on-surface-variant;
+  margin: $rem0-5;
+  border-radius: $rem4 $rem4 0 0;
+  background-color: $surface-container;
+  min-height: 25 * $rem;
+
+  button {
+    transition: border-radius 200ms;
+    margin: $rem $rem2;
+    border-radius: $rem;
+    background-color: $surface-container-lowest;
+    padding: $rem0-5 $rem;
+
+    &:hover {
+      border-radius: $rem0-5;
+      background-color: $surface-container-high;
+    }
+
+    &.on, &.on:hover {
+      border-radius: $rem0-5;
+      background-color: $primary;
+      color: $on-primary;
+    }
+
+    &.invisible {
+      opacity: 0.0;
+    }
+  }
+
+  .notification {
+    background-color: $surface-container-low;
+    color: $on-surface;
+    margin: 2px;
+    min-height: $rem2;
+    padding: $rem0-5;
+
+    &:first-child {
+      margin-top: $rem2;
+      border-top-left-radius: $rem2;
+      border-top-right-radius: $rem2;
+    }
+    &:last-child {
+      margin-bottom: $rem2;
+      border-bottom-left-radius: $rem2;
+      border-bottom-right-radius: $rem2;
+    }
+
+    .icon {
+      min-width: $rem2;
+      min-height: $rem2;
+      margin: $rem0-5 $rem;
+      border-radius: $rem2;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .summary {
+      margin: 0 $rem0-5;
+    }
+
+    .body {
+      font-family: "Roboto Light";
+      margin: 0 $rem0-5;
+    }
+
+    progressbar {
+      margin: $rem0-5 $rem0-5;
+
+      trough {
+        background-color: $surface-container-lowest;
+        border-radius: $rem0-5 / 2;
+        min-height: $rem;
+
+        progress {
+          background-color: $primary;
+          border-radius: ($rem0-5 / 2) 0 0 ($rem0-5 / 2);
+          min-height: $rem;
+        }
+
+        &.full {
+          progress {
+            border-radius: $rem0-5 / 2;
+          }
+        }
+      }
+    }
+  }
+}

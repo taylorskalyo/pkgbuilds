@@ -1,0 +1,21 @@
+.bar {
+  color: $foreground;
+
+  .left-container, .right-container {
+    min-width: 100px;
+
+    .time {
+      margin-right: $rem;
+    }
+
+    image {
+      padding: $rem0-5;
+    }
+
+    .status > label {
+      padding: $rem0-5;
+    }
+  }
+
+  @import "styles-bar-workspaces.scss";
+}

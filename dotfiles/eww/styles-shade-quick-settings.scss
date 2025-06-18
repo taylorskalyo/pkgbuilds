@@ -1,0 +1,172 @@
+.shade-quick-settings {
+  margin-right: $rem2;
+
+  .slider {
+    margin: $rem0-5;
+
+    .icon {
+      background-color: $primary;
+      color: $on-primary;
+      border-radius: $rem 0 0 $rem;
+      margin: $rem0-5 0;
+      padding: 0 $rem;
+      font-size: 0.5 * $rem3;
+    }
+
+    scale {
+      trough {
+        background-color: $surface-container-low;
+        border-radius: 0 $rem $rem 0;
+        min-height: $rem4;
+        box-shadow: 0 $rem0-5 0 0 $surface inset, 0 (-$rem0-5) 0 0 $surface inset;
+
+        highlight {
+          background-color: $primary;
+          border-radius: 0;
+          box-shadow: 0 $rem0-5 0 0 $surface inset, 0 (-$rem0-5) 0 0 $surface inset;
+        }
+
+        slider {
+          background-color: $primary;
+          min-width: 0.25 * $rem;
+          min-height: inherit;
+          border-style: solid;
+          border-width: 0 $rem0-5;
+          border-color: $surface;
+        }
+      }
+    }
+  }
+
+  .shade-toggles {
+    padding-top: $rem;
+
+    .toggle-container {
+      margin: $rem0-5;
+
+      .disabled, .disabled:hover {
+        opacity: 0.5;
+      }
+
+      .toggle {
+        @keyframes select-toggle {
+          0% { min-width: $rem6; }
+          20% { min-width: $rem6 + $rem0-5; }
+          100% { min-width: $rem6; }
+        }
+
+        @keyframes deselect-toggle {
+          0% { min-width: $rem6; }
+          20% { min-width: $rem6 - $rem0-5; }
+          100% { min-width: $rem6; }
+        }
+
+        transition: border-radius 300ms;
+        border-radius: $rem4;
+        background-color: $surface-container-low;
+        color: $on-surface-variant;
+
+        .label {
+          margin: 0 $rem0-5;
+        }
+
+        .sublabel {
+          font-family: "Roboto Light";
+          margin: 0 $rem0-5;
+        }
+
+        .icon {
+          animation: deselect-toggle 300ms ease-in-out;
+          min-width: $rem6;
+          min-height: $rem6;
+          font-size: $rem3;
+          margin: $rem0-5;
+          border-radius: $rem4;
+        }
+
+        &.on:hover, &.off:hover {
+          border-radius: $rem2;
+          background-color: $surface-container-high;
+        }
+
+        &.on {
+          border-radius: $rem2;
+          .icon {
+            animation: select-toggle 300ms ease-in-out;
+          }
+        }
+      }
+
+      &.split-toggle {
+        .toggle {
+          .icon {
+            transition: background-color 300ms;
+            transition: border-radius 300ms;
+            background-color: $surface-container;
+          }
+
+          &.on:hover, &.off:hover {
+            border-radius: $rem2;
+            background-color: $surface-container-high;
+
+            .icon {
+              border-radius: 1.5 * $rem;
+            }
+          }
+
+          &.on {
+            .icon {
+              border-radius: 1.5 * $rem;
+              background-color: $primary;
+              color: $on-primary;
+            }
+          }
+        }
+      }
+
+      &.full-toggle {
+        .toggle {
+          &.on {
+            background-color: $primary;
+            color: $on-primary;
+
+            &:hover {
+              border-radius: $rem;
+              background-color: $outline;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .power {
+    transition: border-radius 200ms;
+    margin: $rem0-5;
+    border-radius: $rem2;
+    background-color: $primary;
+    color: $on-primary;
+    padding: $rem;
+
+    &:hover {
+      background-color: $outline;
+      border-radius: $rem;
+    }
+
+    &.invisible {
+      opacity: 0.0;
+    }
+  }
+
+  .tray {
+    margin: $rem0-5;
+
+    image {
+      margin: $rem0-5;
+      opacity: 0.8;
+    }
+
+    border-radius: $rem2;
+    background-color: $surface-container-low;
+  }
+}

@@ -1,0 +1,108 @@
+;;;;;;;;;;;;;;;;;;;;;;;;
+; Static variables
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Toggles
+(defvar is_bluetooth true)
+(defvar is_dnd false)
+(defvar is_night_light true)
+
+; Size used for images/icons
+(defvar icon_size 14)
+
+; Show/hide shade
+(defvar is_shade false)
+
+; Show/hide volume
+(defvar is_volume false)
+
+; Show/hide volume mode selector
+(defvar is_volume_mode false)
+
+; Show/hide notification history
+(defvar is_notif_hist false)
+
+; Active notifications
+(defvar jq_notif_list "[ .[] | select(.dismissed == false and .hints.transient == null) ]")
+;(defvar jq_notif_list "[ .[] | select(.dismissed == false) ]")
+
+; All notifications
+(defvar jq_notif_hist "[ .[] | select(.hints.transient == null) ]")
+
+; Heads-up notification
+(defvar jq_notif_head "[ .[] | select(.dismissed == false and .hints.transient == null) ][0]")
+
+; Volume notification
+(defvar jq_notif_vol "[ .[] | select(.dismissed == false and .hints.transient != null and .hints.[\"x-canonical-private-synchronous\"] == \"volume\") ][0]")
+
+; Per-app notification indicators
+(defvar jq_notif_icon "[ .[] | select(.dismissed == false and .hints.transient == null) ] | group_by(.app_name) | map({app_name: first.app_name, app_icon: first.app_icon, hints: first.hints})")
+
+; Text icons
+(defvar icons '{
+  "web.connected": ["󰖟"],
+  "web.disconnected": ["󰕑"],
+  "web.off": ["󰪎"],
+  "ether.connected": ["󰈀"],
+  "ether.disconnected": ["󰕑"],
+  "ether.off": ["󰪎"],
+  "wlan.connected": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+  "wlan.disconnected": ["󰤫"],
+  "wlan.off": ["󰤮"],
+  "brightness": ["󰃞", "󰃟", "󰃠"],
+  "mic": ["󰍬"],
+  "mic-mute": ["󰍭"],
+  "volume": ["󰕿", "󰖀", "󰕾"],
+  "volume-mute": ["󰸈", "󰖁"],
+  "volume-alt": ["󰎇"],
+  "volume-mute-alt": ["󰎊"]
+  }'
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+; Dynamic variables
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deflisten network
+  :initial '{
+    "icon": "web.disconnected",
+    "percentage": 0,
+    "sublabel": "Disconnected",
+    "all": []
+    }'
+    `scripts/network.sh`
+)
+
+(deflisten workspaces
+  :initial '{
+    "all":[],
+    "active":1
+    }'
+  `scripts/workspaces.sh`
+)
+
+(deflisten notifications
+  :initial '[]'
+  `scripts/notifications.py`
+)
+
+(deflisten volume
+  :initial '{
+    "out":{"percentage":100,"mute":false},
+    "in":{"percentage":100,"mute":false}
+    }'
+  `scripts/volume.sh`
+)
+
+(deflisten updates
+  :initial '{}'
+  `scripts/updates.sh`
+)
+
+(deflisten screen
+  :initial '{
+    "brightness":100,
+    "temperature":6500
+    }'
+  `scripts/screen.sh`
+)

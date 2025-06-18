@@ -1,0 +1,23 @@
+.workspaces  {
+  .workspace {
+    margin: 0 $rem0-5 / 2;
+    transition: min-width 150ms ease-out;
+    border-radius: $rem;
+    min-width: $rem;
+    min-height: $rem;
+    background-color: $on-surface;
+    opacity: 0.2;
+
+    &.active, &.active:hover {
+      //border-radius: 0.25 * $rem;
+      background-color: $on-surface;
+      opacity: 0.4;
+      min-width: $rem2;
+    }
+
+    &:hover {
+      background-color: $on-surface;
+      opacity: 0.4;
+    }
+  }
+}

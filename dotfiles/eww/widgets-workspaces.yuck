@@ -1,0 +1,19 @@
+(defvar workspace_ids "[1,2,3,4,5,6,7,8,9,10]")
+
+(defwidget workspaces []
+  (box
+    :class "workspaces"
+    :orientation "horizontal"
+    :space-evenly false
+    (for id in { workspace_ids }
+      (button :onclick "hyprctl dispatch workspace ${id}"
+        :class "workspace ${ id == workspaces.active ? "active" : "" }"
+        :visible { jq(workspaces.all, '[ .[] | select(.id == ${id}) ] | length') > 0 }
+        (label
+          :text { id }
+          :visible is_shade
+        )
+      )
+    )
+  )
+)

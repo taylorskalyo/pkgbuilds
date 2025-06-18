@@ -1,0 +1,104 @@
+(defwidget shade-notifications []
+  (box
+    :class "shade-notifications"
+    :orientation "horizontal"
+    :space-evenly false
+
+    ; Bind to updates variable (to trigger script) but don't display anything
+    (label
+      :visible false
+      :text { updates }
+    )
+
+    (box
+      :orientation "vertical"
+      :space-evenly false
+      (box :vexpand true)
+      (button
+        :class { is_notif_hist ? "on" : "off" }
+        :onclick "${EWW_CMD} update is_notif_hist=${ ! is_notif_hist }"
+        (label :text "󰋚")
+      )
+    )
+    (label
+      :visible { is_dnd || (is_notif_hist ? arraylength(jq(notifications, jq_notif_hist)) < 1 : arraylength(jq(notifications, jq_notif_list)) < 1) }
+      :text "No notifications"
+      :hexpand true
+    )
+    (scroll
+      :visible { ! is_dnd && (is_notif_hist ? arraylength(jq(notifications, jq_notif_hist)) > 0 : arraylength(jq(notifications, jq_notif_list)) > 0) }
+      :hexpand true
+      (box
+        :orientation "vertical"
+        :space-evenly false
+        (for n in { is_notif_hist ? jq(notifications, jq_notif_hist) : jq(notifications, jq_notif_list) }
+          (notification :n n)
+        )
+      )
+    )
+    (box
+      :orientation "vertical"
+      :space-evenly false
+      (box :vexpand true)
+      (button
+        :class { is_notif_hist ? "invisible" : "" }
+        :onclick "dbus-send --session --dest=org.freedesktop.Notifications --type=method_call /org/freedesktop/Notifications org.freedesktop.Notifications.ClearNotifications"
+        (label :text "󰎟")
+      )
+    )
+  )
+)
+
+(defwidget notification [n]
+  (box
+    :class "notification"
+    :orientation "horizontal"
+    :space-evenly false
+    (box
+      :class "icon"
+      :style "background-image: url('${n.hints?.image-path ?: n.app_icon ?: "/usr/share/icons/HighContrast/scalable/mimetypes/package-x-generic.svg"}')"
+    )
+    (box
+      :orientation "vertical"
+      :space-evenly false
+      :valign "center"
+      :hexpand true
+      (label
+        :halign "start"
+        :text { n.summary }
+        :class "summary"
+      )
+      (label
+        :halign "start"
+        ;:markup { replace(n.body, '(?ms)<tt>.*', '') }
+        :markup { n.body }
+        :class "body"
+        :visible { n.body != "" }
+      )
+      (progress
+        :visible { (n.hints?.value ?: -1) > 0 }
+        :value { n.hints?.value ?: 0 }
+      )
+      (box
+        :orientation "horizontal"
+        :visible { ! n.dismissed }
+        (for a in { n.actions }
+          (button
+            :onclick "dbus-send --session --dest=org.freedesktop.Notifications --type=method_call /org/freedesktop/Notifications org.freedesktop.Notifications.InvokeAction uint32:${ n.id } string:${ a.id }"
+            (label :text { a.label })
+          )
+        )
+      )
+    )
+    (box
+      :orientation "vertical"
+      :space-evenly false
+      (button
+        :visible { ! is_notif_hist }
+        :onclick "dbus-send --session --dest=org.freedesktop.Notifications --type=method_call /org/freedesktop/Notifications org.freedesktop.Notifications.CloseNotification uint32:${ n.id }"
+        (label :text "󰅖" :class "close")
+      )
+      (box :vexpand true)
+    )
+  )
+)

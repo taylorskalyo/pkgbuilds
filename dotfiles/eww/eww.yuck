@@ -1,0 +1,54 @@
+(include "widgets-workspaces.yuck")
+(include "widgets-status.yuck")
+(include "widgets-volume.yuck")
+(include "widgets-bar.yuck")
+(include "widgets-shade.yuck")
+
+(include "variables.yuck")
+
+(defwindow shell-top
+  :monitor 0
+  :stacking "bg"
+  :exclusive true
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "100%"
+    :height "0px"
+    :anchor "top center"
+  )
+  (box
+    :orientation "vertical"
+    :space-evenly false
+    (bar)
+    (shade)
+  )
+)
+
+(defwindow shell-bottom
+  :monitor 0
+  :stacking "bottom"
+  :exclusive false
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "100%"
+    :height "0px"
+    :anchor "bottom center"
+  )
+  (box
+    :orientation "horizontal"
+    (box :class "corner-bottom-left")
+    (box :class "corner-bottom-right")
+  )
+)
+
+(defwindow shell-volume
+  :monitor 0
+  :stacking "overlay"
+  :exclusive false
+  :geometry (geometry
+    :anchor "right center"
+  )
+  (volume-osd :is_volume_notif { (jq(notifications, jq_notif_vol)?.timestamp ?: 0) + 3 > EWW_TIME})
+)

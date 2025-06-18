@@ -1,0 +1,63 @@
+(defwidget bar []
+  (box
+    :visible { !is_shade }
+    :orientation "horizontal"
+    :space-evenly false
+    (box
+      :class "corner-top-left"
+    )
+    (box
+      :class "bar"
+      :orientation "horizontal"
+      :hexpand true
+      :space-evenly false
+      (box
+        :orientation "horizontal"
+        :class "left-container"
+        :space-evenly false
+        (label
+          :xalign 0
+          :class "time"
+          :text { formattime(EWW_TIME, "%H:%M") }
+        )
+        (box
+          :orientation "horizontal"
+          :visible { ! is_dnd }
+          (for n in { jq(notifications, jq_notif_icon) }
+            (image
+              :path { n.hints?.image-path ?: n.app_icon ?: "/usr/share/icons/HighContrast/scalable/mimetypes/package-x-generic.svg" }
+              :image-width icon_size
+              :image-height icon_size
+            )
+          )
+        )
+        (systray :icon-size icon_size)
+      )
+      (eventbox
+        :hexpand true
+        :onclick "${EWW_CMD} update is_shade=true"
+      )
+      (box
+        :orientation "vertical"
+        :space-evenly false
+        (box :vexpand true)
+        (workspaces)
+        (box :vexpand true)
+      )
+      (eventbox
+        :hexpand true
+        :onclick "${EWW_CMD} update is_shade=true"
+      )
+      (box
+        :orientation "horizontal"
+        :class "right-container"
+        :space-evenly false
+        (box :hexpand true)
+        (status)
+      )
+    )
+    (box
+      :class "corner-top-right"
+    )
+  )
+)

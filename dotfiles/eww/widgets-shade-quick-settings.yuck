@@ -1,0 +1,130 @@
+(defwidget shade-quick-settings []
+  (box
+    :class "shade-quick-settings"
+    :orientation "vertical"
+    :space-evenly false
+    ;(slider :icon "󰕾")
+    (slider
+      :icon "󰃟"
+      :value { (screen.brightness - 50) / 5 }
+      :max 11
+      :onchange "bash -c 'scripts/screen.sh brightness $(( 50 + {} * 5 ))'"
+    )
+    (box
+      :class "shade-toggles"
+      :orientation "vertical"
+      (box
+        :class "shade-toggles-row"
+        :orientation "horizontal"
+        (toggle
+          :icon { icons[network.icon][round(network.percentage * (arraylength(icons[network.icon])-1) / 100, 0)] }
+          :label "Internet"
+          :state { network.toggle }
+          :sublabel { network.sublabel }
+        )
+        (toggle
+          :icon "󰂯"
+          :label "Bluetooth"
+          :state { is_bluetooth ? "on" : "off" }
+          :ontoggle "${EWW_CMD} update is_bluetooth=${ ! is_bluetooth }"
+        )
+        (toggle
+          :icon "󰍷"
+          :label "Do Not Disturb"
+          :state { is_dnd ? "on" : "off" }
+          :onclick "${EWW_CMD} update is_dnd=${ ! is_dnd }"
+        )
+        (toggle
+          :icon "󰽥"
+          :label "Night Light"
+          :sublabel { screen.temperature > 6000 ? "On at sunset" : "Until sunrise"}
+          :state { screen.temperature > 6000 ? "off" : "on" }
+          :onclick "scripts/screen.sh temperature ${ screen.temperature > 6000 ? "night" : "day" }"
+        )
+      )
+    )
+    (box :vexpand true)
+    (box
+      :orientation "horizontal"
+      :space-evenly false
+      (box :hexpand true)
+      (box
+        :orientation "vertical"
+        :space-evenly false
+        (box :vexpand true)
+        (systray
+          :orientation "horizontal"
+          :icon-size icon_size
+          :class "tray"
+        )
+        (box :vexpand true)
+      )
+      (button
+        :class "power"
+        (label :text "󰐥")
+      )
+    )
+  )
+)
+
+(defwidget slider [icon value ?max ?onchange]
+  (box
+    :orientation "vertical"
+    :space-evenly false
+    (box :vexpand true)
+    (box
+      :class "slider"
+      :orientation "horizontal"
+      :space-evenly false
+      (label :text icon :class "icon")
+      (scale
+        :hexpand true
+        :class "scale"
+        :orientation "horizontal"
+        :value value
+        :round-digits 0
+        :min 0
+        :max { max ?: 100 }
+        :onchange onchange
+      )
+    )
+    (box :vexpand true)
+  )
+)
+
+(defwidget toggle [icon label ?sublabel ?state ?onclick ?ontoggle]
+  (box
+    :class "toggle-container ${ontoggle == "" ? "full-toggle" : "split-toggle"}"
+    (eventbox
+      :class "toggle ${state}"
+      :onclick { state == "disabled" ? "" : onclick }
+      (box
+        :orientation "horizontal"
+        :space-evenly false
+        (button
+          :onclick { state == "disabled" ? "" : (ontoggle ?: onclick) }
+          (label
+            :class "icon"
+            :text icon
+            :xalign 0.5
+          )
+        )
+        (box
+          :orientation "vertical"
+          :valign "center"
+          (label
+            :halign "start"
+            :text label
+            :class "label"
+          )
+          (label
+            :halign "start"
+            :text sublabel
+            :class "sublabel"
+            :visible { sublabel != "" }
+          )
+        )
+      )
+    )
+  )
+)

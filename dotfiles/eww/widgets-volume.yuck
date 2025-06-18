@@ -1,0 +1,84 @@
+(defwidget volume-osd [is_volume_notif]
+  (box
+    :class "volume-osd-container ${ (is_volume || is_volume_notif) ? "visible" : "hidden" }"
+    :orientation "vertical"
+    :space-evenly false
+    (box :vexpand true)
+    (revealer
+      :reveal { is_volume || is_volume_notif }
+      :transition "slideleft"
+      (eventbox
+        :onhover "${EWW_CMD} update is_volume=true"
+        :onhoverlost "${EWW_CMD} update is_volume=false"
+        (box
+          :class "volume-osd"
+          :orientation "vertical"
+          :space-evenly false
+          (box
+            :class "volume-osd-mode-container"
+            :orientation "vertical"
+            :space-evenly false
+            (volume-osd-toggle :icon "mic" :on { ! volume.in.mute })
+            (volume-osd-toggle :icon "mic-mute" :on { volume.in.mute })
+          )
+          (volume-osd-scale)
+          (label
+            :class "volume-osd-options"
+            :text "..."
+          )
+        )
+      )
+    )
+  )
+)
+
+(defwidget volume-osd-toggle [icon on]
+  (revealer
+    :reveal { is_volume_mode || on }
+    :transition "slidedown"
+    :duration "250ms"
+    (button
+      :class { is_volume_mode || on ? "visible" : "hidden"}
+      :onclick { 
+        is_volume_mode ? (
+          on ?
+          "${EWW_CMD} update is_volume_mode=false" :
+          "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && ${EWW_CMD} update is_volume_mode=false"
+        ) :
+        "${EWW_CMD} update is_volume_mode=true"
+      }
+      (label
+        :class "icon ${ on ? "on" : "off"}"
+        :text {
+          icons[icon][arraylength(icons[icon])-1]
+        }
+      )
+    )
+  )
+)
+
+(defwidget volume-osd-scale []
+  (box
+    :class "scale"
+    :orientation "vertical"
+    :space-evenly false
+    (scale
+      :halign "center"
+      :vexpand true
+      :orientation "vertical"
+      :flipped true
+      :min 0
+      :max 21
+      :value { volume.out.mute ? 0 : ( volume.out.percentage / 5 ) }
+      :onchange "bash -c 'wpctl set-volume @DEFAULT_AUDIO_SINK@ $(( 5 * {} ))%'"
+    )
+    (label
+      :class "icon"
+      :text {
+        volume.out.mute || volume.out.percentage == 0 ?
+        icons["volume-mute"][arraylength(icons["volume-mute"]) -1] :
+        icons["volume"][arraylength(icons["volume"])-1]
+      }
+    )
+  )
+)

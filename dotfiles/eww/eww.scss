@@ -1,0 +1,61 @@
+@import "colors.scss";
+@import "styles-material.scss";
+
+$corner-size: 15px;
+$font-size: 12px;
+
+// rem values in GTK CSS are based on the initial font size (which we don't
+// control). Use variables as a poor man's alternative.
+$rem0-5: 0.5 * $font-size;
+$rem1-5: 1.5 * $font-size;
+$rem: $font-size;
+$rem2: 2 * $font-size;
+$rem3: 3 * $font-size;
+$rem4: 4 * $font-size;
+$rem6: 6 * $font-size;
+$rem8: 8 * $font-size;
+
+.shell-top, .shell-bottom, .shell-volume {
+  all: unset;
+}
+
+* {
+  font-family: "Symbols Nerd Font Mono", "Roboto Medium";
+  font-size: $font-size;
+
+  button, scale, widget, slider, progressbar, trough, progress {
+    all: unset;
+  }
+  menu, menuitem {
+    border-radius: $rem;
+  }
+}
+
+.corner-top-left {
+  border-top-left-radius: $corner-size;
+  box-shadow: (-$corner-size) (-$corner-size) 0 $corner-size #000000;
+  min-width: $corner-size;
+  min-height: $corner-size;
+}
+.corner-top-right {
+  border-top-right-radius: $corner-size;
+  box-shadow: $corner-size (-$corner-size) 0 $corner-size #000000;
+  min-width: $corner-size;
+  min-height: $corner-size;
+}
+.corner-bottom-left {
+  border-bottom-left-radius: $corner-size;
+  box-shadow: (-$corner-size) $corner-size 0 $corner-size #000000;
+  min-width: $corner-size;
+  min-height: $corner-size;
+}
+.corner-bottom-right {
+  border-bottom-right-radius: $corner-size;
+  box-shadow: $corner-size $corner-size 0 $corner-size #000000;
+  min-width: $corner-size;
+  min-height: $corner-size;
+}
+
+@import "styles-bar.scss";
+@import "styles-shade.scss";
+@import "styles-volume.scss";

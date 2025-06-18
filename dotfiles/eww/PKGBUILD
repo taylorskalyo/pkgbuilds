@@ -1,0 +1,86 @@
+pkgname=dotfiles-eww
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base eww configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'eww'
+  'hyprsunset'
+  'iwd'
+  'jq'
+  'libpulse'
+  'systemd'
+  'wireplumber'
+)
+optdepends=()
+source=(
+  'eww-open@.service'
+  'eww.scss'
+  'eww.service'
+  'eww.yuck'
+  'scripts-network.sh'
+  'scripts-notifications.py'
+  'scripts-screen.sh'
+  'scripts-updates.sh'
+  'scripts-volume.sh'
+  'scripts-workspaces.sh'
+  'styles-bar-workspaces.scss'
+  'styles-bar.scss'
+  'styles-material.scss'
+  'styles-shade-notifications.scss'
+  'styles-shade-quick-settings.scss'
+  'styles-shade-workspaces.scss'
+  'styles-shade.scss'
+  'styles-volume.scss'
+  'variables.yuck'
+  'widgets-bar.yuck'
+  'widgets-shade-notifications.yuck'
+  'widgets-shade-quick-settings.yuck'
+  'widgets-shade.yuck'
+  'widgets-status.yuck'
+  'widgets-volume.yuck'
+  'widgets-workspaces.yuck'
+)
+sha256sums=(
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+)
+
+package() {
+  for f in $srcdir/*.yuck $srcdir/*.scss; do
+    install -Dm644 "$f" "$pkgdir/usr/share/dotfiles/.config/eww/${f##*/}"
+  done
+
+  for f in $srcdir/scripts-*; do
+    install -Dm755 "$f" "$pkgdir/usr/share/dotfiles/.config/eww/scripts/${f##*/scripts-}"
+  done
+
+  for f in $srcdir/eww-open@.service $srcdir/eww.service; do
+    install -Dm644 "$f" "$pkgdir/usr/lib/systemd/user/${f##*/}"
+  done
+}
