@@ -4,12 +4,12 @@
   }
 
   &.hidden {
-    transition: opacity 100ms ease-in-out;
+    transition: opacity $hide-duration ease-in-out;
     opacity: 0.0;
   }
 
   &.visible {
-    transition: opacity 300ms ease-in-out;
+    transition: opacity $show-duration ease-in-out;
     opacity: 1.0;
   }
 
@@ -18,10 +18,10 @@
   }
   .shade-corners-bottom {
     .corner-top-left {
-      box-shadow: (-$corner-size) (-$corner-size) 0 $corner-size $surface;
+      box-shadow: (-$corner-size) $corner-size 0 $corner-size $surface;
     }
     .corner-top-right {
-      box-shadow: $corner-size (-$corner-size) 0 $corner-size $surface;
+      box-shadow: $corner-size $corner-size 0 $corner-size $surface;
     }
   }
 
@@ -47,5 +47,57 @@
     @import "styles-shade-notifications.scss";
     @import "styles-shade-quick-settings.scss";
     @import "styles-shade-workspaces.scss";
+  }
+
+  .modal-container {
+    .modal {
+      border-radius: $rem3;
+      background-color: $surface;
+      margin: $rem2 2 * $rem8;
+
+      &.open {
+        @keyframes modal-open {
+          0% { margin: 2 * $rem8; }
+          100% { margin: $rem 2 * $rem8; }
+        }
+        animation: modal-open $show-duration ease-in-out;
+      }
+
+      button {
+        transition: border-radius $hover-duration;
+        margin: $rem $rem2;
+        border-radius: $rem;
+        background-color: $surface-container-lowest;
+        padding: $rem0-5 $rem;
+
+        &:hover {
+          border-radius: $rem0-5;
+          background-color: $surface-container-high;
+        }
+
+        &.on, &.on:hover {
+          border-radius: $rem0-5;
+          background-color: $primary;
+          color: $on-primary;
+        }
+
+        &.invisible {
+          opacity: 0.0;
+        }
+      }
+    }
+
+    .modal-shadow {
+      background-color: rgba($shadow, 0.5);
+    }
+
+    .modal-shadow-corners-bottom {
+      .corner-top-left {
+        box-shadow: (-$corner-size) $corner-size 0 $corner-size rgba($shadow, 0.5);
+      }
+      .corner-top-right {
+        box-shadow: $corner-size $corner-size 0 $corner-size rgba($shadow, 0.5);
+      }
+    }
   }
 }

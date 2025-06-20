@@ -4,6 +4,12 @@
 $corner-size: 15px;
 $font-size: 12px;
 
+$click-duration: 400ms;
+$hover-duration: 150ms;
+
+$show-duration: 300ms;
+$hide-duration: 100ms;
+
 // rem values in GTK CSS are based on the initial font size (which we don't
 // control). Use variables as a poor man's alternative.
 $rem0-5: 0.5 * $font-size;

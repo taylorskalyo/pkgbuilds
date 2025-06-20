@@ -1,23 +1,38 @@
 .workspaces  {
+  margin: 0 $rem4;
+
   .workspace {
+    @keyframes select-workspace-shade {
+      0% { min-width: $rem3; }
+      20% { min-width: $rem6 + $rem0-5; }
+      100% { min-width: $rem6; }
+    }
+    @keyframes deselect-workspace-shade {
+      0% { min-width: $rem6; }
+      20% { min-width: $rem3 - $rem0-5; }
+      100% { min-width: $rem3; }
+    }
+
+    transition: border-radius $hover-duration ease-out;
     margin: 0 $rem0-5 / 2;
-    transition: min-width 150ms ease-out;
-    border-radius: $rem;
-    min-width: $rem;
-    min-height: $rem;
+    border-radius: $rem0-5;
+    min-width: $rem3;
+    min-height: $rem3 / 2;
     background-color: $on-surface;
-    opacity: 0.2;
+    opacity: 0.1;
+    animation: deselect-workspace-shade $click-duration ease-in-out;
 
     &.active, &.active:hover {
-      //border-radius: 0.25 * $rem;
+      min-width: $rem6;
       background-color: $on-surface;
-      opacity: 0.4;
-      min-width: $rem2;
+      animation: select-workspace-shade $click-duration ease-in-out;
+      opacity: 0.2;
     }
 
     &:hover {
+      border-radius: $rem0-5 / 2;
       background-color: $on-surface;
-      opacity: 0.4;
+      opacity: 0.2;
     }
   }
 }

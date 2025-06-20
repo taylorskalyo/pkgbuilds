@@ -51,18 +51,16 @@
       .toggle {
         @keyframes select-toggle {
           0% { min-width: $rem6; }
-          20% { min-width: $rem6 + $rem0-5; }
+          20% { min-width: $rem6 + $rem; }
           100% { min-width: $rem6; }
         }
 
         @keyframes deselect-toggle {
           0% { min-width: $rem6; }
-          20% { min-width: $rem6 - $rem0-5; }
+          20% { min-width: $rem6 - $rem; }
           100% { min-width: $rem6; }
         }
 
-        transition: border-radius 300ms;
-        border-radius: $rem4;
         background-color: $surface-container-low;
         color: $on-surface-variant;
 
@@ -76,49 +74,76 @@
         }
 
         .icon {
-          animation: deselect-toggle 300ms ease-in-out;
+          transition: border-radius $hover-duration, background-color $hover-duration;
           min-width: $rem6;
           min-height: $rem6;
           font-size: $rem3;
-          margin: $rem0-5;
+          margin: $rem;
+        }
+
+        &.disabled {
           border-radius: $rem4;
         }
 
-        &.on:hover, &.off:hover {
-          border-radius: $rem2;
-          background-color: $surface-container-high;
+        &.off {
+          transition: border-radius $hover-duration, background-color $hover-duration;
+          border-radius: $rem4;
+
+          .icon {
+            border-radius: $rem4 - $rem;
+            animation: deselect-toggle $click-duration ease-in-out;
+          }
+
+          &:hover {
+            border-radius: $rem3;
+
+            .icon {
+              border-radius: $rem3 - $rem;
+            }
+          }
         }
 
         &.on {
+          transition: border-radius $hover-duration, background-color $hover-duration;
           border-radius: $rem2;
+
           .icon {
-            animation: select-toggle 300ms ease-in-out;
+            border-radius: $rem2 - $rem;
+            animation: select-toggle $click-duration ease-in-out;
+          }
+
+          &:hover {
+            border-radius: $rem2 + $rem0-5;
+
+            .icon {
+              border-radius: $rem2 - $rem0-5;
+            }
           }
         }
       }
 
       &.split-toggle {
         .toggle {
-          .icon {
-            transition: background-color 300ms;
-            transition: border-radius 300ms;
+          &:hover {
             background-color: $surface-container;
-          }
-
-          &.on:hover, &.off:hover {
-            border-radius: $rem2;
-            background-color: $surface-container-high;
-
-            .icon {
-              border-radius: 1.5 * $rem;
-            }
           }
 
           &.on {
             .icon {
-              border-radius: 1.5 * $rem;
               background-color: $primary;
               color: $on-primary;
+            }
+          }
+
+          &.off {
+            .icon {
+              background-color: $surface-container;
+            }
+
+            &:hover {
+              .icon {
+                background-color: $surface-container-high;
+              }
             }
           }
         }
@@ -131,8 +156,16 @@
             color: $on-primary;
 
             &:hover {
-              border-radius: $rem;
-              background-color: $outline;
+              background-color: $surface-container-high;
+              color: $on-surface;
+            }
+          }
+
+          &.off {
+            background-color: $surface-container-low;
+
+            &:hover {
+              background-color: $surface-container;
             }
           }
         }
@@ -141,7 +174,7 @@
   }
 
   .power {
-    transition: border-radius 200ms;
+    transition: border-radius $hover-duration;
     margin: $rem0-5;
     border-radius: $rem2;
     background-color: $primary;

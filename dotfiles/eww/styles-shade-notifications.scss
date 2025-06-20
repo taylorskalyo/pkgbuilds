@@ -6,7 +6,7 @@
   min-height: 25 * $rem;
 
   button {
-    transition: border-radius 200ms;
+    transition: border-radius $hover-duration;
     margin: $rem $rem2;
     border-radius: $rem;
     background-color: $surface-container-lowest;

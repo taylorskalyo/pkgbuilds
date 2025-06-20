@@ -2,12 +2,12 @@
   min-height: 400px;
 
   &.hidden, .hidden {
-    transition: opacity 100ms ease-in-out;
+    transition: opacity $hide-duration ease-in-out;
     opacity: 0.0;
   }
 
   &.visible, .visible {
-    transition: opacity 300ms ease-in-out;
+    transition: opacity $show-duration ease-in-out;
     opacity: 1.0;
   }
 

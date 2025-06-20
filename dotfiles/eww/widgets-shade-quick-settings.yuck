@@ -3,11 +3,10 @@
     :class "shade-quick-settings"
     :orientation "vertical"
     :space-evenly false
-    ;(slider :icon "󰕾")
-    (slider
+    (slider ; From 50-100 in increments of 5
       :icon "󰃟"
-      :value { (screen.brightness - 50) / 5 }
       :max 11
+      :value { (screen.brightness - 50) / 5 }
       :onchange "bash -c 'scripts/screen.sh brightness $(( 50 + {} * 5 ))'"
     )
     (box
@@ -27,6 +26,7 @@
           :label "Bluetooth"
           :state { is_bluetooth ? "on" : "off" }
           :ontoggle "${EWW_CMD} update is_bluetooth=${ ! is_bluetooth }"
+          :onclick "${EWW_CMD} update modal_selected=${ modal_index.bluetooth }"
         )
         (toggle
           :icon "󰍷"
@@ -97,7 +97,7 @@
     :class "toggle-container ${ontoggle == "" ? "full-toggle" : "split-toggle"}"
     (eventbox
       :class "toggle ${state}"
-      :onclick { state == "disabled" ? "" : onclick }
+      :onclick { state == "disabled" ? "" : (onclick ?: ontoggle) }
       (box
         :orientation "horizontal"
         :space-evenly false

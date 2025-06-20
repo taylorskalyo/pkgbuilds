@@ -7,6 +7,13 @@
 (defvar is_dnd false)
 (defvar is_night_light true)
 
+; Modals
+(defvar modal_selected -1)
+(defvar modal_index '{
+  "bluetooth": 0
+  }'
+)
+
 ; Size used for images/icons
 (defvar icon_size 14)
 
@@ -37,6 +44,9 @@
 
 ; Per-app notification indicators
 (defvar jq_notif_icon "[ .[] | select(.dismissed == false and .hints.transient == null) ] | group_by(.app_name) | map({app_name: first.app_name, app_icon: first.app_icon, hints: first.hints})")
+
+; Networks to show in status bar
+(defvar jq_nets_status "[ .[] | select(.toggle | test(\"connected|off\")) ]")
 
 ; Text icons
 (defvar icons '{

@@ -6,7 +6,11 @@
       :visible { volume.out.mute || volume.out.percentage == 0 }
       :text { icons["volume-mute"][arraylength(icons["volume-mute"])-1] }
     )
-    (label :text { icons[network.icon][round(network.percentage * (arraylength(icons[network.icon])-1) / 100, 0)] } )
+
+    ; Show status networks, fall back to primary
+    (for n in { arraylength(jq(network.all, jq_nets_status)) > 0 ? jq(network.all, jq_nets_status) : [ network ] }
+      (label :text { icons[n.icon][round(n.percentage * (arraylength(icons[n.icon])-1) / 100, 0)] } )
+    )
     (label :text "󰁹" )
   )
 )

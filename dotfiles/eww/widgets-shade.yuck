@@ -54,24 +54,63 @@
 (defwidget shade []
   (eventbox
     :class "shade-container ${ is_shade ? "visible" : "hidden" }"
-    :onhoverlost "${EWW_CMD} update is_shade=false"
-    (box
+    :onhoverlost "${EWW_CMD} update is_shade=false modal_selected=-1"
+    (overlay
       :visible is_shade
-      :orientation "vertical"
-      :space-evenly false
-      (shade-corners :class "shade-corners-top")
       (box
-        :class "shade"
         :orientation "vertical"
         :space-evenly false
-        (shade-status)
+        (shade-corners :class "shade-corners-top")
         (box
-          :orientation "horizontal"
-          (shade-quick-settings)
-          (shade-notifications)
+          :class "shade"
+          :orientation "vertical"
+          :space-evenly false
+          (shade-status)
+          (box
+            :orientation "horizontal"
+            (shade-quick-settings)
+            (shade-notifications)
+          )
+        )
+        (shade-corners :class "shade-corners-bottom")
+      )
+      (eventbox
+        :visible { modal_selected >= 0 }
+        ;:onclick "${EWW_CMD} update modal_selected=-1"
+        :onclick ":" ; make widgets behind modal unclickable
+        (box
+          :class "modal-container"
+          :orientation "vertical"
+          :space-evenly false
+          (box
+            :class "modal-shadow"
+            :orientation "vertical"
+            :vexpand true
+            (box
+              :class "modal"
+              ;:class "modal ${ modal_selected >= 0 ? "open" : "closed" }"
+              :orientation "vertical"
+              :space-evenly false
+              (stack
+                :vexpand true
+                (box
+                  (label :text "Bluetooth")
+                )
+              )
+              (box
+                :orientation "horizontal"
+                :space-evenly false
+                (box :hexpand true)
+                (button
+                  :onclick "${EWW_CMD} update modal_selected=-1"
+                  (label :text "Done")
+                )
+              )
+            )
+          )
+          (shade-corners :class "modal-shadow-corners-bottom")
         )
       )
-      (shade-corners :class "shade-corners-bottom")
     )
   )
 )

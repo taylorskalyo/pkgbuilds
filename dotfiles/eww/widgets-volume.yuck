@@ -36,7 +36,7 @@
   (revealer
     :reveal { is_volume_mode || on }
     :transition "slidedown"
-    :duration "250ms"
+    :duration "300ms"
     (button
       :class { is_volume_mode || on ? "visible" : "hidden"}
       :onclick { 

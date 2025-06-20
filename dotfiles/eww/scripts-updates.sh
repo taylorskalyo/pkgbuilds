@@ -18,15 +18,17 @@ handle_event() {
     local cmd=${cmds[$type]}
     local nid=${nids[$type]}
 
-    local updates count
+    local updates
     updates=$(${cmd} | grep -vF '[ignored]' | sed 's/->//')
-    count=$(to_count <<<"${updates}")
 
-    if [[ $count -le 1 ]] && [[ -n ${nid} ]]; then
+    if [[ -z $updates ]] && [[ -n ${nid} ]]; then
       dbus-send --session --dest=org.freedesktop.Notifications --type=method_call /org/freedesktop/Notifications org.freedesktop.Notifications.CloseNotification uint32:"${nid}"
       nids[$type]=
-    elif [[ $count -gt 1 ]]; then
-      local summary="${count} update(s) available"
+    elif [[ -n $updates ]]; then
+      local count
+      count=$(to_count <<<"${updates}")
+
+      local summary="${count} ${type} update(s) available"
       local body
 
       body=$(to_table <<<"${updates}")
@@ -39,8 +41,8 @@ handle_event() {
   done
 }
 
-declare -A cmds=( ["official"]="checkupdates --nocolor" ["aur"]="paru -Qu")
-declare -A nids=( ["official"]="" ["aur"]="")
+declare -A cmds=( ["official"]="checkupdates --nocolor" ["AUR"]="paru --color=never -Qu")
+declare -A nids=( ["official"]="" ["AUR"]="")
 
 while read -r line; do
   if [[ "$line" == *"transaction completed"* ]] || [[ "$line" == "poll" ]]; then
