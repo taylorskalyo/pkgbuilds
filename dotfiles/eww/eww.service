@@ -1,11 +1,13 @@
 [Unit]
 Description=ElKowars wacky widgets
 Documentation=https://elkowar.github.io/eww/
-PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
 Type=exec
+ExecCondition=/lib/systemd/systemd-xdg-autostart-condition "wlroots:sway:Wayfire:labwc:Hyprland" ""
 ExecStart=/usr/bin/eww -c %h/.config/eww daemon --no-daemonize
+Slice=app-graphical.slice
 Restart=on-failure
 
 [Install]

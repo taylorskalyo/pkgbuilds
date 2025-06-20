@@ -2,12 +2,13 @@
 Description=ElKowars wacky widgets - window opener
 Documentation=https://elkowar.github.io/eww/
 Requires=eww.service
-After=eww.service
+After=graphical-session.target eww.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/eww open --no-daemonize "%i"
-ExecStop=/usr/bin/eww close --no-daemonize "%i"
+ExecCondition=/lib/systemd/systemd-xdg-autostart-condition "wlroots:sway:Wayfire:labwc:Hyprland" ""
+ExecStart=/usr/bin/eww -c %h/.config/eww open --no-daemonize "%i"
+ExecStop=/usr/bin/eww -c %h/.config/eww close --no-daemonize "%i"
 RemainAfterExit=yes
 
 [Install]
