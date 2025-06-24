@@ -49,32 +49,20 @@ apply_swaylock() {
   printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Linked swaylock config."
 }
 
-apply_mako() {
-  systemctl --user is-active mako.service | grep '^active' > /dev/null || return 1
+apply_service() {
+  local service=$1
 
-  systemctl --user restart mako.service
-  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted mako."
+  systemctl --user is-active "${service}".service | grep '^active' > /dev/null || return 1
+
+  systemctl --user restart "${service}".service
+  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted ${service}."
 }
 
 apply_swaync() {
   command -v swaync-client >/dev/null || return 1
 
-  swaync-client -rs
+  swaync-client -rs -sw
   printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted swaync."
-}
-
-apply_swaybg() {
-  systemctl --user is-active swaybg.service | grep '^active' > /dev/null || return 1
-
-  systemctl --user restart swaybg.service
-  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted swaybg."
-}
-
-apply_waybar() {
-  systemctl --user is-active waybar.service | grep '^active' > /dev/null || return 1
-
-  systemctl --user restart waybar.service
-  printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted waybar."
 }
 
 wal -st --theme default "$@"
@@ -82,8 +70,9 @@ wal -st --theme default "$@"
 apply_oomox &
 apply_terminal &
 apply_swaylock &
-apply_mako &
 apply_swaync &
-apply_swaybg &
-apply_waybar &
+apply_service eww &
+apply_service mako &
+apply_service swaybg &
+apply_service waybar &
 wait
