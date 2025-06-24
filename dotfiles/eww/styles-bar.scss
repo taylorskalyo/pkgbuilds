@@ -2,7 +2,7 @@
   color: $foreground;
 
   .left-container, .right-container {
-    min-width: 100px;
+    min-width: 150px;
 
     .time {
       margin-right: $rem;
@@ -12,8 +12,23 @@
       padding: $rem0-5;
     }
 
-    .status > label {
+    .status {
       padding: $rem0-5;
+
+      label {
+        margin: 0 $rem0-5;
+      }
+    }
+
+    .indicator {
+      background-color: $primary;
+      color: $on-primary;
+      border-radius: $rem;
+      padding: $rem0-5;
+
+      label {
+        margin: 0 $rem0-5;
+      }
     }
   }
 

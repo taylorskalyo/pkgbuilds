@@ -53,7 +53,23 @@
         :class "right-container"
         :space-evenly false
         (box :hexpand true)
-        (status)
+        (revealer
+          :reveal { battery.plugged_at + 3 <= EWW_TIME }
+          :transition "crossfade"
+          (status)
+        )
+        (revealer
+          :reveal { battery.plugged_at + 3 > EWW_TIME }
+          :transition "slideleft"
+          (stack
+            (box
+              :class "indicator battery ${ battery.plugged_at + 2 > EWW_TIME ? "visible" : "hidden" }"
+              (label
+                :text "${ icons["battery.${battery.state}"][round(battery.percentage * (arraylength(icons["battery.${battery.state}"])-1) / 100, 0)] } ${ battery.percentage }%"
+              )
+            )
+          )
+        )
       )
     )
     (box

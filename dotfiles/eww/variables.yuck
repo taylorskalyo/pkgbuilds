@@ -50,28 +50,43 @@
 
 ; Text icons
 (defvar icons '{
-  "web.connected": ["󰖟"],
-  "web.disconnected": ["󰕑"],
-  "web.off": ["󰪎"],
+  "battery.charging": [ "󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅" ],
+  "battery.discharging": [ "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
+  "battery.full": [ "󱟢" ],
+  "battery.plugged": [ "󰂅" ],
+  "battery.unknown": [ "" ],
+  "brightness": ["󰃞", "󰃟", "󰃠"],
   "ether.connected": ["󰈀"],
   "ether.disconnected": ["󰕑"],
   "ether.off": ["󰪎"],
-  "wlan.connected": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-  "wlan.disconnected": ["󰤫"],
-  "wlan.off": ["󰤮"],
-  "brightness": ["󰃞", "󰃟", "󰃠"],
   "mic": ["󰍬"],
   "mic-mute": ["󰍭"],
   "volume": ["󰕿", "󰖀", "󰕾"],
-  "volume-mute": ["󰸈", "󰖁"],
   "volume-alt": ["󰎇"],
-  "volume-mute-alt": ["󰎊"]
+  "volume-mute": ["󰸈", "󰖁"],
+  "volume-mute-alt": ["󰎊"],
+  "web.connected": ["󰖟"],
+  "web.disconnected": ["󰕑"],
+  "web.off": ["󰪎"],
+  "wlan.connected": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+  "wlan.disconnected": ["󰤫"],
+  "wlan.off": ["󰤮"]
   }'
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ; Dynamic variables
 ;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deflisten battery
+  :initial '{
+    "percentage":0,
+    "plugged_at":0,
+    "remaining":"",
+    "state":"unknown"
+    }'
+  `scripts/battery.sh`
+)
 
 (deflisten network
   :initial '{

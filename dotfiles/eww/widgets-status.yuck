@@ -1,7 +1,8 @@
 (defwidget status []
   (box
     :class "status"
-    :valign "start"
+
+    ; Volume
     (label
       :visible { volume.out.mute || volume.out.percentage == 0 }
       :text { icons["volume-mute"][arraylength(icons["volume-mute"])-1] }
@@ -9,8 +10,25 @@
 
     ; Show status networks, fall back to primary
     (for n in { arraylength(jq(network.all, jq_nets_status)) > 0 ? jq(network.all, jq_nets_status) : [ network ] }
-      (label :text { icons[n.icon][round(n.percentage * (arraylength(icons[n.icon])-1) / 100, 0)] } )
+      (tooltip
+        (label :text { n.sublabel })
+        (label :text { icons[n.icon][round(n.percentage * (arraylength(icons[n.icon])-1) / 100, 0)] } )
+      )
     )
-    (label :text "󰁹" )
+
+    ; Battery
+    (tooltip
+      :visible { battery.state != "unknown" }
+      (label
+        :text "${battery.percentage}%${
+          battery.remaining == "" ?
+          "" :
+          ", ${battery.state == "charging" ? "full" : "empty"} in ${battery.remaining}"
+        }"
+      )
+      (label
+        :text { icons["battery.${battery.state}"][round(battery.percentage * (arraylength(icons["battery.${battery.state}"])-1) / 100, 0)] }
+      )
+    )
   )
 )
