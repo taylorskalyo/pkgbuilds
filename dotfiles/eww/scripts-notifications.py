@@ -64,6 +64,7 @@ class NotificationServer(dbus.service.Object):
             id = self.next_id
             self.next_id += 1
 
+        # Image data
         data = hints.pop('image-data', [])
         if len(data) > 0:
             path = f'{self.cache_dir}/{id}.png'
@@ -78,6 +79,13 @@ class NotificationServer(dbus.service.Object):
             ).savev(path, "png")
             hints['image-path'] = path
 
+        # Fallback icon
+        # Used to provide re-colored icon for eww bar
+        if not hints.get('image-path', app_icon):
+            app_icon = "icons/info.svg"
+            hints['recolor'] = True
+
+        # Recolor SVG
         colors = os.path.expanduser('~/.cache/wal/colors')
         if app_icon.endswith('.svg') and hints.pop('recolor', None):
             if os.path.exists(app_icon) and os.path.exists(colors):

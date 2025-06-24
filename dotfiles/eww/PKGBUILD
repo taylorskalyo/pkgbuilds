@@ -22,6 +22,7 @@ source=(
   'eww.yuck'
   'icons-deployed-code-update.svg'
   'icons-install-desktop.svg'
+  'icons-info.svg'
   'scripts-battery.sh'
   'scripts-network.sh'
   'scripts-notifications.py'
@@ -48,6 +49,7 @@ source=(
   'widgets-workspaces.yuck'
 )
 sha256sums=(
+  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'
