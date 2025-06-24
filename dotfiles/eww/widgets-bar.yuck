@@ -24,10 +24,15 @@
           :orientation "horizontal"
           :visible { ! is_dnd }
           (for n in { jq(notifications, jq_notif_icon) }
-            (image
-              :path { n.hints?.image-path ?: n.app_icon ?: "/usr/share/icons/HighContrast/scalable/mimetypes/package-x-generic.svg" }
-              :image-width icon_size
-              :image-height icon_size
+            (tooltip
+              (label
+                :text { n.app_name }
+              )
+              (image
+                :path { n.hints?.image-path ?: n.app_icon ?: "/usr/share/icons/HighContrast/scalable/mimetypes/package-x-generic.svg" }
+                :image-width icon_size
+                :image-height icon_size
+              )
             )
           )
         )
