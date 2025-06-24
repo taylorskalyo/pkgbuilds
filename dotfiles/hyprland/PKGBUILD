@@ -1,5 +1,5 @@
 pkgname=dotfiles-hyprland
-pkgver=0.2.14
+pkgver=0.2.15
 pkgrel=1
 pkgdesc="Provide base hyprland configuration."
 arch=('any')
@@ -9,8 +9,8 @@ depends=(
   'foot'
   'hyprland'
   'libpulse'
-  'mako'
   'scripts-cptr'
+  'swaync'
   'tmux'
   'waybar'
   'zenity'

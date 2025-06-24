@@ -1,0 +1,19 @@
+pkgname=dotfiles-uwsm
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base uwsm configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'uwsm'
+)
+source=(
+  'env'
+)
+sha256sums=(
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/env" "$pkgdir/usr/share/dotfiles/.config/uwsm/env"
+}
