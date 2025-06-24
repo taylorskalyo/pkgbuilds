@@ -2,18 +2,6 @@
 
 set -e
 
-lockfile=$(mktemp)
-trap 'rm -f ${lockfile}; exit' INT EXIT
-
-# Ensure only one event is handled at a time.
-debounce_event() {
-  (
-    flock -n 200 || { echo "too fast" >&2; return 1; }
-
-    handle_event
-  ) 200>"${lockfile}"
-}
-
 normalize_network_state() {
   local state=$1
 
@@ -28,6 +16,28 @@ normalize_network_state() {
       echo disconnected
       ;;
   esac
+}
+
+# Buffer events. When multiple inputs arrive in quick succession, output only
+# the latest.
+debounce_events() {
+  local line
+
+  while true; do
+    read -r line
+    if [[ "$line" == *"PropertiesChanged"* ]] || [[ "$line" == "poll" ]]; then
+      expire=$(( $(date +%s) + 1 ))
+
+      # Flush fifo
+      while read -t 0.1 -r latest; do
+        line=$latest
+        [[ $(date +%s) -gt $expire ]] && break
+      done
+
+      # Output latest event
+      echo "${line}"
+    fi
+  done
 }
 
 handle_event() {
@@ -116,26 +126,22 @@ handle_event() {
 }
 
 while read -r line; do
-  if [[ "$line" == *"PropertiesChanged"* ]] || [[ "$line" == "poll" ]]; then
-
-    # Events can arrive in rapid bursts. No need to handle every one. Use a
-    # debouncing strategy to avoid doing more work than necessary.
-    debounce_event &
-  fi
+  handle_event
 done < <(
+  {
+    # Watch for state changes.
+    dbus-monitor \
+      --system \
+      "interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',sender='org.freedesktop.network1',arg0='org.freedesktop.network1.Link'" \
+      "interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',sender='net.connman.iwd',arg0='net.connman.iwd.Station'" \
+      2>/dev/null &
 
-  # Watch for state changes.
-  dbus-monitor \
-    --system \
-    "interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',sender='org.freedesktop.network1',arg0='org.freedesktop.network1.Link'" \
-    "interface='org.freedesktop.DBus.Properties',member='PropertiesChanged',sender='net.connman.iwd',arg0='net.connman.iwd.Station'" \
-    2>/dev/null &
-
-  # Poll periodically in order to update signal strength.
-  while true; do
-    echo "poll"
-    sleep 60
-  done &
+    # Poll periodically in order to update signal strength.
+    while true; do
+      echo "poll"
+      sleep 60
+    done &
+  } | debounce_events
 )
 
 wait
