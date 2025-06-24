@@ -20,7 +20,7 @@ EOF
 
 handle_event
 socat -u "UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" - | while read -r line; do
-  if [[ $line == "workspacev2"* || $line == "activewindowv2"* ]]; then
+  if [[ $line == "workspacev2"* || $line == "activewindowv2"* || $line == "destroyworkspacev2"* ]]; then
     handle_event
   fi
 done
