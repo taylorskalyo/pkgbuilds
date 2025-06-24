@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e
-#set -x
 
 to_table() {
   printf "<tt>"
@@ -17,6 +16,7 @@ handle_event() {
   for type in "${!cmds[@]}"; do
     local cmd=${cmds[$type]}
     local nid=${nids[$type]}
+    local icon=${icons[$type]}
 
     local updates
     updates=$(${cmd} | grep -vF '[ignored]' | sed 's/->//')
@@ -32,10 +32,11 @@ handle_event() {
       local body
 
       body=$(to_table <<<"${updates}")
+      local notifyargs=(--app-name="${type}-updates" --icon="${icon}" --hint=int:recolor:1 "${summary}" "${body}")
       if [[ -n $nid ]]; then
-        notify-send --replace-id="${nid}" "${summary}" "${body}"
+        notify-send --replace-id="${nid}" "${notifyargs[@]}"
       else
-        nids[$type]=$(notify-send --print-id "${summary}" "${body}")
+        nids[$type]=$(notify-send --print-id "${notifyargs[@]}")
       fi
     fi
   done
@@ -43,6 +44,7 @@ handle_event() {
 
 declare -A cmds=( ["official"]="checkupdates --nocolor" ["AUR"]="paru --color=never -Qu")
 declare -A nids=( ["official"]="" ["AUR"]="")
+declare -A icons=( ["official"]="$(realpath icons/install-desktop.svg)" ["AUR"]="$(realpath icons/deployed-code-update.svg)")
 
 while read -r line; do
   if [[ "$line" == *"transaction completed"* ]] || [[ "$line" == "poll" ]]; then

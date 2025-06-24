@@ -5,6 +5,7 @@ pkgdesc="Provide base eww configuration."
 arch=('any')
 license=('MIT')
 depends=(
+  'acpi'
   'eww'
   'hyprsunset'
   'iwd'
@@ -19,6 +20,9 @@ source=(
   'eww.scss'
   'eww.service'
   'eww.yuck'
+  'icons-deployed-code-update.svg'
+  'icons-install-desktop.svg'
+  'scripts-battery.sh'
   'scripts-network.sh'
   'scripts-notifications.py'
   'scripts-screen.sh'
@@ -69,11 +73,18 @@ sha256sums=(
   'SKIP'
   'SKIP'
   'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
 )
 
 package() {
   for f in $srcdir/*.yuck $srcdir/*.scss; do
     install -Dm644 "$f" "$pkgdir/usr/share/dotfiles/.config/eww/${f##*/}"
+  done
+
+  for f in $srcdir/icons-*; do
+    install -Dm644 "$f" "$pkgdir/usr/share/dotfiles/.config/eww/icons/${f##*/icons-}"
   done
 
   for f in $srcdir/scripts-*; do

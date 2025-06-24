@@ -3,18 +3,24 @@
 import dbus
 import dbus.service
 from dbus.mainloop.glib import DBusGMainLoop
-from gi.repository import GLib
-import threading
-import time
 import json
 import logging
+import os
+import signal
+import sys
+import tempfile
+import threading
+import time
+
+import gi
+gi.require_version("Gtk", "3.0")
+gi.require_version("GdkPixbuf", "2.0")
+from gi.repository import GLib, GdkPixbuf, GLib
 
 history = []
 
-#def timeout(notif):
-#    time.sleep(10)
-#    notifications.remove(notif)
-#    print_state()
+def on_interrupt(signum, frame):
+    sys.exit(0)
 
 def on_notify(notif):
     for i, n in enumerate(history):
@@ -25,8 +31,6 @@ def on_notify(notif):
 
     history.insert(0, notif)
     print_state()
-    #timer_thread = threading.Thread(target=timeout, args=(notif,))
-    #timer_thread.start()
 
 def print_state():
     # Escape '\'
@@ -39,11 +43,12 @@ class NotificationServer(dbus.service.Object):
     dbus_path = '/org/freedesktop/Notifications'
     private_hint = 'x-canonical-private-synchronous'
 
-    def __init__(self, logger):
+    def __init__(self, logger, cache_dir):
         bus = dbus.SessionBus()
         bus_name = dbus.service.BusName(self.dbus_iface, bus)
         dbus.service.Object.__init__(self, bus, self.dbus_path, bus_name)
         self.logger = logger
+        self.cache_dir = cache_dir
         self.next_id = 1
 
     @dbus.service.method(dbus_iface, in_signature='susssasa{ss}i', out_signature='u')
@@ -59,8 +64,30 @@ class NotificationServer(dbus.service.Object):
             id = self.next_id
             self.next_id += 1
 
-        # TODO: handle properly
-        hints.pop('image-data', None)
+        data = hints.pop('image-data', [])
+        if len(data) > 0:
+            path = f'{self.cache_dir}/{id}.png'
+            GdkPixbuf.Pixbuf.new_from_bytes(
+                width=data[0],
+                height=data[1],
+                has_alpha=data[3],
+                data=GLib.Bytes(data[6]),
+                colorspace=GdkPixbuf.Colorspace.RGB,
+                rowstride=data[2],
+                bits_per_sample=data[4],
+            ).savev(path, "png")
+            hints['image-path'] = path
+
+        colors = os.path.expanduser('~/.cache/wal/colors')
+        if app_icon.endswith('.svg') and hints.pop('recolor', None):
+            self.logger.warning(os.path.exists(app_icon))
+            self.logger.warning(os.path.exists(colors))
+            if os.path.exists(app_icon) and os.path.exists(colors):
+                path = f"{self.cache_dir}/{id}.svg"
+                with open(app_icon, 'r') as file: content = file.read()
+                with open(colors, 'r') as file: color = file.readlines()[7]
+                with open(path, 'w') as file: file.write(content.replace('fill="#FFFFFF"', f'fill="{color}"'))
+                app_icon = path
 
         n = dict(
             id = id,
@@ -144,6 +171,11 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.WARNING)
     logger = logging.getLogger('notifications')
     DBusGMainLoop(set_as_default=True)
-    NotificationServer(logger)
-    mainloop = GLib.MainLoop()
-    mainloop.run()
+    with tempfile.TemporaryDirectory() as cache_dir:
+
+        # Trap signals so that we can clean up before exit
+        signal.signal(signal.SIGINT, on_interrupt)
+        signal.signal(signal.SIGTERM, on_interrupt)
+        NotificationServer(logger, cache_dir)
+        mainloop = GLib.MainLoop()
+        mainloop.run()
