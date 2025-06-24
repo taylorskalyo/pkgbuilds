@@ -37,6 +37,7 @@ source=(
   'styles-shade-workspaces.scss'
   'styles-shade.scss'
   'styles-volume.scss'
+  'styles-workspaces.scss'
   'variables.yuck'
   'widgets-bar.yuck'
   'widgets-shade-notifications.yuck'
@@ -47,6 +48,7 @@ source=(
   'widgets-workspaces.yuck'
 )
 sha256sums=(
+  'SKIP'
   'SKIP'
   'SKIP'
   'SKIP'

@@ -7,11 +7,14 @@
     :space-evenly false
     (for id in { workspace_ids }
       (button :onclick "hyprctl dispatch workspace ${id}"
-        :class "workspace ${ id == workspaces.active ? "active" : "" }"
-        :visible { jq(workspaces.all, '[ .[] | select(.id == ${id}) ] | length') > 0 }
+        :class "workspace ${
+          id == workspaces.active ? "active" : ""
+        } ${
+          arraylength(workspaces.all) > 1 && jq(workspaces.all, '[ .[] | select(.id == ${id}) ] | length') > 0 ? "visible" : "hidden"
+        }"
         (label
           :text { id }
-          :visible is_shade
+          :visible { is_shade && jq(workspaces.all, '[ .[] | select(.id == ${id}) ] | length') > 0 }
         )
       )
     )

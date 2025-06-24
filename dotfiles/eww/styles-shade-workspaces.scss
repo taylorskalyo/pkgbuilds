@@ -11,17 +11,13 @@
       100% { min-width: $rem3; }
     }
 
-    transition: border-radius $hover-duration ease-out;
-    margin: 0 $rem0-5 / 2;
     border-radius: $rem;
-    min-width: $rem3;
     min-height: $rem4;
     background-color: $surface-container;
     color: $on-surface-variant;
     animation: deselect-workspace-bar $click-duration ease-in-out;
 
     &.active, &.active:hover {
-      min-width: $rem6;
       background-color: $surface-container-low;
       animation: select-workspace-bar $click-duration ease-in-out;
     }
@@ -33,3 +29,5 @@
     }
   }
 }
+
+@import "styles-workspaces.scss";

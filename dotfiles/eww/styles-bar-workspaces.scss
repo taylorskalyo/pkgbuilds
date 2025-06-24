@@ -1,38 +1,34 @@
 .workspaces  {
-  margin: 0 $rem4;
-
   .workspace {
-    @keyframes select-workspace-shade {
+    @keyframes select-workspace-bar {
       0% { min-width: $rem3; }
       20% { min-width: $rem6 + $rem0-5; }
       100% { min-width: $rem6; }
     }
-    @keyframes deselect-workspace-shade {
+    @keyframes deselect-workspace-bar {
       0% { min-width: $rem6; }
       20% { min-width: $rem3 - $rem0-5; }
       100% { min-width: $rem3; }
     }
 
-    transition: border-radius $hover-duration ease-out;
-    margin: 0 $rem0-5 / 2;
-    border-radius: $rem0-5;
-    min-width: $rem3;
+    border-radius: $rem;
     min-height: $rem3 / 2;
     background-color: $on-surface;
     opacity: 0.1;
-    animation: deselect-workspace-shade $click-duration ease-in-out;
+    animation: deselect-workspace-bar $click-duration ease-in-out;
 
     &.active, &.active:hover {
-      min-width: $rem6;
       background-color: $on-surface;
-      animation: select-workspace-shade $click-duration ease-in-out;
+      animation: select-workspace-bar $click-duration ease-in-out;
       opacity: 0.2;
     }
 
     &:hover {
-      border-radius: $rem0-5 / 2;
+      border-radius: $rem0-5;
       background-color: $on-surface;
       opacity: 0.2;
     }
   }
 }
+
+@import "styles-workspaces.scss";
