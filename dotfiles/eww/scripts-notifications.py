@@ -80,8 +80,6 @@ class NotificationServer(dbus.service.Object):
 
         colors = os.path.expanduser('~/.cache/wal/colors')
         if app_icon.endswith('.svg') and hints.pop('recolor', None):
-            self.logger.warning(os.path.exists(app_icon))
-            self.logger.warning(os.path.exists(colors))
             if os.path.exists(app_icon) and os.path.exists(colors):
                 path = f"{self.cache_dir}/{id}.svg"
                 with open(app_icon, 'r') as file: content = file.read()
