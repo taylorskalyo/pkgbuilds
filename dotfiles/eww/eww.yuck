@@ -1,8 +1,8 @@
-(include "widgets-workspaces.yuck")
-(include "widgets-status.yuck")
-(include "widgets-volume.yuck")
-(include "widgets-bar.yuck")
-(include "widgets-shade.yuck")
+(include "widgets/workspaces.yuck")
+(include "widgets/status.yuck")
+(include "widgets/volume.yuck")
+(include "widgets/bar.yuck")
+(include "widgets/shade.yuck")
 
 (include "variables.yuck")
 
@@ -51,4 +51,20 @@
     :anchor "right center"
   )
   (volume-osd :is_volume_notif { (jq(notifications, jq_notif_vol)?.timestamp ?: 0) + 3 > EWW_TIME})
+)
+
+(defwidget switch [checked ?onchecked ?onunchecked]
+  (eventbox
+    :class "switch ${checked ? "on" : "off"}"
+    :onclick { checked ?
+      "bluetoothctl power off" : 
+      "bluetoothctl power on"
+    }
+    (box
+      :class "trough"
+      (box
+        :class "slider"
+      )
+    )
+  )
 )

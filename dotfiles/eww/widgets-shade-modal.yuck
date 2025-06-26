@@ -1,0 +1,111 @@
+(defwidget shade-modal []
+  (box
+    :class "modal-container"
+    :orientation "vertical"
+    :space-evenly false
+    (box
+      :class "modal-shadow"
+      :orientation "vertical"
+      :vexpand true
+      (box
+        :class "modal"
+        ;:class "modal ${ modal_selected >= 0 ? "open" : "closed" }"
+        :orientation "vertical"
+        :space-evenly false
+        (stack
+          :vexpand true
+          (box
+            :class "bluetooth"
+            (box
+              :class "left"
+              :orientation "vertical"
+              :space-evenly false
+              (label :text "Bluetooth" :class "heading")
+              (label :text "Tap to connect or disconnect a device")
+              (box
+                :class "switch-container"
+                :space-evenly false
+                :halign "center"
+                (label :text "Use Bluetooth")
+                (box :hexpand true)
+                (switch
+                  :checked { bluetooth.powered }
+                  :onchecked "bluetoothctl power on"
+                  :onunchecked "bluetoothctl power off"
+                )
+              )
+            )
+            (scroll
+              :class "right"
+              (stack
+                :selected {
+                  ! bluetooth.powered ?
+                  0 : (
+                    arraylength(bluetooth.devices) < 1 ?
+                    1 :
+                    2
+                  )
+                }
+                (label :text "No devices (Bluetooth is off)")
+                (label :text "No devices")
+                (box
+                  :orientation "vertical"
+                  :space-evenly false
+                  (for d in { bluetooth.devices }
+                    (button
+                      :class "device"
+                      :onclick {
+                        d.connected ?
+                        "bluetoothctl disconnect ${d.mac}" :
+                        "bluetoothctl connect ${d.mac}"
+                      }
+                      (box
+                        :space-evenly false
+                        (label
+                          :class "icon color${ strlength(d.name) % 6 + 1 }"
+                          :text { (icons["bluetooth.${d.icon}"] ?: icons["bluetooth.unknown"])[0] }
+                        )
+                        (box
+                          :orientation "vertical"
+                          :space-evenly false
+                          :hexpand true
+                          :halign "start"
+                          :valign "center"
+                          (label
+                            :class "label"
+                            :xalign 0
+                            :text { d.name ?: d.mac }
+                          )
+                          (label
+                            :class "status"
+                            :xalign 0
+                            :text {
+                              d.connected ?
+                              "Connected" : (
+                                d.paired ? "Saved" : ""
+                              )
+                            }
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+        (box
+          :orientation "horizontal"
+          :space-evenly false
+          (box :hexpand true)
+          (button
+            :onclick "${EWW_CMD} update modal_selected=-1"
+            (label :text "Done")
+          )
+        )
+      )
+    )
+    (shade-corners :class "modal-shadow-corners-bottom")
+  )
+)

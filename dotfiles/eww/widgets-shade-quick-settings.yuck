@@ -22,10 +22,10 @@
           :sublabel { network.sublabel }
         )
         (toggle
-          :icon "󰂯"
+          :icon { icons[bluetooth.icon][0] }
           :label "Bluetooth"
-          :state { is_bluetooth ? "on" : "off" }
-          :ontoggle "${EWW_CMD} update is_bluetooth=${ ! is_bluetooth }"
+          :state { bluetooth.powered ? "on" : "off" }
+          :ontoggle { bluetooth.powered ? "bluetoothctl power off" : "bluetoothctl power on" }
           :onclick "${EWW_CMD} update modal_selected=${ modal_index.bluetooth }"
         )
         (toggle

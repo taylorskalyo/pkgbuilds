@@ -6,6 +6,7 @@ arch=('any')
 license=('MIT')
 depends=(
   'acpi'
+  'bluez-utils'
   'eww'
   'hyprsunset'
   'iwd'
@@ -24,6 +25,7 @@ source=(
   'icons-install-desktop.svg'
   'icons-info.svg'
   'scripts-battery.sh'
+  'scripts-bluetooth.sh'
   'scripts-network.sh'
   'scripts-notifications.py'
   'scripts-screen.sh'
@@ -44,6 +46,7 @@ source=(
   'widgets-shade-notifications.yuck'
   'widgets-shade-quick-settings.yuck'
   'widgets-shade.yuck'
+  'widgets-shade-modal.yuck'
   'widgets-status.yuck'
   'widgets-volume.yuck'
   'widgets-workspaces.yuck'
@@ -80,11 +83,17 @@ sha256sums=(
   'SKIP'
   'SKIP'
   'SKIP'
+  'SKIP'
+  'SKIP'
 )
 
 package() {
-  for f in $srcdir/*.yuck $srcdir/*.scss; do
+  for f in $srcdir/eww.yuck $srcdir/variables.yuck $srcdir/*.scss; do
     install -Dm644 "$f" "$pkgdir/usr/share/dotfiles/.config/eww/${f##*/}"
+  done
+
+  for f in $srcdir/widgets-*; do
+    install -Dm644 "$f" "$pkgdir/usr/share/dotfiles/.config/eww/widgets/${f##*/widgets-}"
   done
 
   for f in $srcdir/icons-*; do

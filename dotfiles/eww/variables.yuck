@@ -49,12 +49,35 @@
 (defvar jq_nets_status "[ .[] | select(.toggle | test(\"connected|off\")) ]")
 
 ; Text icons
+; - bluetooth: https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/src/dbus-common.c
 (defvar icons '{
   "battery.charging": [ "󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅" ],
   "battery.discharging": [ "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
   "battery.full": [ "󱟢" ],
   "battery.plugged": [ "󰂅" ],
   "battery.unknown": [ "" ],
+  "bluetooth.audio": [ "󰂰" ],
+  "bluetooth.audio-card": [ "󰓃" ],
+  "bluetooth.audio-headphones": [ "󰋋" ],
+  "bluetooth.audio-headset": [ "󰋎" ],
+  "bluetooth.audio-video": [ "󰤽" ],
+  "bluetooth.camera-photo": [ "󰄀" ],
+  "bluetooth.camera-video": [ "󰕧" ],
+  "bluetooth.computer": [ "󰌢" ],
+  "bluetooth.connected": [ "󰂱" ],
+  "bluetooth.input-gaming": [ "󰊖" ],
+  "bluetooth.input-keyboard": [ "󰌌" ],
+  "bluetooth.input-mouse": [ "󰍽" ],
+  "bluetooth.input-tablet": [ "󰏪" ],
+  "bluetooth.modem": [ "󰑩" ],
+  "bluetooth.multimedia-player": [ "󰝚" ],
+  "bluetooth.network-wireless": [ "󰀂" ],
+  "bluetooth.off": [ "󰂲" ],
+  "bluetooth.on": [ "󰂯" ],
+  "bluetooth.phone": [ "󰄜" ],
+  "bluetooth.scanner": [ "󰚫" ],
+  "bluetooth.unknown": [ "󰾰" ],
+  "bluetooth.video-display": [ "󰍹" ],
   "brightness": ["󰃞", "󰃟", "󰃠"],
   "ether.connected": ["󰈀"],
   "ether.disconnected": ["󰕑"],
@@ -86,6 +109,16 @@
     "state":"unknown"
     }'
   `scripts/battery.sh`
+)
+
+(deflisten bluetooth
+  :initial '{
+    "icon": "bluetooth.off",
+    "discovering": false,
+    "powered": false,
+    "devices": []
+    }'
+    `scripts/bluetooth.sh`
 )
 
 (deflisten network
@@ -131,3 +164,9 @@
     }'
   `scripts/screen.sh`
 )
+
+;(defpoll bluetoothscan
+;  :interval "30s"
+;  :run-while { modal_selected == modal_index["bluetooth"] }
+;  `bluetoothctl --timeout 25 scan on`
+;)

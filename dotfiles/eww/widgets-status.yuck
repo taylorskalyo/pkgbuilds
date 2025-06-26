@@ -2,6 +2,12 @@
   (box
     :class "status"
 
+    ; Bluetooth
+    (label
+      :visible { bluetooth.icon =~ "connected" || bluetooth.icon =~ "audio" }
+      :text { icons[bluetooth.icon][0] }
+    )
+
     ; Volume
     (label
       :visible { volume.out.mute || volume.out.percentage == 0 }

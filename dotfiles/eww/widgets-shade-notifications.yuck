@@ -20,19 +20,19 @@
         (label :text "󰋚")
       )
     )
-    (label
-      :visible { is_dnd || (is_notif_hist ? arraylength(jq(notifications, jq_notif_hist)) < 1 : arraylength(jq(notifications, jq_notif_list)) < 1) }
-      :text "No notifications"
+    (stack
+      :selected { is_dnd || (is_notif_hist ? arraylength(jq(notifications, jq_notif_hist)) < 1 : arraylength(jq(notifications, jq_notif_list)) < 1) ? 0 : 1}
       :hexpand true
-    )
-    (scroll
-      :visible { ! is_dnd && (is_notif_hist ? arraylength(jq(notifications, jq_notif_hist)) > 0 : arraylength(jq(notifications, jq_notif_list)) > 0) }
-      :hexpand true
-      (box
-        :orientation "vertical"
-        :space-evenly false
-        (for n in { is_notif_hist ? jq(notifications, jq_notif_hist) : jq(notifications, jq_notif_list) }
-          (notification :n n)
+      (label
+        :text "No notifications"
+      )
+      (scroll
+        (box
+          :orientation "vertical"
+          :space-evenly false
+          (for n in { is_notif_hist ? jq(notifications, jq_notif_hist) : jq(notifications, jq_notif_list) }
+            (notification :n n)
+          )
         )
       )
     )

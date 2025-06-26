@@ -1,5 +1,6 @@
-(include "widgets-shade-quick-settings.yuck")
-(include "widgets-shade-notifications.yuck")
+(include "widgets/shade-quick-settings.yuck")
+(include "widgets/shade-notifications.yuck")
+(include "widgets/shade-modal.yuck")
 
 (defwidget shade-status []
   (box
@@ -78,38 +79,7 @@
         :visible { modal_selected >= 0 }
         ;:onclick "${EWW_CMD} update modal_selected=-1"
         :onclick ":" ; make widgets behind modal unclickable
-        (box
-          :class "modal-container"
-          :orientation "vertical"
-          :space-evenly false
-          (box
-            :class "modal-shadow"
-            :orientation "vertical"
-            :vexpand true
-            (box
-              :class "modal"
-              ;:class "modal ${ modal_selected >= 0 ? "open" : "closed" }"
-              :orientation "vertical"
-              :space-evenly false
-              (stack
-                :vexpand true
-                (box
-                  (label :text "Bluetooth")
-                )
-              )
-              (box
-                :orientation "horizontal"
-                :space-evenly false
-                (box :hexpand true)
-                (button
-                  :onclick "${EWW_CMD} update modal_selected=-1"
-                  (label :text "Done")
-                )
-              )
-            )
-          )
-          (shade-corners :class "modal-shadow-corners-bottom")
-        )
+        (shade-modal)
       )
     )
   )

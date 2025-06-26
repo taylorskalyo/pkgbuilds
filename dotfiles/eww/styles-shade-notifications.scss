@@ -1,8 +1,8 @@
 .shade-notifications {
+  background-color: $surface-container;
   color: $on-surface-variant;
   margin: $rem0-5;
   border-radius: $rem4 $rem4 0 0;
-  background-color: $surface-container;
   min-height: 25 * $rem;
 
   button {

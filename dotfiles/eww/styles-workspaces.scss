@@ -1,0 +1,22 @@
+.workspaces  {
+  margin: 0 $rem4;
+
+  .workspace {
+    transition: border-radius $hover-duration ease-out;
+    margin: 0 $rem0-5 / 2;
+    min-width: $rem3;
+
+    &.active, &.active:hover {
+      min-width: $rem6;
+    }
+
+    &.hidden {
+      animation-duration: 0;
+      transition: all $hover-duration ease-out;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+    }
+  }
+}

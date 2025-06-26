@@ -57,7 +57,7 @@
     .modal {
       border-radius: $rem3;
       background-color: $surface;
-      margin: $rem2 2 * $rem8;
+      margin: $rem 2 * $rem8;
 
       &.open {
         @keyframes modal-open {
@@ -69,24 +69,64 @@
 
       button {
         transition: border-radius $hover-duration;
+        background-color: $primary;
+        color: $on-primary;
         margin: $rem $rem2;
         border-radius: $rem;
-        background-color: $surface-container-lowest;
         padding: $rem0-5 $rem;
 
         &:hover {
           border-radius: $rem0-5;
-          background-color: $surface-container-high;
+          background-color: $outline;
+        }
+      }
+
+      .heading {
+        font-size: $rem2;
+      }
+
+      .left {
+        padding: $rem0-5 $rem2;
+      }
+
+      .right {
+        background-color: $surface-container;
+        border-radius: $rem3;
+        padding: $rem0-5 $rem2;
+      }
+
+      .switch-container {
+        min-width: 2 * $rem8;
+        margin: $rem2;
+      }
+
+      .bluetooth {
+        padding: $rem2;
+
+        button {
+          all: unset;
+          border-radius: $rem2;
+          min-height: 0;
+          margin: 0;
+          padding: 0;
+          margin-right: $rem6;
+
+          &:hover {
+            background-color: rgba($surface-container-high, 0.2);
+          }
         }
 
-        &.on, &.on:hover {
-          border-radius: $rem0-5;
-          background-color: $primary;
-          color: $on-primary;
-        }
-
-        &.invisible {
-          opacity: 0.0;
+        .icon {
+          &.color1 { color: $color1; background-color: rgba($color1, 0.2);}
+          &.color2 { color: $color2; background-color: rgba($color2, 0.2);}
+          &.color3 { color: $color3; background-color: rgba($color3, 0.2);}
+          &.color4 { color: $color4; background-color: rgba($color4, 0.2);}
+          &.color5 { color: $color5; background-color: rgba($color5, 0.2);}
+          &.color6 { color: $color6; background-color: rgba($color6, 0.2);}
+          border-radius: $rem2;
+          font-size: $rem2;
+          padding: $rem;
+          margin: $rem0-5 $rem2;
         }
       }
     }

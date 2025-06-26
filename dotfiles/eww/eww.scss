@@ -62,6 +62,47 @@ $rem8: 8 * $font-size;
   min-height: $corner-size;
 }
 
+.switch {
+  background-color: $surface;
+
+  .trough {
+    border-radius: $rem;
+
+    .slider {
+      transition: margin $click-duration ease-in-out;
+      border-radius: $rem;
+      min-height: $rem;
+      min-width: $rem;
+    }
+  }
+
+  &.on {
+    .trough {
+      border: 2px solid $primary;
+      background-color: $primary;
+
+      .slider {
+        border: 2px solid $surface-container-lowest;
+        background-color: $surface-container-lowest;
+        margin-left: $rem;
+      }
+    }
+  }
+
+  &.off {
+    .trough {
+      border: 2px solid $primary;
+      background-color: $surface-container-lowest;
+
+      .slider {
+        border: 2px solid $surface-container-lowest;
+        background-color: $primary;
+        margin-right: $rem;
+      }
+    }
+  }
+}
+
 @import "styles-bar.scss";
 @import "styles-shade.scss";
 @import "styles-volume.scss";
