@@ -1,3 +1,193 @@
+(defwidget bluetooth-modal []
+  (box
+    :class "bluetooth"
+    (box
+      :class "left"
+      :orientation "vertical"
+      :space-evenly false
+      (label :text "Bluetooth" :class "heading")
+      (label :text "Tap to connect or disconnect a device")
+      (box
+        :class "switches"
+        :orientation "vertical"
+        (box
+          :class "switch-container"
+          :space-evenly false
+          :halign "center"
+          (label :text "Use Bluetooth")
+          (box :hexpand true)
+          (switch
+            :checked { bluetooth.powered }
+            :onchecked "bluetoothctl power on"
+            :onunchecked "bluetoothctl power off"
+          )
+        )
+      )
+    )
+    (scroll
+      :class "right"
+      (stack
+        :selected {
+          ! bluetooth.powered ?
+          0 : (
+            arraylength(bluetooth.devices) < 1 ?
+            1 :
+            2
+          )
+        }
+        (label :text "No devices (Bluetooth is off)")
+        (label :text "No devices")
+        (box
+          :orientation "vertical"
+          :space-evenly false
+          (for d in { bluetooth.devices }
+            (button
+              :class "device"
+              :onclick {
+                d.connected ?
+                "bluetoothctl disconnect ${d.mac}" :
+                "bluetoothctl connect ${d.mac}"
+              }
+              (box
+                :space-evenly false
+                (label
+                  :class "icon color${ strlength(d.name) % 6 + 1 }"
+                  :text { (icons["bluetooth.${d.icon}"] ?: icons["bluetooth.unknown"])[0] }
+                )
+                (box
+                  :orientation "vertical"
+                  :space-evenly false
+                  :hexpand true
+                  :halign "start"
+                  :valign "center"
+                  (label
+                    :class "label"
+                    :xalign 0
+                    :text { d.name ?: d.mac }
+                  )
+                  (label
+                    :class "status"
+                    :xalign 0
+                    :visible { d.connected || d.paired }
+                    :text {
+                      d.connected ?
+                      "Connected" : (
+                        d.paired ? "Saved" : ""
+                      )
+                    }
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+(defwidget internet-modal []
+  (box
+    :class "internet"
+    (box
+      :class "left"
+      :orientation "vertical"
+      :space-evenly false
+      (label :text "Internet" :class "heading")
+      (label :text "Tap a network to connect")
+      (box
+        :class "switches"
+        :orientation "vertical"
+        (for n in { network.all }
+          (box
+            :class "switch-container"
+            :space-evenly false
+            :halign "center"
+            (label :text { '{"wlan":"Wi-Fi","ether":"Ethernet"}'[n.type] })
+            (box :hexpand true)
+            (switch
+              :checked { n.state != "off" }
+              :disabled { n.disabled }
+              :onchecked { n.type == "wlan" ? "rfkill unblock wifi" : "" }
+              :onunchecked { n.type == "wlan" ? "rfkill block wifi" : "" }
+            )
+          )
+        )
+      )
+    )
+    (scroll
+      :class "right"
+      (stack
+        :selected {
+          ((jq(network.all, jq_net_wlan) ?: "{}").state ?: "off") == "off" ?
+          0 : (
+            arraylength(jq(network.all, jq_net_wlan).stations) < 1 ?
+            1 :
+            2
+          )
+        }
+        (label :text "No networks (Wi-Fi is off)")
+        (label :text "No networks")
+        (box
+          :orientation "vertical"
+          :space-evenly false
+          (for s in { (jq(network.all, jq_net_wlan) ?: "{}").stations ?: [] }
+            (button
+              ; Disable if connecting would require inputting a password
+              :class "network ${(s.saved || s.security == "open") ? "" : "disabled"}"
+              :onclick {
+                (s.saved || s.security == "open") ? (
+                  s.connected ?
+                  "iwctl station ${jq(network.all, jq_net_wlan).iface} disconnect '${s.ssid}'" :
+                  "iwctl station ${jq(network.all, jq_net_wlan).iface} connect '${s.ssid}'"
+                ) : ""
+              }
+              (box
+                :space-evenly false
+                (label
+                  :class "icon"
+                  :text { icons["wlan.connected"][round(s.percentage * (arraylength(icons["wlan.connected"])-1) / 100, 0)] }
+                )
+                (box
+                  :orientation "vertical"
+                  :space-evenly false
+                  :hexpand true
+                  :halign "start"
+                  :valign "center"
+                  (label
+                    :class "label"
+                    :xalign 0
+                    :text { s.ssid }
+                  )
+                  (label
+                    :class "status"
+                    :xalign 0
+                    :visible { s.connected || s.saved }
+                    :text {
+                      s.connected ?
+                      "Connected" : (
+                        s.saved ?
+                        "Saved" :
+                        ""
+                      )
+                    }
+                  )
+                )
+                (box :hexpand true)
+                (label
+                  :class "icon"
+                  :xalign 0
+                  :text { s.security == "open" ? "" : "󰌾"}
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
 (defwidget shade-modal []
   (box
     :class "modal-container"
@@ -9,91 +199,13 @@
       :vexpand true
       (box
         :class "modal"
-        ;:class "modal ${ modal_selected >= 0 ? "open" : "closed" }"
         :orientation "vertical"
         :space-evenly false
         (stack
+          :selected { modal_selected > 0 ? modal_selected : 0 }
           :vexpand true
-          (box
-            :class "bluetooth"
-            (box
-              :class "left"
-              :orientation "vertical"
-              :space-evenly false
-              (label :text "Bluetooth" :class "heading")
-              (label :text "Tap to connect or disconnect a device")
-              (box
-                :class "switch-container"
-                :space-evenly false
-                :halign "center"
-                (label :text "Use Bluetooth")
-                (box :hexpand true)
-                (switch
-                  :checked { bluetooth.powered }
-                  :onchecked "bluetoothctl power on"
-                  :onunchecked "bluetoothctl power off"
-                )
-              )
-            )
-            (scroll
-              :class "right"
-              (stack
-                :selected {
-                  ! bluetooth.powered ?
-                  0 : (
-                    arraylength(bluetooth.devices) < 1 ?
-                    1 :
-                    2
-                  )
-                }
-                (label :text "No devices (Bluetooth is off)")
-                (label :text "No devices")
-                (box
-                  :orientation "vertical"
-                  :space-evenly false
-                  (for d in { bluetooth.devices }
-                    (button
-                      :class "device"
-                      :onclick {
-                        d.connected ?
-                        "bluetoothctl disconnect ${d.mac}" :
-                        "bluetoothctl connect ${d.mac}"
-                      }
-                      (box
-                        :space-evenly false
-                        (label
-                          :class "icon color${ strlength(d.name) % 6 + 1 }"
-                          :text { (icons["bluetooth.${d.icon}"] ?: icons["bluetooth.unknown"])[0] }
-                        )
-                        (box
-                          :orientation "vertical"
-                          :space-evenly false
-                          :hexpand true
-                          :halign "start"
-                          :valign "center"
-                          (label
-                            :class "label"
-                            :xalign 0
-                            :text { d.name ?: d.mac }
-                          )
-                          (label
-                            :class "status"
-                            :xalign 0
-                            :text {
-                              d.connected ?
-                              "Connected" : (
-                                d.paired ? "Saved" : ""
-                              )
-                            }
-                          )
-                        )
-                      )
-                    )
-                  )
-                )
-              )
-            )
-          )
+          (bluetooth-modal)
+          (internet-modal)
         )
         (box
           :orientation "horizontal"

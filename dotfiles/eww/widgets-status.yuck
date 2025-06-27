@@ -17,7 +17,7 @@
     ; Show status networks, fall back to primary
     (for n in { arraylength(jq(network.all, jq_nets_status)) > 0 ? jq(network.all, jq_nets_status) : [ network ] }
       (tooltip
-        (label :text { n.sublabel })
+        (label :text { n.station ?: n.type })
         (label :text { icons[n.icon][round(n.percentage * (arraylength(icons[n.icon])-1) / 100, 0)] } )
       )
     )

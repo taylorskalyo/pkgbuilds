@@ -10,7 +10,8 @@
 ; Modals
 (defvar modal_selected -1)
 (defvar modal_index '{
-  "bluetooth": 0
+  "bluetooth": 0,
+  "internet": 1
   }'
 )
 
@@ -46,7 +47,10 @@
 (defvar jq_notif_icon "[ .[] | select(.dismissed == false and .hints.transient == null) ] | group_by(.app_name) | map({app_name: first.app_name, app_icon: first.app_icon, hints: first.hints})")
 
 ; Networks to show in status bar
-(defvar jq_nets_status "[ .[] | select(.toggle | test(\"connected|off\")) ]")
+(defvar jq_nets_status "[ .[] | select(.state | test(\"^connected|^off\")) ]")
+
+; Wlan network
+(defvar jq_net_wlan ".[] | select(.type == \"wlan\")")
 
 ; Text icons
 ; - bluetooth: https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/src/dbus-common.c
@@ -125,8 +129,11 @@
   :initial '{
     "icon": "web.disconnected",
     "percentage": 0,
-    "sublabel": "Disconnected",
-    "all": []
+    "label": "Disconnected",
+    "state": "disconnected",
+    "disabled": true,
+    "all": [],
+    "wlan_stations": []
     }'
     `scripts/network.sh`
 )

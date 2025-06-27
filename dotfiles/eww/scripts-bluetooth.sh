@@ -73,6 +73,7 @@ JSON
     devices="${devices:0:-1}"
   fi
 
+  # Use jq to compact and validate
   jq -c <<-JSON
 {
   "icon":"${state_icon}",

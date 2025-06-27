@@ -18,28 +18,30 @@
         (toggle
           :icon { icons[network.icon][round(network.percentage * (arraylength(icons[network.icon])-1) / 100, 0)] }
           :label "Internet"
-          :state { network.toggle }
-          :sublabel { network.sublabel }
+          :checked { network.state != "off" }
+          :disabled { network.disabled }
+          :sublabel { network.label }
+          :onclick "${EWW_CMD} update modal_selected=${ modal_index.internet }"
         )
         (toggle
           :icon { icons[bluetooth.icon][0] }
           :label "Bluetooth"
-          :state { bluetooth.powered ? "on" : "off" }
+          :checked { bluetooth.powered }
           :ontoggle { bluetooth.powered ? "bluetoothctl power off" : "bluetoothctl power on" }
           :onclick "${EWW_CMD} update modal_selected=${ modal_index.bluetooth }"
         )
         (toggle
           :icon "󰍷"
           :label "Do Not Disturb"
-          :state { is_dnd ? "on" : "off" }
+          :checked { is_dnd }
           :onclick "${EWW_CMD} update is_dnd=${ ! is_dnd }"
         )
         (toggle
           :icon "󰽥"
           :label "Night Light"
-          :sublabel { screen.temperature > 6000 ? "On at sunset" : "Until sunrise"}
-          :state { screen.temperature > 6000 ? "off" : "on" }
-          :onclick "scripts/screen.sh temperature ${ screen.temperature > 6000 ? "night" : "day" }"
+          :sublabel { screen.temperature < 6000 ? "Until sunrise" : "On at sunset"}
+          :checked { screen.temperature < 6000 }
+          :onclick "scripts/screen.sh temperature ${ screen.temperature < 6000 ? "day" : "night" }"
         )
       )
     )
@@ -92,17 +94,17 @@
   )
 )
 
-(defwidget toggle [icon label ?sublabel ?state ?onclick ?ontoggle]
+(defwidget toggle [icon label ?sublabel ?checked ?disabled ?onclick ?ontoggle]
   (box
     :class "toggle-container ${ontoggle == "" ? "full-toggle" : "split-toggle"}"
     (eventbox
-      :class "toggle ${state}"
-      :onclick { state == "disabled" ? "" : (onclick ?: ontoggle) }
+      :class "toggle ${(disabled ?: false) ? "disabled" : ""} ${checked ? "on" : "off"}"
+      :onclick { (disabled ?: false) ? "" : (onclick ?: ontoggle) }
       (box
         :orientation "horizontal"
         :space-evenly false
         (button
-          :onclick { state == "disabled" ? "" : (ontoggle ?: onclick) }
+          :onclick { (disabled ?: false) ? "" : (ontoggle ?: onclick) }
           (label
             :class "icon"
             :text icon

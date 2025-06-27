@@ -53,12 +53,16 @@
   (volume-osd :is_volume_notif { (jq(notifications, jq_notif_vol)?.timestamp ?: 0) + 3 > EWW_TIME})
 )
 
-(defwidget switch [checked ?onchecked ?onunchecked]
+(defwidget switch [checked ?disabled ?onchecked ?onunchecked]
   (eventbox
-    :class "switch ${checked ? "on" : "off"}"
-    :onclick { checked ?
-      "bluetoothctl power off" : 
-      "bluetoothctl power on"
+    :class "switch ${(disabled ?: false) ? "disabled" : ""} ${checked ? "on" : "off"}"
+    :onclick {
+      (disabled ?: false) ?
+      "" : (
+        checked ?
+        onunchecked : 
+        onchecked
+      )
     }
     (box
       :class "trough"

@@ -94,7 +94,7 @@
             animation: deselect-toggle $click-duration ease-in-out;
           }
 
-          &:hover {
+          &:not(.disabled):hover {
             border-radius: $rem3;
 
             .icon {
@@ -112,7 +112,7 @@
             animation: select-toggle $click-duration ease-in-out;
           }
 
-          &:hover {
+          &:not(.disabled):hover {
             border-radius: $rem2 + $rem0-5;
 
             .icon {
@@ -124,7 +124,7 @@
 
       &.split-toggle {
         .toggle {
-          &:hover {
+          &:not(.disabled):hover {
             background-color: $surface-container;
           }
 
@@ -140,7 +140,7 @@
               background-color: $surface-container;
             }
 
-            &:hover {
+            &:not(.disabled):hover {
               .icon {
                 background-color: $surface-container-high;
               }
@@ -155,7 +155,7 @@
             background-color: $primary;
             color: $on-primary;
 
-            &:hover {
+            &:not(.disabled):hover {
               background-color: $surface-container-high;
               color: $on-surface;
             }
@@ -164,7 +164,7 @@
           &.off {
             background-color: $surface-container-low;
 
-            &:hover {
+            &:not(.disabled):hover {
               background-color: $surface-container;
             }
           }
@@ -181,7 +181,7 @@
     color: $on-primary;
     padding: $rem;
 
-    &:hover {
+    &:not(.disabled):hover {
       background-color: $outline;
       border-radius: $rem;
     }
