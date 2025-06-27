@@ -18,8 +18,8 @@
             :class "volume-osd-mode-container"
             :orientation "vertical"
             :space-evenly false
-            (volume-osd-toggle :icon "mic" :on { ! volume.in.mute })
-            (volume-osd-toggle :icon "mic-mute" :on { volume.in.mute })
+            (volume-osd-toggle :icon "mic" :on { ! (volume.in.mute ?: true) })
+            (volume-osd-toggle :icon "mic-mute" :on { (volume.in.mute ?: true) })
           )
           (volume-osd-scale)
           (label
@@ -69,13 +69,13 @@
       :flipped true
       :min 0
       :max 21
-      :value { volume.out.mute ? 0 : ( volume.out.percentage / 5 ) }
+      :value { (volume.out.mute ?: true) ? 0 : ( volume.out.percentage / 5 ) }
       :onchange "bash -c 'wpctl set-volume @DEFAULT_AUDIO_SINK@ $(( 5 * {} ))%'"
     )
     (label
       :class "icon"
       :text {
-        volume.out.mute || volume.out.percentage == 0 ?
+        (volume.out.mute ?: true) || volume.out.percentage == 0 ?
         icons["volume-mute"][arraylength(icons["volume-mute"]) -1] :
         icons["volume"][arraylength(icons["volume"])-1]
       }

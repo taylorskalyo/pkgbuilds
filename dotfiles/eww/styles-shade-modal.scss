@@ -1,0 +1,112 @@
+.modal-container {
+  .modal {
+    border-radius: $rem3;
+    background-color: $surface;
+    margin: $rem 2 * $rem8;
+    padding: $rem0-5;
+
+    &.open {
+      @keyframes modal-open {
+      0% { margin: 2 * $rem8; }
+      100% { margin: $rem 2 * $rem8; }
+      }
+      animation: modal-open $show-duration ease-in-out;
+    }
+
+    button {
+      transition: border-radius $hover-duration;
+      background-color: $primary;
+      color: $on-primary;
+      margin: $rem $rem2;
+      border-radius: $rem;
+      padding: $rem0-5 $rem;
+
+      &:hover {
+        border-radius: $rem0-5;
+        background-color: $outline;
+      }
+    }
+
+    .heading {
+      font-size: $rem2;
+    }
+
+    .left {
+      padding: $rem0-5 $rem2;
+      margin: $rem0-5;
+    }
+
+    .right {
+      background-color: $surface-container;
+      border-radius: $rem3;
+      padding: 0 $rem2;
+      margin: $rem0-5;
+    }
+
+    .switches {
+      margin: $rem2;
+    }
+
+    .switch-container {
+      min-width: 2 * $rem8;
+      margin: $rem0-5;
+    }
+
+    .icon {
+      border-radius: $rem2;
+      font-size: $rem2;
+      padding: $rem;
+      margin: $rem0-5 $rem2;
+    }
+
+    .bluetooth {
+      button {
+        all: unset;
+        border-radius: $rem2;
+        margin-right: $rem6;
+
+        &:hover {
+          background-color: rgba($surface-container-high, 0.2);
+        }
+      }
+
+      .icon {
+        &.color1 { color: $color1; background-color: rgba($color1, 0.2);}
+        &.color2 { color: $color2; background-color: rgba($color2, 0.2);}
+        &.color3 { color: $color3; background-color: rgba($color3, 0.2);}
+        &.color4 { color: $color4; background-color: rgba($color4, 0.2);}
+        &.color5 { color: $color5; background-color: rgba($color5, 0.2);}
+        &.color6 { color: $color6; background-color: rgba($color6, 0.2);}
+      }
+    }
+
+    .internet {
+      button {
+        all: unset;
+        border-radius: $rem2;
+        margin-right: $rem6;
+
+        &:not(.disabled):hover {
+          background-color: rgba($surface-container-high, 0.2);
+        }
+
+        &.disabled {
+          opacity: 0.2
+        }
+      }
+    }
+  }
+
+  .modal-shadow {
+    background-color: rgba($shadow, 0.5);
+  }
+
+  .modal-shadow-corners-bottom {
+    .corner-top-left {
+      box-shadow: (-$corner-size) $corner-size 0 $corner-size rgba($shadow, 0.5);
+    }
+    .corner-top-right {
+      box-shadow: $corner-size $corner-size 0 $corner-size rgba($shadow, 0.5);
+    }
+  }
+}

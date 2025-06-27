@@ -1,5 +1,5 @@
 @import "colors.scss";
-@import "styles-material.scss";
+@import "styles/material.scss";
 
 $corner-size: 15px;
 $font-size: 12px;
@@ -107,6 +107,6 @@ $rem8: 8 * $font-size;
   }
 }
 
-@import "styles-bar.scss";
-@import "styles-shade.scss";
-@import "styles-volume.scss";
+@import "styles/bar.scss";
+@import "styles/shade.scss";
+@import "styles/volume.scss";

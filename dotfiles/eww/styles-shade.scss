@@ -48,10 +48,10 @@
       }
     }
 
-    @import "styles-shade-notifications.scss";
-    @import "styles-shade-quick-settings.scss";
-    @import "styles-shade-workspaces.scss";
+    @import "shade-notifications.scss";
+    @import "shade-quick-settings.scss";
+    @import "shade-workspaces.scss";
   }
 
-  @import "styles-shade-modal.scss";
+  @import "shade-modal.scss";
 }

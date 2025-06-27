@@ -90,7 +90,7 @@ sha256sums=(
 )
 
 package() {
-  for f in $srcdir/eww.yuck $srcdir/variables.yuck $srcdir/*.scss; do
+  for f in $srcdir/eww.yuck $srcdir/eww.scss $srcdir/variables.yuck; do
     install -Dm644 "$f" "$pkgdir/usr/share/dotfiles/.config/eww/${f##*/}"
   done
 
@@ -104,6 +104,10 @@ package() {
 
   for f in $srcdir/scripts-*; do
     install -Dm755 "$f" "$pkgdir/usr/share/dotfiles/.config/eww/scripts/${f##*/scripts-}"
+  done
+
+  for f in $srcdir/styles-*; do
+    install -Dm755 "$f" "$pkgdir/usr/share/dotfiles/.config/eww/styles/${f##*/styles-}"
   done
 
   for f in $srcdir/eww-open@.service $srcdir/eww.service; do
