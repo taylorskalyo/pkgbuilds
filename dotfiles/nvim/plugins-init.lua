@@ -17,6 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
   { 'VincentCordobes/vim-translate' },
   { 'godlygeek/tabular' },
+  { 'neovim/nvim-lspconfig' },
   { 'taylorskalyo/markdown-journal' },
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-rhubarb' },
@@ -24,13 +25,11 @@ local plugins = {
   { 'vim-crystal/vim-crystal' },
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
-  require 'plugins.codecompanion',
   require 'plugins.cmp',
   require 'plugins.ctrlsf',
   require 'plugins.dev-container',
   require 'plugins.indent-blankline',
   require 'plugins.lazydev',
-  require 'plugins.lsp-config',
   require 'plugins.quick-scope',
   require 'plugins.render-markdown',
   require 'plugins.telescope',
