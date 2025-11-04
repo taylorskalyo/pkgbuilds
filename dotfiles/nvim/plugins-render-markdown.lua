@@ -205,5 +205,34 @@ return {
         rendered = ''
       },
     },
+
+    overrides = {
+      buftype = {
+
+        -- Extra padding can cause overflow issues in certain floating
+        -- windows. Disable padding in this case.
+        nofile = {
+          code = {
+            left_pad = 0,
+            right_pad = 0,
+            border = 'hide',
+          },
+          win_options = {
+            showbreak = {
+              default = vim.o.showbreak,
+              rendered = vim.o.showbreak,
+            },
+            breakindent = {
+              default = vim.o.breakindent,
+              rendered = vim.o.breakindent,
+            },
+            breakindentopt = {
+              default = vim.o.breakindentopt,
+              rendered = vim.o.breakindentopt,
+            },
+          },
+        },
+      },
+    }
   },
 }
