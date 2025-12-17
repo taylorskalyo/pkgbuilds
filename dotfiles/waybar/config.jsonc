@@ -1,32 +1,39 @@
 {
-  "layer": "top",
+  "layer": "bottom",
   "height": 24,
   "spacing": 0,
   "modules-left": [
-    "hyprland/workspaces",
-    "hyprland/window",
-    "sway/workspaces"
+    "clock",
+    "tray",
+    "custom/notification#bell",
   ],
   "modules-center": [
+    "hyprland/workspaces",
+    "custom/osk",
   ],
   "modules-right": [
     "privacy",
+    "custom/pacman",
+    "custom/notification#dnd",
     "wireplumber",
     "bluetooth",
     "network",
     "battery",
-    "custom/pacman",
-    "custom/pacman#aur",
-    "tray",
-    "clock",
   ],
+  "niri/workspaces": {
+    "format": "{index}",
+    "format-icons": {
+      "browser": "󰖟",
+      "terminal": "",
+    }
+  },
+  "sway/workspaces": {
+    "format": "{name}"
+  },
   "wlr/workspaces": {
     "format": "{name}",
     "on-click": "activate",
     "sort-by-number": true
-  },
-  "sway/workspaces": {
-    "format": "{name}"
   },
    "hyprland/window": {
     "format": "{class}",
@@ -38,8 +45,8 @@
   },
   "clock": {
     "interval": 10,
-    "format": "{:%a %b %d  %H:%M}",
-    "tooltip-format": "{:%H:%M:%S}\n\n<tt><small>{calendar}</small></tt>",
+    "format": "{:%I:%M}",
+    "tooltip-format": "{:%a %b %d  %I:%M:%S}\n\n<tt><small>{calendar}</small></tt>",
     "calendar": {
       "format": {
         "today": "<u>{}</u>"
@@ -78,6 +85,7 @@
     "format-icons": {
       "charging": [ "󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅" ],
       "discharging": [ "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
+      "full": [ "󱟢" ],
       "plugged": [ "󰂅" ],
     },
     "format-charging": "{icon}",
@@ -95,7 +103,7 @@
   },
   "custom/pacman": {
     "hide-empty-text": true,
-    "format": "󰁇 {}",
+    "format": "󰚰",
     "interval": 3600,
     "exec": "~/.config/waybar/bin/updates",
     "return-type": "json",
@@ -103,11 +111,54 @@
   },
   "custom/pacman#aur": {
     "hide-empty-text": true,
-    "format": "󰁈 {}",
+    "format": "󰁈",
     "interval": 3600,
     "exec": "~/.config/waybar/bin/updates aur",
     "return-type": "json",
     "signal": 11
+  },
+  "custom/notification#bell": {
+    "format": "{icon}",
+    "format-icons": {
+      "dnd-inhibited-none": "",
+      "dnd-inhibited-notification": "",
+      "dnd-none": "",
+      "dnd-notification": "",
+      "inhibited-none": "",
+      "inhibited-notification": "󰂚",
+      "none": "",
+      "notification": "󰂚",
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "escape": true
+  },
+  "custom/notification#dnd": {
+    "format": "{icon}",
+    "format-icons": {
+      "dnd-inhibited-none": "󰍷",
+      "dnd-inhibited-notification": "󰍷",
+      "dnd-none": "󰍷",
+      "dnd-notification": "󰍷",
+      "inhibited-none": "",
+      "inhibited-notification": "",
+      "none": "",
+      "notification": "",
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+  "custom/osk": {
+    "format": "{}",
+    "exec": "pgrep wvkbd-deskintl > /dev/null && echo '󰌌'",
+    "on-click": "pkill -SIGRTMIN wvkbd-deskintl",
+    "signal": 12
   },
   "privacy": {
     "icon-spacing": 8,

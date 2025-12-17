@@ -1,0 +1,29 @@
+pkgname=dotfiles-niri
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Provide base niri configuration."
+arch=('any')
+license=('MIT')
+depends=(
+  'bemenu'
+  'foot'
+  'niri'
+  'tmux'
+  'xwayland-satellite'
+)
+optdepends=(
+  'python-pywal'
+)
+source=(
+  'config.kdl'
+  'niri-session.target'
+)
+sha256sums=(
+  'SKIP'
+  'SKIP'
+)
+
+package() {
+  install -Dm644 "$srcdir/config.kdl" "$pkgdir/usr/share/dotfiles/.config/niri/config.kdl"
+  install -Dm644 "$srcdir/niri-session.target" "$pkgdir/usr/lib/systemd/user/niri-session.target"
+}

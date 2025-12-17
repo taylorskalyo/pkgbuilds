@@ -11,4 +11,7 @@ alias cp='cp --interactive'
 alias mv='mv --interactive'
 
 # Start hyprland
-alias starthypr='if uwsm check may-start; then exec uwsm start hyprland.desktop; fi'
+alias starthypr='if uwsm check may-start; then exec uwsm start hyprland-uwsm.desktop; fi'
+
+# Start niri
+alias startniri='if uwsm check may-start; then exec uwsm start -- niri --session; fi'

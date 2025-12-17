@@ -17,7 +17,7 @@
 
 window#waybar {
     color: @foreground;
-    background-color: alpha(@background, 0.8);
+    background-color: transparent;
     border-bottom: 0px;
     transition-property: background-color;
     transition-duration: 0.5s;
@@ -73,7 +73,9 @@ button {
 #clock,
 #cpu,
 #custom-media,
+#custom-notification,
 #custom-pacman,
+#custom-osk,
 #disk,
 #idle_inhibitor,
 #memory,
