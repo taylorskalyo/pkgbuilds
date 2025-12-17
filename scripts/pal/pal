@@ -8,23 +8,26 @@ set -e
 
 XDG_CONFIG_DIR="${XDG_CONFIG_DIR:=$HOME/.config}"
 XDG_CACHE_DIR="${XDG_CACHE_DIR:=$HOME/.cache}"
-WAL_CACHE="${XDG_CACHE_DIR}/wal"
+
+wal_cache="${XDG_CACHE_DIR}/wal"
+color_scheme="prefer-dark"
 
 apply_oomox() {
   local theme
-  theme=${WAL_CACHE}/colors-oomox
+  theme=${wal_cache}/colors-oomox
 
   command -v oomox-cli >/dev/null || return 1
   [ -e "${theme}" ] || return 1
 
   oomox-cli "${theme}" -o oomox-wal -t ~/.themes -m all
   gsettings set org.gnome.desktop.interface gtk-theme oomox-wal
+  gsettings set org.gnome.desktop.interface color-scheme "${color_scheme}"
   printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Built oomox theme."
 }
 
 apply_terminal() {
   local theme
-  theme=${WAL_CACHE}/colors-theme.sh
+  theme=${wal_cache}/colors-theme.sh
 
   # Pywal's built-in terminal handling isn't as robust as theme.sh's. In
   # particular theme.sh handles tmux better.
@@ -37,7 +40,7 @@ apply_terminal() {
 
 apply_swaylock() {
   local theme swaylock_config
-  theme=${WAL_CACHE}/colors-swaylock
+  theme=${wal_cache}/colors-swaylock
   swaylock_config=${XDG_CONFIG_DIR}/swaylock/config
 
   command -v swaylock >/dev/null || return 1
@@ -64,6 +67,12 @@ apply_swaync() {
   swaync-client -rs -sw
   printf "%b\n" "[\e[1;32mI\e[0m] \e[1;31mpal\e[0m: Restarted swaync."
 }
+
+for arg in "$@"; do
+  if [[ "-l" = "$arg" ]]; then
+    color_scheme="default"
+  fi
+done
 
 wal -st --theme default "$@"
 
