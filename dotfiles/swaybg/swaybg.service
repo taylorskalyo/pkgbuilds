@@ -7,7 +7,7 @@ Requisite=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/bin/sh -c '/usr/bin/swaybg --image %h/.cache/wal/colors-wallpaper.svg --mode fit --color $(head -n 1 < %h/.cache/wal/colors)'
+ExecStart=/bin/sh -c '/usr/bin/swaybg --image %h/.cache/wal/colors-wallpaper.svg --mode center --color $(sed "11q;d" < %h/.cache/wal/colors)'
 Restart=on-failure
 
 [Install]

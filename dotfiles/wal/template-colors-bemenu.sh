@@ -4,15 +4,15 @@ export BEMENU_OPTS="\
   -p 'run' \
   --fn 'MesloLGM Nerd Font Mono 12px' \
   --nf '{foreground}' \
-  --nb '{background}' \
+  --nb '{color10}' \
   --af '{foreground}' \
-  --ab '{background}' \
+  --ab '{color10}' \
   --ff '{foreground}' \
-  --fb '{background}' \
+  --fb '{color10}' \
   --tf '{color2}' \
-  --tb '{background}' \
+  --tb '{color10}' \
   --hf '{color2}' \
-  --hb '{background}' \
+  --hb '{color10}' \
   --sf '{color2}' \
-  --sb '{background}' \
+  --sb '{color10}' \
   "
