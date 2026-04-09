@@ -1,14 +1,11 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  lazy = false,
   build = ":TSUpdate",
   config = function()
-    require 'nvim-treesitter.configs'.setup {
-      auto_install = true,
-      ensure_installed = {
-        "comment",
-      },
-      highlight = { enable = true },
-      indent = { enable = true },
+    require('nvim-treesitter').setup {
+      -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
+      install_dir = vim.fn.stdpath('data') .. '/site'
     }
   end,
 }
