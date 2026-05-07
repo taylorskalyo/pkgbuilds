@@ -61,3 +61,7 @@ vim.lsp.config('*', {
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
   end,
 })
+
+vim.lsp.config('dartls', {
+  cmd = { 'fvm', 'dart', 'language-server', '--protocol=lsp' },
+})
