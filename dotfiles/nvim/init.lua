@@ -46,6 +46,7 @@ local servers = {
   "gopls",
   "lua_ls",
   "pylsp",
+  "qmlls",
   "rust_analyzer",
   "solargraph",
   "terraformls",
@@ -64,4 +65,8 @@ vim.lsp.config('*', {
 
 vim.lsp.config('dartls', {
   cmd = { 'fvm', 'dart', 'language-server', '--protocol=lsp' },
+})
+
+vim.lsp.config('qmlls', {
+  cmd = { 'qmlls6', '-E' }
 })

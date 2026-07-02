@@ -1,5 +1,5 @@
 pkgname=dotfiles-nvim
-pkgver=0.3.1
+pkgver=0.3.2
 pkgrel=1
 pkgdesc="Provide base nvim configuration."
 arch=('any')
@@ -12,14 +12,15 @@ optdepends=(
   'dart: dartls support for nvim-lspconfig'
   'dockerfile-language-server: dockerls support for nvim-lspconfig'
   'gopls: gopls support for nvim-lspconfig'
+  'haskell-tidal: TidalCycles for vim-tidal'
   'lua-language-server: lua_ls support for nvim-lspconfig'
   'ollama: llm server for codecompanion'
   'python-language-server: pylsp support for nvim-lspconfig'
+  'qt6-declarative: qmlls support for nvim-lspconfig'
   'rust-analyzer: rust_analyzer support for nvim-lspconfig'
+  'sc3-plugins: Community-made SuperCollider extensions for vim-tidal'
   'terraform-ls: terraformls support for nvim-lspconfig'
   'typescript-language-server: tsserver support for nvim-lspconfig'
-  'haskell-tidal: TidalCycles for vim-tidal'
-  'sc3-plugins: Community-made SuperCollider extensions for vim-tidal'
 )
 source=(
   'colors.lua'
