@@ -44,6 +44,7 @@ local servers = {
   "dockerls",
   "gdscript",
   "gopls",
+  "hledger_lsp",
   "lua_ls",
   "pylsp",
   "qmlls",
@@ -65,6 +66,13 @@ vim.lsp.config('*', {
 
 vim.lsp.config('dartls', {
   cmd = { 'fvm', 'dart', 'language-server', '--protocol=lsp' },
+})
+
+vim.lsp.config("hledger_lsp", {
+  cmd = { "hledger-lsp" },
+  filetypes = { "hledger", "ledger" },
+  root_markers = { ".git", "*.journal" },
+  single_file_support = true,
 })
 
 vim.lsp.config('qmlls', {

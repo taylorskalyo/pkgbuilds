@@ -1,26 +1,27 @@
 pkgname=dotfiles-nvim
-pkgver=0.3.2
+pkgver=0.3.3
 pkgrel=1
 pkgdesc="Provide base nvim configuration."
 arch=('any')
 license=('MIT')
 depends=()
 optdepends=(
-  'bash-language-server: bashls support for nvim-lspconfig'
-  'ccls: ccls support for nvim-lspconfig'
-  'crystalline: crystalline support for nvim-lspconfig'
-  'dart: dartls support for nvim-lspconfig'
-  'dockerfile-language-server: dockerls support for nvim-lspconfig'
-  'gopls: gopls support for nvim-lspconfig'
+  'bash-language-server: Bash lsp integration'
+  'ccls: C lsp integration'
+  'crystalline: Crystal lsp integration'
+  'dart: Dart lsp integration'
+  'dockerfile-language-server: Docker lsp integration'
+  'gopls: Go lsp integration'
   'haskell-tidal: TidalCycles for vim-tidal'
-  'lua-language-server: lua_ls support for nvim-lspconfig'
-  'ollama: llm server for codecompanion'
-  'python-language-server: pylsp support for nvim-lspconfig'
-  'qt6-declarative: qmlls support for nvim-lspconfig'
-  'rust-analyzer: rust_analyzer support for nvim-lspconfig'
+  'hledger-lsp: Hledger lsp integration'
+  'lua-language-server: Lua lsp integration'
+  'ollama: LLM server for codecompanion'
+  'python-language-server: Python lsp integration'
+  'qt6-declarative: Qml lsp integration'
+  'rust-analyzer: Rust lsp integration'
   'sc3-plugins: Community-made SuperCollider extensions for vim-tidal'
-  'terraform-ls: terraformls support for nvim-lspconfig'
-  'typescript-language-server: tsserver support for nvim-lspconfig'
+  'terraform-ls: Terraform lsp integration'
+  'typescript-language-server: Typescript lsp integration'
 )
 source=(
   'colors.lua'
