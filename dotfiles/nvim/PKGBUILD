@@ -1,10 +1,12 @@
 pkgname=dotfiles-nvim
-pkgver=0.3.3
+pkgver=0.3.4
 pkgrel=1
 pkgdesc="Provide base nvim configuration."
 arch=('any')
 license=('MIT')
-depends=()
+depends=(
+  'tree-sitter-cli'
+)
 optdepends=(
   'bash-language-server: Bash lsp integration'
   'ccls: C lsp integration'

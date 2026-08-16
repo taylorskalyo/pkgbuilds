@@ -10,11 +10,26 @@ return {
   end,
   init = function()
     vim.api.nvim_create_autocmd('FileType', {
-      callback = function()
-        -- Enable treesitter highlighting
-        pcall(vim.treesitter.start)
-        -- Enable treesitter-based indentation
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      callback = function(args)
+
+        -- Auto-install languages
+        local ft = args.match
+        local bufnr = args.buf
+        local lang = vim.treesitter.language.get_lang(ft)
+        local nvim_treesitter = require("nvim-treesitter")
+        if (vim.list_contains(nvim_treesitter.get_available(), lang)) then
+          nvim_treesitter.install(lang):await(function()
+            if not vim.api.nvim_buf_is_loaded(bufnr) then
+              return
+            end
+
+            -- Enable treesitter highlighting
+            vim.treesitter.start()
+
+            -- Enable treesitter-based indentation
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end)
+        end
       end,
     })
   end,
