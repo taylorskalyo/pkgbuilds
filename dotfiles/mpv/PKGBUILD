@@ -1,5 +1,5 @@
 pkgname=dotfiles-mpv
-pkgver=0.0.5
+pkgver=0.0.6
 pkgrel=1
 pkgdesc="Provide base mpv configuration."
 arch=('any')
