@@ -24,7 +24,7 @@ return {
             end
 
             -- Enable treesitter highlighting
-            vim.treesitter.start()
+            vim.treesitter.start(bufnr)
 
             -- Enable treesitter-based indentation
             vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
