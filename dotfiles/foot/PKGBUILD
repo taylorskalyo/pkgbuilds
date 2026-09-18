@@ -1,11 +1,12 @@
 pkgname=dotfiles-foot
-pkgver=0.0.6
+pkgver=0.0.7
 pkgrel=1
 pkgdesc="Provide base foot configuration."
 arch=('any')
 license=('MIT')
 depends=(
   'foot'
+  'noto-fonts-emoji'
   'ttf-meslo-nerd'
 )
 source=(
